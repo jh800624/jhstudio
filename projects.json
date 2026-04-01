@@ -6,6 +6,7 @@
     "name": "王喬尹 Joyin Wang — 《又係王喬尹》",
     "role": "Arrangement · Recording · Mixing · Mastering",
     "image": "assets/project-joyin.jpg"
+    "note": "這張專輯我們嘗試了更多的合成器與電吉他堆疊，強化了整體空間感。"
   },
   {
     "category": "music",
@@ -14,6 +15,7 @@
     "name": "核果人 NUTS — 如果我不是聽團仔 你還會愛我嗎？",
     "role": "Mixing",
     "image": "assets/project-nuts-2025.jpg"
+    "note": ""
   },
   {
     "category": "music",
@@ -22,6 +24,7 @@
     "name": "核果人 NUTS — Chosen",
     "role": "Live Sound Engineering",
     "image": "assets/project-nuts-chosen.jpg"
+    "note": ""
   },
   {
     "category": "design",
@@ -30,6 +33,7 @@
     "name": "Marshall Mini Amp Guitar Pick Holder",
     "role": "Concept · CAD · 3D Printing",
     "image": "assets/marshall-holder.jpg"
+    "note": ""
   },
   {
     "category": "design",
@@ -38,5 +42,6 @@
     "name": "Fender Mini Amp Guitar Pick Box",
     "role": "Concept · CAD · 3D Printing",
     "image": "assets/fender-box.jpg"
+    "note": ""
   }
 ]
