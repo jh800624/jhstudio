@@ -1,11 +1,12 @@
 {
   "hero": {
     "eyebrow": "黃友立 · Taiwan",
-    "headline": "Sound.<br>Objects.<br><em>Same obsession.</em>",
-    "statement_zh": "每個音符，每件產品，都是一個還沒說完的故事。<br>聲音與設計，都是我表達的方式。",
+    "headline": ["Sound.", "Objects.", "Same obsession."],
+    "headline_em": "Same obsession.",
+    "statement_zh": "每個音符，每件物件，都是一個還沒說完的故事。<br>聲音與設計，都是我表達的方式。",
     "statement_en": "Every note, every object — a story waiting to be told.<br>Sound and making — two ways I say the same thing.",
     "listen_label": "Listen to my work",
-    "spotify_id": "09pMGhL0AXyn3ttYBun2hp",
+    "spotify_id": "68d4a88b95d5459c",
     "photos": [
       "assets/photo-1.jpg",
       "assets/photo-2.jpg",
@@ -19,6 +20,7 @@
       "Product Designer"
     ]
   },
+
   "about": {
     "title_zh": "音樂人，也是設計師。",
     "paragraphs": [
@@ -27,105 +29,120 @@
       "Music and making things are not two different careers — they're two expressions of the same instinct."
     ],
     "facts": [
-      { "num": "10+", "label_zh": "合作藝人", "label_en": "Artists worked with" },
-      { "num": "#1", "label_zh": "Global Music Awards", "label_en": "王喬尹 Joyin Wang — 《又係王喬尹》" },
-      { "num": "3D", "label_zh": "列印產品設計", "label_en": "Printed product design" }
+      { "num": "10+",  "label_zh": "合作藝人",      "label_en": "Artists worked with" },
+      { "num": "#1",  "label_zh": "Global Music Awards", "label_en": "王喬尹 Joyin Wang — 《又係王喬尹》《This is Joyin Wang Again》" },
+      { "num": "3D",  "label_zh": "列印產品設計",   "label_en": "Printed product design" }
     ]
   },
   "works": [
     {
-      "id": "202511_alpaca",
-      "category": "music",
-      "featured": true,
+      "id": "202511_簡單生活節 羊駝小姐",
+      "cat": "music",
+      "featured": false,
       "date": "2025 / 11",
       "name": "簡單生活節 羊駝小姐",
       "role": "Live Sound Engineering",
       "badge": "Live Sound",
+      "badge_type": "music",
       "image": "assets/202511_Malpaca.jpg",
       "note": "Live Sound Engineering"
     },
     {
       "id": "20241210_joyin",
-      "category": "music",
+      "cat": "music",
       "featured": false,
       "date": "2024 / 12",
-      "name": "王喬尹 Joyin Wang — 《又係王喬尹》",
+      "name": "王喬尹 Joyin Wang — 《又係王喬尹》《This is Joyin Wang Again》",
       "role": "Recording",
       "badge": "Music Production",
+      "badge_type": "music",
       "image": "assets/20241210_joyin.jpg",
       "note": "Recording"
     },
     {
       "id": "202504_goodtv",
-      "category": "music",
+      "cat": "music",
       "featured": false,
       "date": "2025 / 04",
       "name": "Good TV 寧靜時分 APHA大樂隊",
       "role": "Guitar",
       "badge": "Guitar",
+      "badge_type": "music",
       "image": "assets/202504_goodtv.jpg",
       "note": "Guitar Session"
     },
     {
       "id": "202409_nuts",
-      "category": "music",
+      "cat": "music",
       "featured": false,
       "date": "2024 / 09",
       "name": "核果人 NUTS — Chosen",
       "role": "Live Sound Engineering",
       "badge": "Live Sound",
+      "badge_type": "music",
       "image": "assets/202409_nuts.jpg",
       "note": "Live Sound Engineering"
     },
     {
-      "id": "mn_speaker_box",
-      "category": "design",
+      "id": "mn_speaker box",
+      "cat": "design",
       "featured": false,
       "date": "Product · 3D Print",
       "name": "小廢物磁吸音箱盒",
       "role": "3D Printing",
       "badge": "Product Design",
+      "badge_type": "design",
       "image": "assets/mn_speakerbox.jpg",
       "note": "3D Printing"
     },
     {
-      "id": "mn_effects_pedal_keychain",
-      "category": "design",
+      "id": "mn_effects pedal keychain",
+      "cat": "design",
       "featured": false,
       "date": "Product · 3D Print",
       "name": "小廢物效果器鑰匙圈",
       "role": "3D Printing",
       "badge": "Product Design",
+      "badge_type": "design",
       "image": "assets/mn_effects pedal keychain.jpg",
       "note": "3D Printing"
     },
     {
-      "id": "mn_effects_pedal",
-      "category": "design",
+      "id": "mn_effects pedal",
+      "cat": "design",
       "featured": false,
       "date": "Product · 3D Print",
       "name": "小廢物效果器盤",
       "role": "3D Printing",
       "badge": "Product Design",
+      "badge_type": "design",
       "image": "assets/mn_effects pedal.jpg",
       "note": "3D Printing"
     }
   ],
-  "music_sections": [
-    { "type": "spotify", "title": "Spotify Portfolio", "id": "09pMGhL0AXyn3ttYBun2hp" },
-    { "type": "youtube", "title": "YouTube Works", "url": "https://www.youtube.com/embed/videoseries?list=PLD0PuYdfw_Q2JjvRTOuGw3Yrezywh5X3p" }
-  ],
+  "music": {
+    "spotify_playlist_id": "09pMGhL0AXyn3ttYBun2hp?si=76cf5f61c8844196",
+    "youtube_playlist_id": "PLD0PuYdfw_Q2JjvRTOuGw3Yrezywh5X3p&si=jtbJp8ekjc6kkV_B",
+    "soundcloud_url": "https://soundcloud.com/jh800624"
+  },
   "clients": [
-    { "name_zh": "羊駝小姐", "name_en": "Malpaca" },
-    { "name_zh": "泡泡倶楽部", "name_en": "Bubble Cluboo" },
-    { "name_zh": "核果人樂團", "name_en": "NUTS Band" },
-    { "name_zh": "百合花樂團", "name_en": "Lilium Band" },
-    { "name_zh": "芒果醬樂團", "name_en": "MangoJump Band" },
-    { "name_zh": "王喬尹", "name_en": "Joyin Wang" },
-    { "name_zh": "曹雅雯", "name_en": "Olivia Tsao" }
+    { "name_zh": "羊駝小姐",   "name_en": "Malpaca" },
+    { "name_zh": "泡泡倶楽部",   "name_en": "Bubble Cluboo" },
+    { "name_zh": "核果人樂團",   "name_en": "NUTS Band" },
+    { "name_zh": "自我意識神遊樂團",   "name_en": "Ego-Fugue Band" },
+    { "name_zh": "百合花樂團",   "name_en": "Lilium Band" },
+    { "name_zh": "同根生樂團",   "name_en": "A Root Band" },
+    { "name_zh": "芒果醬樂團",   "name_en": "MangoJump Band" },
+    { "name_zh": "TAMA Artist 唐于喬", "name_en": "Yu Chiao Tang" },
+    { "name_zh": "王喬尹",       "name_en": "Joyin Wang" },
+    { "name_zh": "有香",       "name_en": "YUKA" },
+    { "name_zh": "雙雙",       "name_en": "Double" },
+    { "name_zh": "姚可傑",       "name_en": "Jac" },
+    { "name_zh": "曹雅雯",       "name_en": "Olivia Tsao" },
+    { "name_zh": "謝青燁",       "name_en": "Eric" }
   ],
   "contact": {
-    "instagram": "jerryhang_",
+    "instagram": "jh800624",
     "email": "jh800624@gmail.com"
   }
 }
