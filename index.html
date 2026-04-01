@@ -103,17 +103,31 @@
     .hero-photo { aspect-ratio: 4/5; border-radius: var(--r); overflow: hidden; background: var(--light); position: relative; }
     @keyframes zoomOut {
       from { transform: scale(1.08); }
-      to   { transform: scale(1.0); }
+      to   { transform: scale(1.0);  }
     }
-    .carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; }
-    .carousel-slide.active { opacity: 1; }
+    @keyframes zoomIn {
+      from { transform: scale(1.0);  }
+      to   { transform: scale(1.08); }
+    }
+    .carousel-slide {
+      position: absolute; inset: 0;
+      opacity: 0;
+      transition: opacity 1.4s ease;
+    }
+    .carousel-slide.active  { opacity: 1; }
+    .carousel-slide.leaving { opacity: 0; }
     .carousel-slide img {
       position: absolute; inset: 0; width: 100%; height: 100%;
       object-fit: cover; object-position: center;
-      transform: scale(1.08); /* 預設縮放起點 */
+      transform: scale(1.08);
     }
+    /* 進場：從大縮小 (zoom out) */
     .carousel-slide.active img {
-      animation: zoomOut 5s ease-out forwards;
+      animation: zoomOut 6s ease-out forwards;
+    }
+    /* 離場：繼續放大 (zoom in) */
+    .carousel-slide.leaving img {
+      animation: zoomIn 1.6s ease-in forwards;
     }
     .carousel-slide .placeholder-img { position: absolute; inset: 0; width: 100%; height: 100%; }
     .hero-photo-caption { position: absolute; bottom: -1px; left: 0; right: 0; padding: 48px 24px 24px; background: linear-gradient(to top, rgba(0,0,0,0.65), transparent); border-radius: 0 0 var(--r) var(--r); z-index: 10; }
@@ -523,16 +537,31 @@
     if (slides.length < 2) return;
     let cur = 0;
     function goTo(next) {
-      slides[cur].classList.remove('active');
-      cur = next % slides.length;
-      slides[cur].classList.add('active');
-      // Reset zoom-out animation so it replays on each slide
-      const img = slides[cur].querySelector('img');
-      if (img) {
-        img.style.animation = 'none';
-        void img.offsetHeight; // force reflow
-        img.style.animation = '';
+      const leaving = slides[cur];
+      const leavingImg = leaving.querySelector('img');
+
+      // 舊圖：加 leaving class 觸發 zoom in 離場
+      leaving.classList.remove('active');
+      leaving.classList.add('leaving');
+      if (leavingImg) {
+        leavingImg.style.animation = 'none';
+        void leavingImg.offsetHeight;
+        leavingImg.style.animation = '';
       }
+
+      // 清掉舊的 leaving（fade 結束後）
+      setTimeout(() => leaving.classList.remove('leaving'), 1600);
+
+      // 新圖：reset zoom out 動畫後 activate
+      cur = next % slides.length;
+      const nextImg = slides[cur].querySelector('img');
+      if (nextImg) {
+        nextImg.style.animation = 'none';
+        void nextImg.offsetHeight;
+        nextImg.style.animation = '';
+      }
+      slides[cur].classList.add('active');
+    }
     }
     setInterval(() => goTo(cur + 1), interval);
   }
