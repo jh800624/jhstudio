@@ -49,7 +49,7 @@
     .btn { display: inline-flex; align-items: center; padding: 12px 24px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: 0.2s; border: none; background: var(--heading); color: #fff; }
     .hero-photo { aspect-ratio: 3/4; border-radius: var(--r); overflow: hidden; background: #f2f2ee; position: relative; }
 
-    /* ── 作品集動態區塊 ── */
+    /* ── 作品集區塊 ── */
     .work-filter { display: flex; gap: 8px; margin-bottom: 30px; }
     .filter-btn { padding: 6px 16px; border-radius: 100px; font-size: 12px; border: 1px solid var(--border); cursor: pointer; background: #fff; }
     .filter-btn.active { background: var(--heading); color: #fff; }
@@ -64,8 +64,8 @@
     .work-card:hover .work-overlay { opacity: 1; }
     .work-info { padding: 16px; }
 
-    /* ── Spotify 播放器樣式 ── */
-    .spotify-container { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); background: #000; }
+    /* ── Spotify 播放器容器 ── */
+    .spotify-container { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); background: #000; min-height: 152px; }
 
     /* ── 動畫 ── */
     .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease; }
@@ -116,8 +116,7 @@
         <button class="filter-btn" onclick="filterWork('music', this)">Music</button>
         <button class="filter-btn" onclick="filterWork('design', this)">Design</button>
       </div>
-      <div id="work-grid" class="work-grid">
-        </div>
+      <div id="work-grid" class="work-grid"></div>
     </div>
   </section>
 
@@ -126,17 +125,7 @@
       <p style="font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:10px;">Listen</p>
       <h2 style="font-weight:300; margin-bottom:30px;">Portfolio · Spotify</h2>
       
-      <div class="spotify-container reveal">
-        <iframe 
-          src="http://googleusercontent.com/spotify.com/3" 
-          width="100%" 
-          height="380" 
-          frameborder="0" 
-          allowfullscreen="" 
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-          loading="lazy">
-        </iframe>
-      </div>
+      <div id="spotify-player" class="spotify-container reveal"></div>
     </div>
   </section>
 
@@ -152,44 +141,44 @@
   </footer>
 
   <script>
-    /* ── 1. 捲動顯示控制 ── */
+    /* ── 捲動動畫偵測 ── */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
     }, { threshold: 0.1 });
 
-    let allProjects = [];
+    let allWorks = [];
 
-    /* ── 2. 從 projects.json 抓取資料 ── */
-    async function loadProjects() {
-      const grid = document.getElementById('work-grid');
+    /* ── 核心：從 JSON 載入所有資料 ── */
+    async function loadData() {
       try {
-        // 使用相對路徑抓取，並加上時間戳防止瀏覽器快取舊資料
         const response = await fetch('./projects.json?t=' + Date.now());
-        if (!response.ok) throw new Error("找不到 projects.json 檔案");
+        if (!response.ok) throw new Error("找不到 projects.json");
+        const data = await response.json();
         
-        allProjects = await response.json();
-        renderProjects(allProjects);
+        // 渲染作品集
+        allWorks = data.works || [];
+        renderWorks(allWorks);
+
+        // 渲染 Spotify 播放器 (抓取陣列中的第一個 ID)
+        if (data.spotify && data.spotify.length > 0) {
+          renderSpotify(data.spotify[0]);
+        }
       } catch (err) {
-        grid.innerHTML = `<p style="grid-column:1/-1; text-align:center;">載入失敗：${err.message}</p>`;
+        console.error("載入出錯:", err);
       }
     }
 
-    /* ── 3. 渲染作品 HTML ── */
-    function renderProjects(projects) {
+    /* ── 渲染作品 HTML ── */
+    function renderWorks(works) {
       const grid = document.getElementById('work-grid');
       grid.innerHTML = ''; 
-
-      projects.forEach(item => {
+      works.forEach(item => {
         const card = document.createElement('div');
         card.className = `work-card reveal ${item.featured ? 'featured' : ''}`;
-        
         card.innerHTML = `
           <div class="work-thumb">
             <img src="${item.image}" alt="${item.name}">
-            <div class="work-overlay">
-              <strong>${item.name}</strong>
-              <p style="font-size:12px; margin-top:10px;">${item.note || ''}</p>
-            </div>
+            <div class="work-overlay"><strong>${item.name}</strong><p style="font-size:12px; margin-top:10px;">${item.note || ''}</p></div>
           </div>
           <div class="work-info">
             <p style="font-size:11px; color:#8c8c86;">${item.date}</p>
@@ -201,20 +190,28 @@
       });
     }
 
-    /* ── 4. 分類篩選功能 ── */
+    /* ── 渲染 Spotify 播放器 ── */
+    function renderSpotify(playlistId) {
+      const container = document.getElementById('spotify-player');
+      container.innerHTML = `
+        <iframe 
+          src="https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator" 
+          width="100%" height="380" frameborder="0" allowfullscreen="" 
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+        </iframe>
+      `;
+      observer.observe(container);
+    }
+
+    /* ── 篩選功能 ── */
     function filterWork(cat, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const filtered = (cat === 'all') ? allProjects : allProjects.filter(p => p.category === cat);
-      renderProjects(filtered);
+      const filtered = (cat === 'all') ? allWorks : allWorks.filter(p => p.category === cat);
+      renderWorks(filtered);
     }
 
-    /* ── 5. 啟動 ── */
-    document.addEventListener('DOMContentLoaded', () => {
-      loadProjects();
-      // 讓 Spotify 容器也加入捲動顯示動畫
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    });
+    document.addEventListener('DOMContentLoaded', loadData);
   </script>
 </body>
 </html>
