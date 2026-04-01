@@ -29,12 +29,24 @@
     ],
     "facts": [
       { "num": "10+",  "label_zh": "合作藝人",      "label_en": "Artists worked with" },
-      { "num": "#1",  "label_zh": "Apple Music Taiwan", "label_en": "核果人 NUTS 2025" },
+      { "num": "#1",  "label_zh": "Global Music Awards", "label_en": "王喬尹 Joyin Wang — 《又係王喬尹》《This is Joyin Wang Again》" },
       { "num": "3D",  "label_zh": "列印產品設計",   "label_en": "Printed product design" }
     ]
   },
 
   "works": [
+    {
+      "id": "202511_簡單生活節 羊駝小姐",
+      "cat": "design",
+      "featured": true,
+      "date": "2025 / 11",
+      "name": "簡單生活節 羊駝小姐",
+      "role": "Live Sound Engineering",
+      "badge": "Live Sound",
+      "badge_type": "music",
+      "image": "assets/202511_簡單生活節 羊駝小姐.jpg",
+      "note": "Live Sound Engineering"
+    },
     {
       "id": "20241210_joyin",
       "cat": "music",
@@ -48,19 +60,19 @@
       "note": "Recording"
     },
     {
-      "id": "nuts-2025",
+      "id": "202504_goodtv",
       "cat": "music",
       "featured": false,
-      "date": "2025 / 03 · #1 Apple Music TW",
-      "name": "核果人 NUTS — 如果我不是聽團仔 你還會愛我嗎？",
-      "role": "Mixing",
-      "badge": "Mixing",
+      "date": "2025 / 04",
+      "name": "Good TV 寧靜時分 APHA大樂隊",
+      "role": "Guitar",
+      "badge": "Guitar",
       "badge_type": "music",
-      "image": "assets/project-nuts-2025.jpg",
-      "note": "Mixing"
+      "image": "assets/202504_goodtv.jpg",
+      "note": "Guitar Session"
     },
     {
-      "id": "nuts-chosen",
+      "id": "202409_nuts",
       "cat": "music",
       "featured": false,
       "date": "2024 / 09",
@@ -68,20 +80,8 @@
       "role": "Live Sound Engineering",
       "badge": "Live Sound",
       "badge_type": "music",
-      "image": "assets/project-nuts-chosen.jpg",
+      "image": "assets/202409_nuts.jpg",
       "note": "Live Sound Engineering"
-    },
-    {
-      "id": "marshall-holder",
-      "cat": "design",
-      "featured": false,
-      "date": "Product · 3D Print",
-      "name": "Marshall Mini Amp Guitar Pick Holder",
-      "role": "Concept · CAD · 3D Printing",
-      "badge": "Product Design",
-      "badge_type": "design",
-      "image": "assets/marshall-holder.jpg",
-      "note": "Concept · CAD · 3D Printing"
     },
     {
       "id": "fender-box",
