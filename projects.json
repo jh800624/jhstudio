@@ -8,8 +8,8 @@
     "roles": ["Live Sound Engineer", "Audio Producer", "Product Designer"]
   },
   "about": {
-    "title": "音樂人，也是發明家。",
-    "p1": "我叫黃友立，台灣的音樂製作人、隨團音控與吉他手。從錄音室的混音到演出現場的監聽調整，我習慣把每個細節都推到恰好的位置。",
+    "title": "音樂人，也是設計師。",
+    "p1": "我叫黃友立，來自台灣的音樂人、隨團音控與吉他手。從錄音室的混音到演出現場的監聽調整，把每個細節都推到恰好的位置。",
     "p2": "但我對質感的執念不只停在聲音裡。我同時設計並 3D 列印器材周邊與產品——那些東西是音樂人的工具，也是我看待音樂方式延伸。",
     "facts": [
       { "num": "9+", "label": "Artists worked with · 合作藝人" },
@@ -23,7 +23,15 @@
   ],
   "works": [
     {
-      "category": "music",
+      "category": "Music 音樂",
+      "featured": true,
+      "date": "2024 / 12",
+      "name": "作品名稱",
+      "image": "assets/work1.jpg",
+      "note": "專案備註"
+    }
+    {
+      "category": "Objects 設計",
       "featured": true,
       "date": "2024 / 12",
       "name": "作品名稱",
