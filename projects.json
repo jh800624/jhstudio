@@ -38,8 +38,8 @@
   "works": [
     {
       "id": "202511_簡單生活節 羊駝小姐",
-      "cat": "design",
-      "featured": true,
+      "cat": "music",
+      "featured": false,
       "date": "2025 / 11",
       "name": "簡單生活節 羊駝小姐",
       "role": "Live Sound Engineering",
@@ -51,7 +51,7 @@
     {
       "id": "20241210_joyin",
       "cat": "music",
-      "featured": true,
+      "featured": false,
       "date": "2024 / 12",
       "name": "王喬尹 Joyin Wang — 《又係王喬尹》《This is Joyin Wang Again》",
       "role": "Recording",
