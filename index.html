@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JH Studio — 黃友立 Jerry Hang</title>
-  <meta name="description" content="JH Studio · 音樂人、設計師。在聲音與物件之間，我追求同一件質感。" />
+  <meta name="description" content="JH Studio · 音樂人、發明家。在聲音與物件之間，我追求同一件事——質感。" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -64,3 +64,240 @@
     .nav-links { display: flex; gap: 28px; list-style: none; }
     .nav-links a {
       font-size: 12px; font-weight: 400;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--muted); transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--heading); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; background: none; border: none;
+    }
+    .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--heading); transition: 0.3s; }
+
+    /* ── Hero ── */
+    #hero { padding-top: 148px; padding-bottom: 80px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 72px; align-items: center;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 24px;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 28px; height: 1px; background: var(--mid);
+    }
+    .hero-headline {
+      font-size: clamp(38px, 4.8vw, 58px);
+      font-weight: 300; line-height: 1.12;
+      letter-spacing: -0.025em; color: var(--heading);
+      margin-bottom: 28px;
+    }
+    .hero-headline em { font-style: italic; font-weight: 300; color: var(--muted); }
+    .hero-statement {
+      font-size: 16px; line-height: 1.85;
+      color: var(--body); max-width: 480px;
+      border-left: 2px solid var(--border);
+      padding-left: 20px; margin-bottom: 36px;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    .hero-statement span {
+      display: block; font-size: 13px; color: var(--muted);
+      margin-top: 8px; font-family: 'Inter', sans-serif;
+      font-style: italic; line-height: 1.6;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; border-radius: var(--r-sm);
+      font-size: 13px; font-weight: 500; transition: all 0.2s; border: none; cursor: pointer;
+    }
+    .btn-dark { background: var(--heading); color: #fff; }
+    .hero-visual { position: relative; }
+    .hero-photo { aspect-ratio: 3/4; border-radius: var(--r); overflow: hidden; background: var(--light); }
+
+    /* ── Work Grid ── */
+    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .work-card { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); background: var(--white); transition: all 0.3s ease; }
+    .work-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.09); }
+    .work-thumb { aspect-ratio: 4/3; background: var(--light); position: relative; overflow: hidden; }
+    .work-card.featured { grid-column: span 2; }
+    .work-card.featured .work-thumb { aspect-ratio: 16/7; }
+    
+    .work-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .work-card:hover .work-thumb img { transform: scale(1.1); }
+
+    .work-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 15, 14, 0.9); color: #fff;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 24px; opacity: 0; transition: opacity 0.4s ease;
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    }
+    .work-card:hover .work-overlay { opacity: 1; }
+    .overlay-title { font-size: 15px; font-weight: 500; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px; }
+    .overlay-note { font-size: 12px; line-height: 1.6; color: rgba(255, 255, 255, 0.8); }
+
+    .work-category-badge { position: absolute; top: 12px; left: 12px; font-size: 9px; font-weight: 600; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; z-index: 5; }
+    .badge-music { background: rgba(15,15,14,0.7); color: #fff; }
+    .badge-design { background: rgba(255,255,255,0.85); color: #000; }
+
+    .work-info { padding: 18px; }
+    .work-date { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+    .work-name { font-size: 14px; font-weight: 500; color: var(--heading); line-height: 1.4; }
+    .work-role { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .work-filter { display: flex; gap: 8px; margin-bottom: 40px; }
+    .filter-btn { padding: 6px 16px; border-radius: 100px; font-size: 12px; border: 1px solid var(--border); background: #fff; cursor: pointer; transition: 0.2s; }
+    .filter-btn.active { background: var(--heading); color: #fff; border-color: var(--heading); }
+
+    /* ── Utilities ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      .work-grid { grid-template-columns: 1fr; }
+      .work-card.featured { grid-column: span 1; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .wrap { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-logo">JH Studio</span>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-eyebrow">黃友立 · Taiwan</div>
+          <h1 class="hero-headline">Sound.<br>Objects.<br><em>Same obsession.</em></h1>
+          <p class="hero-statement">
+            聲音和物件對我來說是同一件事。<br>
+            <span>Music and objects are the same pursuit.</span>
+          </p>
+          <div class="hero-cta">
+            <a href="#work" class="btn btn-dark">View Work</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-photo"><div class="placeholder-img">Portrait</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <h2 style="font-weight:300; font-size:32px; margin-bottom:30px;">Selected Work</h2>
+      <div class="work-filter">
+        <button class="filter-btn active" onclick="filterWork('all', this)">All</button>
+        <button class="filter-btn" onclick="filterWork('music', this)">Music</button>
+        <button class="filter-btn" onclick="filterWork('design', this)">Design</button>
+      </div>
+      <div class="work-grid" id="work-grid">
+        </div>
+    </div>
+  </section>
+
+  <footer style="padding: 40px 0; border-top: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--muted);">
+    <div class="wrap">© 2025 JH Studio · Jerry Hang</div>
+  </footer>
+
+  <script>
+    // 捲動顯示動畫
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    let allProjects = [];
+
+    // 核心：抓取 JSON 資料
+    async function loadProjects() {
+      const grid = document.getElementById('work-grid');
+      try {
+        // 使用相對路徑抓取同目錄下的 projects.json，並加上時間戳記防止快取
+        const response = await fetch('./projects.json?t=' + Date.now());
+        
+        if (!response.ok) {
+          throw new Error(`找不到 projects.json (HTTP ${response.status})。請確認檔案已上傳至根目錄。`);
+        }
+
+        allProjects = await response.json();
+        renderProjects(allProjects);
+      } catch (err) {
+        console.error("JH Studio 載入錯誤:", err);
+        // 如果抓取失敗，在網頁上顯示提示，避免一片空白
+        grid.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 50px; border: 1px dashed #ccc; border-radius: 14px; color: #888;">
+            <p style="color:#000; margin-bottom:10px;">⚠️ 載入失敗</p>
+            <p style="font-size:13px;">${err.message}</p>
+          </div>`;
+      }
+    }
+
+    function renderProjects(projects) {
+      const grid = document.getElementById('work-grid');
+      grid.innerHTML = '';
+
+      projects.forEach(item => {
+        const card = document.createElement('div');
+        card.className = `work-card reveal ${item.featured ? 'featured' : ''}`;
+        card.setAttribute('data-cat', item.category);
+
+        card.innerHTML = `
+          <div class="work-thumb">
+            <img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="placeholder-img" style="display:none">Image: ${item.image}</div>
+            
+            <div class="work-overlay">
+              <p class="overlay-title">${item.name}</p>
+              <p class="overlay-note">${item.note || ''}</p>
+            </div>
+
+            <span class="work-category-badge ${item.category === 'music' ? 'badge-music' : 'badge-design'}">
+              ${item.category}
+            </span>
+          </div>
+          <div class="work-info">
+            <p class="work-date">${item.date}</p>
+            <p class="work-name">${item.name}</p>
+            <p class="work-role">${item.role}</p>
+          </div>
+        `;
+
+        grid.appendChild(card);
+        observer.observe(card);
+      });
+    }
+
+    function filterWork(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filtered = cat === 'all' ? allProjects : allProjects.filter(p => p.category === cat);
+      renderProjects(filtered);
+    }
+
+    // 啟動載入
+    document.addEventListener('DOMContentLoaded', loadProjects);
+  </script>
+</body>
+</html>
