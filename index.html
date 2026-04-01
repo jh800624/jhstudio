@@ -96,11 +96,36 @@
     .btn-dark:hover { background: #222222; }
     .btn-gray { background: #eeeeee; color: #000000; }
     .btn-gray:hover { background: #dddddd; }
+
+    /* ── Hero Visual / Carousel ── */
     .hero-visual { position: relative; }
-    .hero-photo { aspect-ratio: 4/5; border-radius: var(--r); overflow: hidden; background: var(--light); }
-    .hero-photo-caption { position: absolute; bottom: -1px; left: 0; right: 0; padding: 48px 24px 24px; background: linear-gradient(to top, rgba(0,0,0,0.65), transparent); border-radius: 0 0 var(--r) var(--r); }
+    .hero-photo {
+      aspect-ratio: 4/5; border-radius: var(--r);
+      overflow: hidden; background: var(--light);
+      position: relative;
+    }
+
+    /* Carousel slides */
+    .carousel-slide {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 1s ease;
+    }
+    .carousel-slide.active { opacity: 1; }
+    .carousel-slide img,
+    .carousel-slide .placeholder-img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    .hero-photo-caption {
+      position: absolute; bottom: -1px; left: 0; right: 0;
+      padding: 48px 24px 24px;
+      background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+      border-radius: 0 0 var(--r) var(--r);
+      z-index: 10;
+    }
     .hero-roles { display: flex; flex-wrap: wrap; gap: 6px; }
     .hero-role-tag { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.8); font-weight: 400; background: rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2); }
+
     .placeholder-img { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--light); color: var(--muted); font-size: 12px; letter-spacing: 0.04em; text-align: center; padding: 16px; }
 
     /* ── Section Labels ── */
@@ -367,7 +392,7 @@
     return `<img src="${src}" alt="${alt || ''}" loading="lazy" onerror="this.outerHTML='<div class=\\"placeholder-img\\">${(alt||'').replace(/'/g,'&#39;')}</div>'">`;
   }
 
-  // ── Render: Hero ──
+  // ── Render: Hero (with carousel) ──
   function renderHero(d) {
     const h = d.hero;
     const lines = h.headline.map(line =>
@@ -392,15 +417,45 @@
         <a href="#contact" class="btn btn-gray">Get in Touch</a>
       </div>`;
 
+    // Build carousel slides
+    const photos = Array.isArray(h.photos) && h.photos.length > 0
+      ? h.photos
+      : (h.photo ? [h.photo] : [null]);
+
+    const slides = photos.map((src, i) => `
+      <div class="carousel-slide${i === 0 ? ' active' : ''}">
+        ${imgEl(src, 'Jerry Hang')}
+      </div>`).join('');
+
     document.getElementById('hero-visual').innerHTML = `
-      <div class="hero-photo">
-        ${imgEl(h.photo, 'Jerry Hang')}
+      <div class="hero-photo" id="hero-carousel">
+        ${slides}
         <div class="hero-photo-caption">
           <div class="hero-roles">
             ${h.roles.map(r => `<span class="hero-role-tag">${r}</span>`).join('')}
           </div>
         </div>
       </div>`;
+
+    // Init auto-play carousel only if more than 1 photo
+    if (photos.length > 1) {
+      initCarousel('hero-carousel', 4000);
+    }
+  }
+
+  // ── Carousel logic ──
+  function initCarousel(containerId, interval) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const slides = container.querySelectorAll('.carousel-slide');
+    if (slides.length < 2) return;
+
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, interval);
   }
 
   // ── Render: About ──
@@ -481,10 +536,8 @@
       : `<div class="soundcloud-card"><p>YouTube playlist ID 尚未設定</p></div>`;
 
     const scHTML = m.soundcloud_url
-      ? `<iframe
-        width="100%" height="400" scrolling="no" frameborder="no"
-        allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=${encodeURIComponent(m.soundcloud_url)}&color=%23000000&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true">
+      ? `<iframe width="100%" height="400" scrolling="no" frameborder="no" allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=${encodeURIComponent(m.soundcloud_url)}&color=%23000000&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true">
         </iframe>`
       : `<div class="soundcloud-card"><p>SoundCloud URL 尚未設定</p></div>`;
 
