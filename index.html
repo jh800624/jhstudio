@@ -127,7 +127,7 @@
     }
     /* 離場：繼續放大 (zoom in) */
     .carousel-slide.leaving img {
-      animation: zoomIn 1.8s ease-in forwards;
+      animation: zoomIn 10s ease-in forwards;
     }
     .carousel-slide .placeholder-img { position: absolute; inset: 0; width: 100%; height: 100%; }
     .hero-photo-caption { position: absolute; bottom: -1px; left: 0; right: 0; padding: 48px 24px 24px; background: linear-gradient(to top, rgba(0,0,0,0.65), transparent); border-radius: 0 0 var(--r) var(--r); z-index: 10; }
@@ -471,6 +471,13 @@
   </footer>
 
   <script>
+
+  // ════════════════════════════════════════════════
+  // CRAFT 靜態資料
+  // 服務項目卡片內容，直接寫在這裡（不從 JSON 讀取）
+  // 想新增或修改服務項目，在這個陣列裡增刪物件即可
+  // icon 用 emoji，name_zh / name_en 是標題，desc_zh / desc_en 是描述
+  // ════════════════════════════════════════════════
   const CRAFT = [
     { icon: '🎛️', name_zh: '音樂製作', name_en: 'Music Production',
       desc_zh: '全方位編曲、錄音、混音與母帶後製。專注於獨立及搖滾。根據你的創意或初步概念量身打造，確保每個音符準確傳遞情感。',
@@ -486,19 +493,38 @@
       desc_en: 'From concept to physical object — 3D printing to explore music accessories and experimental designs. Useful things, or just beautiful ones.' }
   ];
 
+
+  // ════════════════════════════════════════════════
+  // 工具函式：產生圖片 HTML
+  // src 有值 → 輸出 <img>（lazy loading）
+  // src 沒有 → 輸出灰底佔位 div，顯示 alt 文字
+  // ════════════════════════════════════════════════
   function imgEl(src, alt) {
     if (!src) return '<div class="placeholder-img">' + (alt || 'Image') + '</div>';
-    var safeAlt = (alt || '').replace(/"/g, '&quot;');
+    var safeAlt = (alt || '').replace(/"/g, '&quot;'); // 防止 alt 裡的雙引號破壞 HTML
     return '<img src="' + src + '" alt="' + safeAlt + '" loading="lazy">';
   }
 
-  // ── Hero ──
+
+  // ════════════════════════════════════════════════
+  // renderHero — 渲染首頁 Hero 區塊
+  // 左側：標題、自我介紹、CTA 按鈕
+  // 右側：照片輪播（photos 陣列超過 1 張才啟動）
+  //
+  // 想改按鈕文字 → 找 btn-dark / btn-gray 那兩行
+  // 想改照片切換速度 → 改 initCarousel 的第二個參數（毫秒）
+  // ════════════════════════════════════════════════
   function renderHero(d) {
     const h = d.hero;
+
+    // headline 是陣列，headline_em 指定哪一行要斜體
     const lines = h.headline.map(l => l === h.headline_em ? `<em>${l}</em>` : l).join('<br>');
+
+    // statement 用 \n 換行，轉成 <br>
     const stmtZh = h.statement_zh.replace(/\n/g, '<br>');
     const stmtEn = h.statement_en.replace(/\n/g, '<br>');
 
+    // 左側文字區
     document.getElementById('hero-left').innerHTML = `
       <div class="hero-eyebrow">${h.eyebrow}</div>
       <h1 class="hero-headline">${lines}</h1>
@@ -511,9 +537,11 @@
         <a href="#contact" class="btn btn-gray">Get in Touch</a>
       </div>`;
 
+    // 照片：優先用 photos 陣列，fallback 單張 photo，再 fallback null（顯示佔位）
     const photos = Array.isArray(h.photos) && h.photos.length > 0
       ? h.photos : (h.photo ? [h.photo] : [null]);
 
+    // 右側輪播區，第一張預設 active
     document.getElementById('hero-visual').innerHTML = `
       <div class="hero-photo" id="hero-carousel">
         ${photos.map((src, i) => `
@@ -527,50 +555,77 @@
         </div>
       </div>`;
 
+    // 超過 1 張才啟動輪播，間隔 7000ms（7 秒）
     if (photos.length > 1) initCarousel('hero-carousel', 7000);
   }
 
+
+  // ════════════════════════════════════════════════
+  // initCarousel — 照片輪播邏輯
+  // interval：每張停留毫秒數（在 renderHero 裡傳入）
+  //
+  // 動畫原理：
+  //   進場（active）→ CSS zoomOut 動畫，圖片從大縮小，速度由 CSS 的 animation-duration 控制
+  //   離場（leaving）→ CSS zoomIn 動畫，圖片繼續放大後淡出
+  //   兩段動畫的速度請到上方 CSS 的 @keyframes zoomOut / zoomIn 調整
+  //
+  // 注意：animation reset 用了 void el.offsetHeight 強制 reflow，
+  //       這是讓同一個動畫可以重複播放的標準技巧，不要移除
+  // ════════════════════════════════════════════════
   function initCarousel(id, interval) {
     const el = document.getElementById(id);
     if (!el) return;
     const slides = el.querySelectorAll('.carousel-slide');
-    if (slides.length < 2) return;
-    let cur = 0;
+    if (slides.length < 2) return; // 只有一張不需要輪播
+
+    let cur = 0; // 目前顯示的 slide 索引
+
     function goTo(next) {
       const leaving = slides[cur];
       const leavingImg = leaving.querySelector('img');
 
-      // 舊圖：加 leaving class 觸發 zoom in 離場
+      // 舊圖離場：移除 active，加上 leaving 觸發 zoom in 動畫
       leaving.classList.remove('active');
       leaving.classList.add('leaving');
       if (leavingImg) {
+        // 強制 reset 動畫，讓 zoomIn 從頭播
         leavingImg.style.animation = 'none';
-        void leavingImg.offsetHeight;
+        void leavingImg.offsetHeight; // reflow
         leavingImg.style.animation = '';
       }
 
-      // 清掉舊的 leaving（fade 結束後）
+      // 1.6s 後（fade out 結束）清掉 leaving class
       setTimeout(() => leaving.classList.remove('leaving'), 1600);
 
-      // 新圖：reset zoom out 動畫後 activate
+      // 新圖進場：先 reset zoom 動畫，再加 active
       cur = next % slides.length;
       const nextImg = slides[cur].querySelector('img');
       if (nextImg) {
         nextImg.style.animation = 'none';
-        void nextImg.offsetHeight;
+        void nextImg.offsetHeight; // reflow
         nextImg.style.animation = '';
       }
       slides[cur].classList.add('active');
     }
+
+    // 每隔 interval 毫秒切換到下一張
     setInterval(() => goTo(cur + 1), interval);
   }
 
-  // ── About ──
+
+  // ════════════════════════════════════════════════
+  // renderAbout — 渲染 About 區塊
+  // 左側：文字段落（最後一段自動加粗）
+  // 右側：數字成就卡片（from projects.json → about.facts）
+  // ════════════════════════════════════════════════
   function renderAbout(d) {
     const a = d.about;
+
+    // 最後一段文字加 <strong> 強調
     const paras = a.paragraphs.map((p, i) =>
       i === a.paragraphs.length - 1 ? `<p><strong>${p}</strong></p>` : `<p>${p}</p>`
     ).join('');
+
     document.getElementById('about-grid').innerHTML = `
       <div class="about-text reveal">
         <p class="sec-label">About</p>
@@ -587,7 +642,20 @@
       </div>`;
   }
 
-  // ── Works: full-image cards ──
+
+  // ════════════════════════════════════════════════
+  // renderWorks — 渲染作品卡片
+  // 資料來源：projects.json → works 陣列
+  //
+  // 每張卡片的重要欄位：
+  //   cat        → 篩選分類（"music" 或 "design"），對應 data-cat 屬性
+  //   featured   → true 時卡片佔 2 欄 2 列（大圖塊）
+  //   badge_type → badge 顏色 class（"music" 或 "design"）
+  //   badge      → badge 顯示文字
+  //   image      → 圖片路徑（放在 assets/ 資料夾）
+  //
+  // 想新增作品 → 在 projects.json 的 works 陣列加一個物件
+  // ════════════════════════════════════════════════
   function renderWorks(works) {
     document.getElementById('work-grid').innerHTML = works.map(w => `
       <div class="work-card${w.featured ? ' featured' : ''} reveal" data-cat="${w.cat}">
@@ -604,7 +672,12 @@
       </div>`).join('');
   }
 
-  // ── Craft ──
+
+  // ════════════════════════════════════════════════
+  // renderCraft — 渲染服務項目卡片
+  // 資料來源：上方的 CRAFT 靜態陣列（不從 JSON 讀）
+  // 想改服務內容 → 直接編輯頁面最上方的 CRAFT 陣列
+  // ════════════════════════════════════════════════
   function renderCraft() {
     document.getElementById('craft-grid').innerHTML = CRAFT.map(c => `
       <div class="craft-card reveal">
@@ -616,14 +689,28 @@
       </div>`).join('');
   }
 
-  // ── Music ──
+
+  // ════════════════════════════════════════════════
+  // renderMusic — 渲染音樂串流平台嵌入區
+  // 資料來源：projects.json → music 物件
+  //   spotify_playlist_id → Spotify playlist ID
+  //   youtube_playlist_id → YouTube playlist ID
+  //   soundcloud_url      → SoundCloud 完整 URL
+  //
+  // 注意：從 Spotify / YouTube 複製的分享連結常帶有 ?si= 或 &si=
+  //       這裡會自動清除，所以 JSON 裡留著也沒關係
+  //
+  // 想換平台 → 改 projects.json 對應的 ID / URL 即可
+  // ════════════════════════════════════════════════
   function renderMusic(m) {
     m = m || {};
-    // 清除 ?si= / &si= 等 tracking 參數，只保留純 ID
-    const spotifyId  = (m.spotify_playlist_id  || '').split('?')[0].split('&')[0];
-    const youtubeId  = (m.youtube_playlist_id  || '').split('?')[0].split('&')[0];
-    const scUrl      = m.soundcloud_url || '';
 
+    // 清除 ?si= / &si= 等 tracking 參數，embed URL 不需要這些
+    const spotifyId = (m.spotify_playlist_id || '').split('?')[0].split('&')[0];
+    const youtubeId = (m.youtube_playlist_id || '').split('?')[0].split('&')[0];
+    const scUrl     = m.soundcloud_url || '';
+
+    // 平台切換 tab 按鈕
     const platforms = [
       { key: 'spotify',    label: 'Spotify',    dot: 'dot-spotify' },
       { key: 'youtube',    label: 'YouTube',    dot: 'dot-youtube' },
@@ -634,6 +721,7 @@
         <span class="platform-tab-dot ${p.dot}"></span>${p.label}
       </button>`).join('');
 
+    // 各平台 iframe，ID 沒設定時顯示提示文字
     const spotifyHTML = spotifyId
       ? `<iframe src="https://open.spotify.com/embed/playlist/${spotifyId}?utm_source=generator&theme=0" width="100%" height="400" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
       : `<div class="soundcloud-card"><p>Spotify playlist ID 尚未設定</p></div>`;
@@ -654,21 +742,34 @@
       <div class="music-embed" id="embed-soundcloud">${scHTML}</div>`;
   }
 
-  // ── Clients ──
+
+  // ════════════════════════════════════════════════
+  // renderClients — 渲染合作夥伴 pill 列表
+  // 資料來源：projects.json → clients 陣列
+  // 想新增合作夥伴 → 在 JSON 加 { name_zh, name_en } 物件
+  // ════════════════════════════════════════════════
   function renderClients(clients) {
     document.getElementById('clients-cloud').innerHTML = clients.map(c =>
       `<span class="client-pill">${c.name_zh} ${c.name_en}</span>`
     ).join('');
   }
 
-  // ── Contact ──
+
+  // ════════════════════════════════════════════════
+  // renderContact — 渲染聯絡區塊
+  // 資料來源：projects.json → contact 物件
+  //   instagram → IG 帳號（不含 @）
+  //   email     → 信箱
+  //
+  // 想改聯絡文案 → 直接改這個函式裡的 HTML 字串
+  // ════════════════════════════════════════════════
   function renderContact(c) {
     document.getElementById('contact-grid').innerHTML = `
       <div>
         <p class="sec-label">Say hello</p>
         <h2 class="contact-headline">有任何合作<br>都歡迎聯絡。</h2>
         <p class="contact-sub">
-          音樂製作、隨團音控、吉他錄音、產品設計——或者只是想聊聊，都可以。<br><br>
+          音樂製作、隨團音控、吉他錄音、產品設計，或是各種類型創作。<br><br>
           Music production, live sound, session recording, product design — or just a conversation. All welcome.
         </p>
         <div class="contact-items">
@@ -691,13 +792,18 @@
       <div class="contact-right">
         <div class="contact-note reveal">
           <strong>A note</strong>
-          歡迎任何規模的合作洽詢。無論是一首歌的 session 錄音、整張專輯的製作，或是一個你腦海中的產品概念——我都很想聽。<br><br>
+          歡迎任何規模的合作洽詢。無論是一首歌的 session 錄音、整張專輯的製作，或是一個你腦海中的產品概念。<br><br>
           I'm open to projects of any size. From a single session track to a full album — or a product idea you've had in your head for months. Tell me about it.
         </div>
       </div>`;
   }
 
-  // ── Footer ──
+
+  // ════════════════════════════════════════════════
+  // renderFooter — 渲染頁尾
+  // 資料來源：projects.json → contact（跟 Contact 區塊共用）
+  // 年份自動取當年，不用手動改
+  // ════════════════════════════════════════════════
   function renderFooter(c) {
     document.getElementById('footer-inner').innerHTML = `
       <span class="footer-sig">JH Studio · 黃友立 Jerry Hang</span>
@@ -708,48 +814,80 @@
       <span class="footer-copy">© ${new Date().getFullYear()} JH Studio</span>`;
   }
 
-  // ── Scroll reveal ──
+
+  // ════════════════════════════════════════════════
+  // initReveal — 滾動進場動畫
+  // 監聽所有帶 .reveal class 的元素
+  // 元素進入視窗 10% 時加上 .visible → 觸發 CSS 的 fade + 上移動畫
+  // 每個元素只觸發一次（unobserve），有多個同時進場時依序錯開 60ms
+  //
+  // 想調進場速度 / 位移距離 → 改 CSS 裡的 .reveal 和 .reveal.visible
+  // ════════════════════════════════════════════════
   function initReveal() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
           setTimeout(() => entry.target.classList.add('visible'), i * 60);
-          observer.unobserve(entry.target);
+          observer.unobserve(entry.target); // 觸發後不再監聽
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.1 }); // 元素出現 10% 就觸發
+
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   }
 
-  // ── Nav active ──
+
+  // ════════════════════════════════════════════════
+  // initNav — 捲動時 Nav 連結高亮
+  // 判斷目前捲到哪個 section，對應的 nav link 加上 .active
+  // offsetTop - 80 是扣掉 nav 高度的 offset
+  // ════════════════════════════════════════════════
   function initNav() {
-    const secs = document.querySelectorAll('section[id]');
+    const secs  = document.querySelectorAll('section[id]');
     const links = document.querySelectorAll('.nav-links a');
     window.addEventListener('scroll', () => {
       let cur = '';
       secs.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
       links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${cur}`));
-    }, { passive: true });
+    }, { passive: true }); // passive: true 讓捲動效能更好
   }
 
-  // ── Work filter ──
+
+  // ════════════════════════════════════════════════
+  // filterWork — 作品篩選
+  // 按鈕傳入 cat（'all' / 'music' / 'design'）和 btn 元素
+  // 根據卡片的 data-cat 屬性決定顯示或隱藏
+  //
+  // 注意：篩選時補上 .visible，防止 reveal 動畫未觸發的卡片變透明
+  // featured 卡片在 all 模式下跨 2 欄，單分類時恢復 1 欄
+  // ════════════════════════════════════════════════
   function filterWork(cat, btn) {
+    // 更新篩選按鈕狀態
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+
     document.querySelectorAll('#work-grid .work-card').forEach(card => {
       const show = cat === 'all' || card.dataset.cat === cat;
       card.style.display = show ? '' : 'none';
-      // 確保顯示的卡片有 visible（reveal 動畫可能還沒觸發）
+
+      // 顯示的卡片確保有 visible（避免 reveal 未觸發導致透明）
       if (show) card.classList.add('visible');
+
+      // featured 卡片的 grid 跨欄控制
       if (cat === 'all' && card.classList.contains('featured')) {
         card.style.gridColumn = 'span 2';
       } else if (cat !== 'all' && card.classList.contains('featured')) {
-        card.style.gridColumn = '';
+        card.style.gridColumn = ''; // 恢復預設
       }
     });
   }
 
-  // ── Music switch ──
+
+  // ════════════════════════════════════════════════
+  // switchPlatform — Music 區塊平台切換
+  // 點 tab 按鈕時切換顯示的 iframe
+  // platform 對應 embed-spotify / embed-youtube / embed-soundcloud
+  // ════════════════════════════════════════════════
   function switchPlatform(platform, btn) {
     document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
     btn.classList.add('active');
@@ -757,20 +895,34 @@
     document.getElementById('embed-' + platform).classList.add('active');
   }
 
-  // ── Hamburger ──
+
+  // ════════════════════════════════════════════════
+  // toggleMenu — 手機版漢堡選單開關
+  // 點漢堡按鈕 → nav-menu 加/移除 .open class
+  // 點 nav 連結後自動關閉選單
+  // ════════════════════════════════════════════════
   function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => document.getElementById('nav-menu').classList.remove('open'));
   });
 
-  // ── Main ──
+
+  // ════════════════════════════════════════════════
+  // 主程式 — 非同步讀取 projects.json 後依序渲染各區塊
+  //
+  // ?t=Date.now() 是快取破壞（cache busting），
+  // 每次載入都強制重新抓最新的 JSON，不會讀到舊快取
+  //
+  // 失敗時 loader 顯示錯誤提示（通常是 JSON 路徑錯或格式錯）
+  // ════════════════════════════════════════════════
   (async () => {
     const loader = document.getElementById('page-loader');
     try {
-      const res = await fetch('projects.json?t=' + Date.now());
+      const res = await fetch('projects.json?t=' + Date.now()); // 強制不用快取
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
 
+      // 依序渲染各區塊
       renderHero(data);
       renderAbout(data);
       renderWorks(data.works);
@@ -780,12 +932,15 @@
       renderContact(data.contact);
       renderFooter(data.contact);
 
-      initReveal();
-      initNav();
+      initReveal(); // 滾動進場動畫
+      initNav();    // Nav 高亮
 
+      // 渲染完成，淡出 loader
       loader.classList.add('hidden');
       setTimeout(() => loader.remove(), 500);
+
     } catch (err) {
+      // 讀取或解析失敗時，loader 顯示錯誤提示
       console.error('[JH Studio] projects.json 讀取失敗：', err);
       loader.innerHTML = `
         <div style="text-align:center; padding:32px;">
