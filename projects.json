@@ -5,8 +5,8 @@
     "headline_em": "Same obsession.",
     "statement_zh": "每個音符，每件物件，都是一個還沒說完的故事。\n聲音與製造，都是我表達的方式。",
     "statement_en": "Every note, every object — a story waiting to be told.\nSound and making — two ways I say the same thing.",
-    "listen_label": "Listen to my work on Spotify",
-    "spotify_id": "37i9dQZF1DXcBWIGoYBM5M",
+    "listen_label": "Listen to my work",
+    "spotify_id": "68d4a88b95d5459c",
     "photo": "assets/photo.jpg",
     "roles": [
       "Live Sound Engineer",
@@ -94,7 +94,7 @@
   ],
 
   "music": {
-    "spotify_playlist_id": "37i9dQZF1DXcBWIGoYBM5M",
+    "spotify_playlist_id": "68d4a88b95d5459c",
     "youtube_playlist_id": "PLFgquLnL59alCl_2TQvOiD5Vgm1hCaGSI",
     "streetvoice_url": "https://streetvoice.com/"
   },
