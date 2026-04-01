@@ -1,0 +1,118 @@
+{
+  "hero": {
+    "eyebrow": "黃友立 · Taiwan",
+    "headline": ["Sound.", "Objects.", "Same obsession."],
+    "headline_em": "Same obsession.",
+    "statement_zh": "聲音和物件對我來說是同一件事——每個細節都在傳遞某種感受。\n我做音樂，也做產品，因為我在找的東西從來沒有變過。",
+    "statement_en": "For me, sound and objects are the same pursuit — every detail is a feeling waiting to be felt. I make music and I make things, because what I'm looking for has never changed.",
+    "listen_label": "Listen to my work on Spotify",
+    "spotify_id": "37i9dQZF1DXcBWIGoYBM5M",
+    "photo": "assets/photo.jpg",
+    "roles": [
+      "Live Sound Engineer",
+      "Session Guitarist",
+      "Audio Producer",
+      "Product Designer"
+    ]
+  },
+
+  "about": {
+    "title_zh": "音樂人，也是發明家。",
+    "paragraphs": [
+      "我叫黃友立，台灣的音樂製作人、隨團音控與吉他手。從錄音室的混音到演出現場的監聽調整，我習慣把每個細節都推到恰好的位置。",
+      "但我對質感的執念不只停在聲音裡。我同時設計並 3D 列印器材周邊與產品——那些東西是音樂人的工具，也是我看待音樂方式的延伸。",
+      "Music and making things are not two different careers — they're two expressions of the same instinct."
+    ],
+    "facts": [
+      { "num": "9+",  "label_zh": "合作藝人",      "label_en": "Artists worked with" },
+      { "num": "#1",  "label_zh": "Apple Music Taiwan", "label_en": "核果人 NUTS 2025" },
+      { "num": "3D",  "label_zh": "列印產品設計",   "label_en": "Printed product design" }
+    ]
+  },
+
+  "works": [
+    {
+      "id": "joyin-2024",
+      "cat": "music",
+      "featured": true,
+      "date": "2024 / 12",
+      "name": "王喬尹 Joyin Wang — 《又係王喬尹》《This is Joyin Wang Again》",
+      "role": "Arrangement · Recording · Mixing · Mastering",
+      "badge": "Music Production",
+      "badge_type": "music",
+      "image": "assets/project-joyin.jpg",
+      "note": "Arrangement · Recording · Mixing · Mastering"
+    },
+    {
+      "id": "nuts-2025",
+      "cat": "music",
+      "featured": false,
+      "date": "2025 / 03 · #1 Apple Music TW",
+      "name": "核果人 NUTS — 如果我不是聽團仔 你還會愛我嗎？",
+      "role": "Mixing",
+      "badge": "Mixing",
+      "badge_type": "music",
+      "image": "assets/project-nuts-2025.jpg",
+      "note": "Mixing"
+    },
+    {
+      "id": "nuts-chosen",
+      "cat": "music",
+      "featured": false,
+      "date": "2024 / 09",
+      "name": "核果人 NUTS — Chosen",
+      "role": "Live Sound Engineering",
+      "badge": "Live Sound",
+      "badge_type": "music",
+      "image": "assets/project-nuts-chosen.jpg",
+      "note": "Live Sound Engineering"
+    },
+    {
+      "id": "marshall-holder",
+      "cat": "design",
+      "featured": false,
+      "date": "Product · 3D Print",
+      "name": "Marshall Mini Amp Guitar Pick Holder",
+      "role": "Concept · CAD · 3D Printing",
+      "badge": "Product Design",
+      "badge_type": "design",
+      "image": "assets/marshall-holder.jpg",
+      "note": "Concept · CAD · 3D Printing"
+    },
+    {
+      "id": "fender-box",
+      "cat": "design",
+      "featured": false,
+      "date": "Product · 3D Print",
+      "name": "Fender Mini Amp Guitar Pick Box",
+      "role": "Concept · CAD · 3D Printing",
+      "badge": "Product Design",
+      "badge_type": "design",
+      "image": "assets/fender-box.jpg",
+      "note": "Concept · CAD · 3D Printing"
+    }
+  ],
+
+  "music": {
+    "spotify_playlist_id": "37i9dQZF1DXcBWIGoYBM5M",
+    "youtube_playlist_id": "PLFgquLnL59alCl_2TQvOiD5Vgm1hCaGSI",
+    "streetvoice_url": "https://streetvoice.com/"
+  },
+
+  "clients": [
+    { "name_zh": "核果人樂團",   "name_en": "NUTS Band" },
+    { "name_zh": "百合花樂團",   "name_en": "Lilium Band" },
+    { "name_zh": "同根生樂團",   "name_en": "A Root Band" },
+    { "name_zh": "芒果醬樂團",   "name_en": "MangoJump Band" },
+    { "name_zh": "TAMA Artist 唐于喬", "name_en": "Yu Chiao Tang" },
+    { "name_zh": "王喬尹",       "name_en": "Joyin Wang" },
+    { "name_zh": "姚可傑",       "name_en": "Jac" },
+    { "name_zh": "曹雅雯",       "name_en": "Olivia Tsao" },
+    { "name_zh": "謝青燁",       "name_en": "Eric" }
+  ],
+
+  "contact": {
+    "instagram": "jerryhang_",
+    "email": "jerry@jhstudio.tw"
+  }
+}
