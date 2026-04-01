@@ -136,16 +136,17 @@
     .work-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 360px;  /* 固定列高，所有卡片等高 */
       gap: 16px;
     }
 
     .work-card {
       border-radius: var(--r);
       overflow: hidden;
-      position: relative;  /* 讓 absolute 子元素定位正確 */
+      position: relative;
       cursor: default;
       background: var(--light);
-      aspect-ratio: 3/4;
+      /* 不設 aspect-ratio，讓 grid-auto-rows 控制高度 */
       transition: transform 0.4s cubic-bezier(.2,.8,.2,1), box-shadow 0.4s;
     }
     .work-card:hover {
@@ -153,10 +154,10 @@
       box-shadow: 0 24px 64px rgba(0,0,0,0.15);
     }
 
-    /* Featured: spans 2 cols, wider aspect */
+    /* Featured: 跨 2 欄、跨 2 列 → 大圖塊 */
     .work-card.featured {
       grid-column: span 2;
-      aspect-ratio: 16/9;
+      grid-row: span 2;
     }
 
     /* Full-bleed image — absolute 填滿卡片，自動裁切 */
@@ -318,9 +319,9 @@
       .about-facts { flex-direction: row; flex-wrap: wrap; }
       .about-fact { flex: 1; min-width: 120px; }
       /* Mobile: single column, fixed aspect */
-      .work-grid { grid-template-columns: 1fr; gap: 12px; }
-      .work-card { aspect-ratio: 4/3; }
-      .work-card.featured { grid-column: span 1; aspect-ratio: 4/3; }
+      .work-grid { grid-template-columns: 1fr; gap: 12px; grid-auto-rows: 280px; }
+      .work-card { }
+      .work-card.featured { grid-column: span 1; grid-row: span 1; }
       /* Always show overlay text on mobile (no hover) */
       .work-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%, transparent 100%); }
       .work-overlay-inner { transform: translateY(0); }
@@ -332,8 +333,8 @@
       .footer-links { display: none; }
     }
     @media (min-width: 769px) and (max-width: 1024px) {
-      .work-grid { grid-template-columns: repeat(2, 1fr); }
-      .work-card.featured { grid-column: span 2; }
+      .work-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 320px; }
+      .work-card.featured { grid-column: span 2; grid-row: span 1; }
       .hero-grid { grid-template-columns: 1fr 1fr; gap: 48px; }
     }
 
@@ -462,7 +463,7 @@
 
   function imgEl(src, alt) {
     if (!src) return `<div class="placeholder-img">${alt || 'Image'}</div>`;
-    return `<img src="${src}" alt="${alt || ''}" loading="lazy" onerror="this.outerHTML='<div class=\\"placeholder-img\\">${(alt||'').replace(/'/g,'&#39;')}</div>'">`;
+    return `<img src="${src}" alt="${alt || ''}" loading="lazy" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div class=\\"placeholder-img\\">No Image</div>')">`;
   }
 
   // ── Hero ──
