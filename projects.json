@@ -1,16 +1,30 @@
 {
-  "spotify": [
-    "0f89D5Z0f89D5Z..." 
-  ],
+  "hero": {
+    "eyebrow": "黃友立 · Taiwan",
+    "headline": "Sound.<br>Objects.<br><em>Same obsession.</em>",
+    "statement": "聲音和物件對我來說是同一件事——每個細節都在傳遞某種感受。",
+    "statement_en": "Music and objects are the same pursuit — every detail is a feeling waiting to be felt.",
+    "photo": "assets/hero-portrait.jpg",
+    "roles": ["Live Sound Engineer", "Audio Producer", "Product Designer"]
+  },
+  "about": {
+    "title": "音樂人，也是發明家。",
+    "p1": "我叫黃友立，台灣的音樂製作人、隨團音控與吉他手。從錄音室的混音到演出現場的監聽調整，我習慣把每個細節都推到恰好的位置。",
+    "p2": "但我對質感的執念不只停在聲音裡。我同時設計並 3D 列印器材周邊與產品——那些東西是音樂人的工具，也是我看待音樂方式延伸。",
+    "facts": [
+      { "num": "9+", "label": "Artists worked with · 合作藝人" },
+      { "num": "#1", "label": "Apple Music Taiwan · 核果人 NUTS 2025" }
+    ]
+  },
+  "spotify": ["你的播放清單ID"],
   "works": [
     {
       "category": "music",
       "featured": true,
       "date": "2024 / 12",
-      "name": "王喬尹 Joyin Wang",
-      "role": "Mixing",
-      "image": "assets/project-joyin.jpg",
-      "note": "專案備註內容"
+      "name": "作品名稱",
+      "image": "assets/work1.jpg",
+      "note": "專案備註"
     }
   ]
 }
