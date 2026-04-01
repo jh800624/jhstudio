@@ -21,7 +21,6 @@
       --heading: #0f0f0e;
       --accent:  #000000;
       --r:       16px;
-      /* 💡 寬度升級：從 980px 提升至 1200px，增加空間張力 */
       --max:     1200px; 
       --ease:    cubic-bezier(0.23, 1, 0.32, 1);
     }
@@ -33,7 +32,7 @@
     img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
     /* ── Layout ── */
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 48px; } /* 增加側邊內距 */
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 48px; }
     section { padding: 120px 0; }
 
     /* ── Nav ── */
@@ -54,15 +53,15 @@
     .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
     .hero-photo { aspect-ratio: 4/5; border-radius: var(--r); overflow: hidden; background: #f2f2ee; box-shadow: 0 30px 80px rgba(0,0,0,0.06); }
 
-    /* ── Work Section ── */
+    /* ── Section UI ── */
     .sec-label { font-size: 11px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.2em; margin-bottom: 16px; font-weight: 500; }
     .sec-title { font-size: 42px; font-weight: 300; color: var(--heading); margin-bottom: 60px; letter-spacing: -0.02em; }
-    
+
+    /* ── Work Section ── */
     .work-filter { display: flex; gap: 12px; margin-bottom: 48px; border-bottom: 1px solid var(--border); padding-bottom: 24px; }
     .filter-btn { padding: 8px 20px; border-radius: 100px; font-size: 12px; border: 1px solid transparent; cursor: pointer; background: transparent; color: var(--muted); transition: 0.3s; }
     .filter-btn.active { background: var(--white); color: var(--accent); border-color: var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
 
-    /* 💡 作品集排版：在大螢幕採用 3 欄位 */
     .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
     .work-card { border-radius: var(--r); overflow: hidden; background: var(--white); transition: all 0.5s var(--ease); border: 1px solid var(--border); }
     .work-card:hover { transform: translateY(-10px); box-shadow: 0 32px 70px rgba(0,0,0,0.1); }
@@ -72,7 +71,6 @@
     .work-card.featured .work-thumb { aspect-ratio: 16/8; }
     .work-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s var(--ease); }
     .work-card:hover .work-thumb img { transform: scale(1.05); filter: blur(2px) brightness(0.85); }
-
     .work-thumb::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); opacity: 0; transition: 0.5s; z-index: 1; }
     .work-card:hover .work-thumb::after { opacity: 1; }
 
@@ -86,39 +84,47 @@
     .work-name { font-size: 16px; font-weight: 500; color: var(--heading); margin-top: 8px; }
     .work-role { font-size: 13px; color: var(--muted); margin-top: 6px; font-weight: 300; }
 
+    /* ── ✨ Craft Section (新加入) ✨ ── */
+    #craft { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .craft-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .craft-card { 
+      padding: 48px; 
+      background: var(--bg); 
+      border-radius: var(--r); 
+      border: 1px solid var(--border);
+      transition: all 0.4s var(--ease);
+    }
+    .craft-card:hover { transform: translateY(-5px); border-color: var(--muted); background: var(--white); }
+    .craft-icon { font-size: 32px; margin-bottom: 24px; display: block; }
+    .craft-name { font-size: 20px; font-weight: 500; color: var(--heading); margin-bottom: 12px; }
+    .craft-desc { font-size: 15px; line-height: 1.8; color: var(--body); font-weight: 300; font-family: 'Noto Sans TC', sans-serif; }
+
     /* ── Spotify & Contact ── */
     .spotify-container { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); background: #000; }
     #contact { text-align: center; }
     .contact-link { font-size: 24px; color: var(--heading); border-bottom: 2px solid var(--border); transition: 0.3s; font-weight: 300; padding-bottom: 8px; }
     .contact-link:hover { border-color: var(--accent); }
 
-    /* ── ✨ 手機自適應排版 (Responsive) ✨ ── */
-    
-    /* 平板電腦與較小螢幕 */
+    /* ── Responsive ── */
     @media (max-width: 1024px) {
       .wrap { padding: 0 32px; }
-      .hero-grid { gap: 48px; }
-      .work-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .work-grid, .craft-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
       .work-card.featured { grid-column: span 2; }
     }
 
-    /* 手機版 (768px 以下) */
     @media (max-width: 768px) {
       section { padding: 80px 0; }
-      .nav-inner { padding: 0 24px; height: 60px; }
-      .nav-links { display: none; } /* 手機版建議隱藏或改為漢堡選單，此處先隱藏保持簡潔 */
-      
+      .nav-links { display: none; }
       #hero { padding-top: 120px; text-align: center; }
       .hero-grid { grid-template-columns: 1fr; gap: 40px; }
       .hero-headline { font-size: 42px; }
       .hero-statement { margin: 0 auto 32px; border-left: none; border-top: 1px solid var(--border); padding: 24px 0 0; }
       
       .sec-title { font-size: 32px; margin-bottom: 40px; }
-      .work-grid { grid-template-columns: 1fr; gap: 20px; }
+      .work-grid, .craft-grid { grid-template-columns: 1fr; gap: 20px; }
       .work-card.featured { grid-column: span 1; }
       .work-card.featured .work-thumb { aspect-ratio: 4/3; }
-      
-      .contact-link { font-size: 18px; }
+      .craft-card { padding: 32px; }
     }
 
     .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s var(--ease); }
@@ -132,6 +138,7 @@
       <span class="nav-logo">JH Studio</span>
       <ul class="nav-links">
         <li><a href="#work">Work</a></li>
+        <li><a href="#craft">Craft</a></li>
         <li><a href="#music">Music</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -159,21 +166,47 @@
 
   <section id="work">
     <div class="wrap">
-      <p class="sec-label">Selected Work</p>
-      <h2 class="sec-title">Portfolio</h2>
-      
+      <p class="sec-label">Portfolio</p>
+      <h2 class="sec-title">Selected Work</h2>
       <div class="work-filter">
         <button class="filter-btn active" onclick="filterWork('all', this)">All</button>
         <button class="filter-btn" onclick="filterWork('music', this)">Music 音樂</button>
         <button class="filter-btn" onclick="filterWork('design', this)">Objects 設計</button>
       </div>
-
-      <div id="work-grid" class="work-grid">
-        </div>
+      <div id="work-grid" class="work-grid"></div>
     </div>
   </section>
 
-  <section id="music" style="background: var(--white); border-top: 1px solid var(--border);">
+  <section id="craft">
+    <div class="wrap">
+      <p class="sec-label">Services</p>
+      <h2 class="sec-title">Craft</h2>
+      <div class="craft-grid">
+        <div class="craft-card reveal">
+          <span class="craft-icon">🎛️</span>
+          <h3 class="craft-name">Music Production</h3>
+          <p class="craft-desc">全方位編曲、錄音、混音與母帶後製。專注於獨立及搖滾，確保每個音符精準傳遞情感。</p>
+        </div>
+        <div class="craft-card reveal">
+          <span class="craft-icon">🔊</span>
+          <h3 class="craft-name">Live Sound Engineering</h3>
+          <p class="craft-desc">重視前期溝通與設備需求，從場前準備到現場執行，提供專業的演出聲音服務。</p>
+        </div>
+        <div class="craft-card reveal">
+          <span class="craft-icon">🎸</span>
+          <h3 class="craft-name">Session Recording</h3>
+          <p class="craft-desc">專業吉他錄音與音色調整，為你的作品注入靈魂與動態層次。</p>
+        </div>
+        <div class="craft-card reveal">
+          <span class="craft-icon">🔧</span>
+          <h3 class="craft-name">Product Design</h3>
+          <p class="craft-desc">利用 3D 列印技術探索音樂器材周邊，從概念發想到實體製作，追求功能與美感。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="music" style="background: var(--bg);">
     <div class="wrap">
       <p class="sec-label">Listen</p>
       <h2 class="sec-title">Featured Playlist</h2>
