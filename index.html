@@ -99,33 +99,13 @@
 
     /* ── Hero Visual / Carousel ── */
     .hero-visual { position: relative; }
-    .hero-photo {
-      aspect-ratio: 4/5; border-radius: var(--r);
-      overflow: hidden; background: var(--light);
-      position: relative;
-    }
-
-    /* Carousel slides */
-    .carousel-slide {
-      position: absolute; inset: 0;
-      opacity: 0; transition: opacity 1s ease;
-    }
+    .hero-photo { aspect-ratio: 4/5; border-radius: var(--r); overflow: hidden; background: var(--light); position: relative; }
+    .carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease; }
     .carousel-slide.active { opacity: 1; }
-    .carousel-slide img,
-    .carousel-slide .placeholder-img {
-      width: 100%; height: 100%; object-fit: cover;
-    }
-
-    .hero-photo-caption {
-      position: absolute; bottom: -1px; left: 0; right: 0;
-      padding: 48px 24px 24px;
-      background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
-      border-radius: 0 0 var(--r) var(--r);
-      z-index: 10;
-    }
+    .carousel-slide img, .carousel-slide .placeholder-img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-photo-caption { position: absolute; bottom: -1px; left: 0; right: 0; padding: 48px 24px 24px; background: linear-gradient(to top, rgba(0,0,0,0.65), transparent); border-radius: 0 0 var(--r) var(--r); z-index: 10; }
     .hero-roles { display: flex; flex-wrap: wrap; gap: 6px; }
     .hero-role-tag { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.8); font-weight: 400; background: rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2); }
-
     .placeholder-img { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--light); color: var(--muted); font-size: 12px; letter-spacing: 0.04em; text-align: center; padding: 16px; }
 
     /* ── Section Labels ── */
@@ -145,28 +125,118 @@
     .about-fact-label { font-size: 12px; color: var(--muted); letter-spacing: 0.03em; }
 
     /* ── Work ── */
+    #work {}
     .work-filter { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
     .filter-btn { padding: 7px 16px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; border: 1px solid var(--border); background: var(--white); color: var(--muted); cursor: pointer; transition: all 0.2s; }
     .filter-btn.active, .filter-btn:hover { background: var(--heading); color: var(--white); border-color: var(--heading); }
-    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .work-card { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); background: var(--white); transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s; cursor: default; position: relative; }
-    .work-card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
-    .work-thumb { aspect-ratio: 4/3; background: var(--light); overflow: hidden; position: relative; }
-    .work-thumb img { transition: transform 0.5s cubic-bezier(.2,.8,.2,1), filter 0.4s; }
-    .work-card:hover .work-thumb img { transform: scale(1.05); filter: blur(1px); }
-    .work-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.2) 50%, transparent 100%); opacity: 0; transition: opacity 0.35s; display: flex; align-items: flex-end; padding: 20px; }
+
+    /* ── Work grid: full-image cards ── */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .work-card {
+      border-radius: var(--r);
+      overflow: hidden;
+      position: relative;
+      cursor: default;
+      background: var(--light);
+      /* Default aspect ratio for normal cards */
+      aspect-ratio: 3/4;
+      transform: translateY(0);
+      transition: transform 0.4s cubic-bezier(.2,.8,.2,1), box-shadow 0.4s;
+    }
+    .work-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.15);
+    }
+
+    /* Featured: spans 2 cols, wider aspect */
+    .work-card.featured {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+
+    /* Full-bleed image */
+    .work-card img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(.2,.8,.2,1), filter 0.5s;
+    }
+    .work-card:hover img {
+      transform: scale(1.06);
+      filter: blur(2px) brightness(0.75);
+    }
+
+    /* Placeholder when no image */
+    .work-card .placeholder-img {
+      position: absolute; inset: 0;
+      height: 100%;
+      transition: filter 0.5s;
+    }
+    .work-card:hover .placeholder-img {
+      filter: brightness(0.6);
+    }
+
+    /* Category badge — top left, always visible */
+    .work-category-badge {
+      position: absolute; top: 16px; left: 16px; z-index: 10;
+      font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 4px 12px;
+      border-radius: 100px; backdrop-filter: blur(8px);
+      transition: opacity 0.3s;
+    }
+    .work-card:hover .work-category-badge { opacity: 0; }
+    .badge-music  { background: rgba(0,0,0,0.55); color: rgba(255,255,255,0.9); }
+    .badge-design { background: rgba(255,255,255,0.8); color: var(--heading); }
+
+    /* Overlay: hidden until hover */
+    .work-overlay {
+      position: absolute; inset: 0; z-index: 5;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.82) 0%,
+        rgba(0,0,0,0.4)  45%,
+        transparent      100%
+      );
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 28px 28px 28px;
+    }
     .work-card:hover .work-overlay { opacity: 1; }
-    .work-overlay-text { transform: translateY(12px); transition: transform 0.35s cubic-bezier(.2,.8,.2,1); color: rgba(255,255,255,0.9); font-size: 12px; line-height: 1.6; letter-spacing: 0.02em; }
-    .work-card:hover .work-overlay-text { transform: translateY(0); }
-    .work-category-badge { position: absolute; top: 12px; left: 12px; font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; backdrop-filter: blur(8px); z-index: 2; }
-    .badge-music { background: rgba(0,0,0,0.65); color: rgba(255,255,255,0.9); }
-    .badge-design { background: rgba(255,255,255,0.85); color: var(--heading); }
-    .work-info { padding: 20px 22px; }
-    .work-date { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 5px; }
-    .work-name { font-size: 14px; font-weight: 500; color: var(--heading); line-height: 1.45; margin-bottom: 5px; }
-    .work-role { font-size: 12px; color: var(--muted); letter-spacing: 0.02em; }
-    .work-card.featured { grid-column: span 2; }
-    .work-card.featured .work-thumb { aspect-ratio: 16/7; }
+
+    /* Overlay text: slides up */
+    .work-overlay-inner {
+      transform: translateY(16px);
+      transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
+    }
+    .work-card:hover .work-overlay-inner { transform: translateY(0); }
+
+    .work-overlay-badge {
+      display: inline-block;
+      font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+      margin-bottom: 8px;
+    }
+    .work-overlay-name {
+      font-size: 15px; font-weight: 500;
+      color: #ffffff; line-height: 1.4;
+      margin-bottom: 6px;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    .work-overlay-role {
+      font-size: 11px; color: rgba(255,255,255,0.6);
+      letter-spacing: 0.04em;
+    }
+    .work-overlay-date {
+      font-size: 10px; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em; margin-top: 10px;
+      text-transform: uppercase;
+    }
 
     /* ── Craft ── */
     #craft { background: var(--bg); }
@@ -246,9 +316,14 @@
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .about-facts { flex-direction: row; flex-wrap: wrap; }
       .about-fact { flex: 1; min-width: 120px; }
-      .work-grid { grid-template-columns: 1fr; }
-      .work-card.featured { grid-column: span 1; }
-      .work-card.featured .work-thumb { aspect-ratio: 4/3; }
+      /* Mobile: single column, fixed aspect */
+      .work-grid { grid-template-columns: 1fr; gap: 12px; }
+      .work-card { aspect-ratio: 4/3; }
+      .work-card.featured { grid-column: span 1; aspect-ratio: 4/3; }
+      /* Always show overlay text on mobile (no hover) */
+      .work-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%, transparent 100%); }
+      .work-overlay-inner { transform: translateY(0); }
+      .work-category-badge { opacity: 0; }
       .craft-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; gap: 48px; }
       .contact-sub { max-width: 100%; }
@@ -268,7 +343,6 @@
 </head>
 <body>
 
-  <!-- Loading -->
   <div id="page-loader">
     <div class="loader-dot"></div>
     <div class="loader-dot"></div>
@@ -370,7 +444,6 @@
   </footer>
 
   <script>
-  // ── Craft items (static) ──
   const CRAFT = [
     { icon: '🎛️', name_zh: '音樂製作', name_en: 'Music Production',
       desc_zh: '全方位編曲、錄音、混音與母帶後製。專注於獨立及搖滾。根據你的創意或初步概念量身打造，確保每個音符準確傳遞情感。',
@@ -386,50 +459,39 @@
       desc_en: 'From concept to physical object — 3D printing to explore music accessories and experimental designs. Useful things, or just beautiful ones.' }
   ];
 
-  // ── Helper: image or placeholder ──
   function imgEl(src, alt) {
     if (!src) return `<div class="placeholder-img">${alt || 'Image'}</div>`;
     return `<img src="${src}" alt="${alt || ''}" loading="lazy" onerror="this.outerHTML='<div class=\\"placeholder-img\\">${(alt||'').replace(/'/g,'&#39;')}</div>'">`;
   }
 
-  // ── Render: Hero (with carousel) ──
+  // ── Hero ──
   function renderHero(d) {
     const h = d.hero;
-    const lines = h.headline.map(line =>
-      line === h.headline_em ? `<em>${line}</em>` : line
-    ).join('<br>');
+    const lines = h.headline.map(l => l === h.headline_em ? `<em>${l}</em>` : l).join('<br>');
     const stmtZh = h.statement_zh.replace(/\n/g, '<br>');
     const stmtEn = h.statement_en.replace(/\n/g, '<br>');
 
     document.getElementById('hero-left').innerHTML = `
       <div class="hero-eyebrow">${h.eyebrow}</div>
       <h1 class="hero-headline">${lines}</h1>
-      <p class="hero-statement">
-        ${stmtZh}
-        <span>${stmtEn}</span>
-      </p>
+      <p class="hero-statement">${stmtZh}<span>${stmtEn}</span></p>
       <a href="#music" class="hero-listen">
-        <span class="hero-listen-dot"></span>
-        ${h.listen_label}
+        <span class="hero-listen-dot"></span>${h.listen_label}
       </a>
       <div class="hero-cta">
         <a href="#work" class="btn btn-dark">View Work</a>
         <a href="#contact" class="btn btn-gray">Get in Touch</a>
       </div>`;
 
-    // Build carousel slides
     const photos = Array.isArray(h.photos) && h.photos.length > 0
-      ? h.photos
-      : (h.photo ? [h.photo] : [null]);
-
-    const slides = photos.map((src, i) => `
-      <div class="carousel-slide${i === 0 ? ' active' : ''}">
-        ${imgEl(src, 'Jerry Hang')}
-      </div>`).join('');
+      ? h.photos : (h.photo ? [h.photo] : [null]);
 
     document.getElementById('hero-visual').innerHTML = `
       <div class="hero-photo" id="hero-carousel">
-        ${slides}
+        ${photos.map((src, i) => `
+          <div class="carousel-slide${i === 0 ? ' active' : ''}">
+            ${imgEl(src, 'Jerry Hang')}
+          </div>`).join('')}
         <div class="hero-photo-caption">
           <div class="hero-roles">
             ${h.roles.map(r => `<span class="hero-role-tag">${r}</span>`).join('')}
@@ -437,36 +499,28 @@
         </div>
       </div>`;
 
-    // Init auto-play carousel only if more than 1 photo
-    if (photos.length > 1) {
-      initCarousel('hero-carousel', 4000);
-    }
+    if (photos.length > 1) initCarousel('hero-carousel', 4000);
   }
 
-  // ── Carousel logic ──
-  function initCarousel(containerId, interval) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    const slides = container.querySelectorAll('.carousel-slide');
+  function initCarousel(id, interval) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const slides = el.querySelectorAll('.carousel-slide');
     if (slides.length < 2) return;
-
-    let current = 0;
+    let cur = 0;
     setInterval(() => {
-      slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
+      slides[cur].classList.remove('active');
+      cur = (cur + 1) % slides.length;
+      slides[cur].classList.add('active');
     }, interval);
   }
 
-  // ── Render: About ──
+  // ── About ──
   function renderAbout(d) {
     const a = d.about;
     const paras = a.paragraphs.map((p, i) =>
-      i === a.paragraphs.length - 1
-        ? `<p><strong>${p}</strong></p>`
-        : `<p>${p}</p>`
+      i === a.paragraphs.length - 1 ? `<p><strong>${p}</strong></p>` : `<p>${p}</p>`
     ).join('');
-
     document.getElementById('about-grid').innerHTML = `
       <div class="about-text reveal">
         <p class="sec-label">About</p>
@@ -483,26 +537,24 @@
       </div>`;
   }
 
-  // ── Render: Works ──
+  // ── Works: full-image cards ──
   function renderWorks(works) {
     document.getElementById('work-grid').innerHTML = works.map(w => `
       <div class="work-card${w.featured ? ' featured' : ''} reveal" data-cat="${w.cat}">
-        <div class="work-thumb">
-          ${imgEl(w.image, w.name)}
-          <span class="work-category-badge badge-${w.badge_type}">${w.badge}</span>
-          <div class="work-overlay">
-            <div class="work-overlay-text">${w.note || w.role}</div>
+        ${imgEl(w.image, w.name)}
+        <span class="work-category-badge badge-${w.badge_type}">${w.badge}</span>
+        <div class="work-overlay">
+          <div class="work-overlay-inner">
+            <div class="work-overlay-badge">${w.badge}</div>
+            <div class="work-overlay-name">${w.name}</div>
+            <div class="work-overlay-role">${w.role}</div>
+            <div class="work-overlay-date">${w.date}</div>
           </div>
-        </div>
-        <div class="work-info">
-          <p class="work-date">${w.date}</p>
-          <p class="work-name">${w.name}</p>
-          <p class="work-role">${w.role}</p>
         </div>
       </div>`).join('');
   }
 
-  // ── Render: Craft (static) ──
+  // ── Craft ──
   function renderCraft() {
     document.getElementById('craft-grid').innerHTML = CRAFT.map(c => `
       <div class="craft-card reveal">
@@ -514,14 +566,13 @@
       </div>`).join('');
   }
 
-  // ── Render: Music ──
+  // ── Music ──
   function renderMusic(m) {
     const platforms = [
       { key: 'spotify',    label: 'Spotify',    dot: 'dot-spotify' },
       { key: 'youtube',    label: 'YouTube',    dot: 'dot-youtube' },
       { key: 'soundcloud', label: 'SoundCloud', dot: 'dot-soundcloud' }
     ];
-
     document.getElementById('music-tabs').innerHTML = platforms.map((p, i) => `
       <button class="platform-tab${i === 0 ? ' active' : ''}" onclick="switchPlatform('${p.key}', this)">
         <span class="platform-tab-dot ${p.dot}"></span>${p.label}
@@ -547,14 +598,14 @@
       <div class="music-embed" id="embed-soundcloud">${scHTML}</div>`;
   }
 
-  // ── Render: Clients ──
+  // ── Clients ──
   function renderClients(clients) {
     document.getElementById('clients-cloud').innerHTML = clients.map(c =>
       `<span class="client-pill">${c.name_zh} ${c.name_en}</span>`
     ).join('');
   }
 
-  // ── Render: Contact ──
+  // ── Contact ──
   function renderContact(c) {
     document.getElementById('contact-grid').innerHTML = `
       <div>
@@ -590,7 +641,7 @@
       </div>`;
   }
 
-  // ── Render: Footer ──
+  // ── Footer ──
   function renderFooter(c) {
     document.getElementById('footer-inner').innerHTML = `
       <span class="footer-sig">JH Studio · 黃友立 Jerry Hang</span>
@@ -601,7 +652,7 @@
       <span class="footer-copy">© ${new Date().getFullYear()} JH Studio</span>`;
   }
 
-  // ── Init: Scroll reveal ──
+  // ── Scroll reveal ──
   function initReveal() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
@@ -614,7 +665,7 @@
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   }
 
-  // ── Init: Nav active state ──
+  // ── Nav active ──
   function initNav() {
     const secs = document.querySelectorAll('section[id]');
     const links = document.querySelectorAll('.nav-links a');
@@ -640,7 +691,7 @@
     });
   }
 
-  // ── Music platform switch ──
+  // ── Music switch ──
   function switchPlatform(platform, btn) {
     document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
     btn.classList.add('active');
@@ -649,9 +700,7 @@
   }
 
   // ── Hamburger ──
-  function toggleMenu() {
-    document.getElementById('nav-menu').classList.toggle('open');
-  }
+  function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => document.getElementById('nav-menu').classList.remove('open'));
   });
@@ -678,7 +727,6 @@
 
       loader.classList.add('hidden');
       setTimeout(() => loader.remove(), 500);
-
     } catch (err) {
       console.error('[JH Studio] projects.json 讀取失敗：', err);
       loader.innerHTML = `
