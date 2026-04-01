@@ -85,7 +85,7 @@
       "note": "Live Sound Engineering"
     },
     {
-      "id": "mn_speakerbox",
+      "id": "mn_speaker box",
       "cat": "design",
       "featured": false,
       "date": "Product · 3D Print",
@@ -94,6 +94,30 @@
       "badge": "Product Design",
       "badge_type": "design",
       "image": "assets/mn_speakerbox.jpg",
+      "note": "3D Printing"
+    }
+    {
+      "id": "mn_effects pedal keychain",
+      "cat": "design",
+      "featured": false,
+      "date": "Product · 3D Print",
+      "name": "小廢物效果器鑰匙圈",
+      "role": "3D Printing",
+      "badge": "Product Design",
+      "badge_type": "design",
+      "image": "assets/mn_effects pedal keychain.jpg",
+      "note": "3D Printing"
+    }
+    {
+      "id": "mn_effects pedal",
+      "cat": "design",
+      "featured": false,
+      "date": "Product · 3D Print",
+      "name": "小廢物效果器盤",
+      "role": "3D Printing",
+      "badge": "Product Design",
+      "badge_type": "design",
+      "image": "assets/mn_effects pedal.jpg",
       "note": "3D Printing"
     }
   ],
