@@ -85,16 +85,16 @@
       "note": "Live Sound Engineering"
     },
     {
-      "id": "fender-box",
+      "id": "mn_speakerbox",
       "cat": "design",
       "featured": false,
       "date": "Product · 3D Print",
-      "name": "Fender Mini Amp Guitar Pick Box",
-      "role": "Concept · CAD · 3D Printing",
+      "name": "小廢物磁吸音箱盒",
+      "role": "3D Printing",
       "badge": "Product Design",
       "badge_type": "design",
-      "image": "assets/fender-box.jpg",
-      "note": "Concept · CAD · 3D Printing"
+      "image": "assets/mn_speakerbox.jpg",
+      "note": "3D Printing"
     }
   ],
 
