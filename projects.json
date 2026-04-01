@@ -3,8 +3,8 @@
     "eyebrow": "黃友立 · Taiwan",
     "headline": ["Sound.", "Objects.", "Same obsession."],
     "headline_em": "Same obsession.",
-    "statement_zh": "每個音符，每件物件，都是一個還沒說完的故事。\n聲音與製造，都是我表達的方式。",
-    "statement_en": "Every note, every object — a story waiting to be told.\nSound and making — two ways I say the same thing.",
+    "statement_zh": "每個音符，每件物件，都是一個還沒說完的故事。<br>聲音與製造，都是我表達的方式。",
+    "statement_en": "Every note, every object — a story waiting to be told.<br>Sound and making — two ways I say the same thing.",
     "listen_label": "Listen to my work",
     "spotify_id": "68d4a88b95d5459c",
     "photo": "assets/hero-portrait.jpg",
@@ -17,10 +17,10 @@
   },
 
   "about": {
-    "title_zh": "音樂人，也是發明家。",
+    "title_zh": "音樂人，也是設計師。",
     "paragraphs": [
-      "我叫黃友立，台灣的音樂製作人、隨團音控與吉他手。從錄音室的混音到演出現場的監聽調整，我習慣把每個細節都推到恰好的位置。",
-      "但我對質感的執念不只停在聲音裡。我同時設計並 3D 列印器材周邊與產品——那些東西是音樂人的工具，也是我看待音樂方式的延伸。",
+      "我叫黃友立，來自台灣的音樂人、隨團音控與吉他手。從錄音室的混音到演出現場的監聽調整，把每個細節都推到恰好。",
+      "對質感的執念不只停在聲音裡。同時設計並 3D 列印器材周邊與產品——那些東西是音樂人的工具，也是我看待音樂方式的延伸。",
       "Music and making things are not two different careers — they're two expressions of the same instinct."
     ],
     "facts": [
@@ -95,11 +95,12 @@
 
   "music": {
     "spotify_playlist_id": "68d4a88b95d5459c",
-    "youtube_playlist_id": "PLFgquLnL59alCl_2TQvOiD5Vgm1hCaGSI",
-    "streetvoice_url": "https://streetvoice.com/"
+    "youtube_playlist_id": "PLD0PuYdfw_Q2JjvRTOuGw3Yrezywh5X3p",
+    "soundcloud_url": "https://soundcloud.com/jh800624"
   },
 
   "clients": [
+    { "name_zh": "羊駝小姐",   "name_en": "Malpaca" },
     { "name_zh": "核果人樂團",   "name_en": "NUTS Band" },
     { "name_zh": "百合花樂團",   "name_en": "Lilium Band" },
     { "name_zh": "同根生樂團",   "name_en": "A Root Band" },
@@ -112,7 +113,7 @@
   ],
 
   "contact": {
-    "instagram": "jerryhang_",
-    "email": "jerry@jhstudio.tw"
+    "instagram": "jh800624",
+    "email": "jh800624@gmail.com"
   }
 }
