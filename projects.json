@@ -1,20 +1,16 @@
-[
-  {
-    "category": "music",
-    "featured": true,
-    "date": "2024 / 12",
-    "name": "王喬尹 Joyin Wang — 《又係王喬尹》",
-    "role": "Arrangement · Recording · Mixing",
-    "image": "assets/project-joyin.jpg",
-    "note": "這張專輯我們嘗試了更多的合成器與電吉他堆疊，強化了整體空間感。"
-  },
-  {
-    "category": "design",
-    "featured": false,
-    "date": "Product · 3D Print",
-    "name": "Marshall Mini Amp Holder",
-    "role": "Concept · CAD · 3D Printing",
-    "image": "assets/marshall-holder.jpg",
-    "note": "專為吉他手設計的撥片收納器，模擬經典音箱外殼質感。"
-  }
-]
+{
+  "spotify": [
+    "0f89D5Z0f89D5Z..." 
+  ],
+  "works": [
+    {
+      "category": "music",
+      "featured": true,
+      "date": "2024 / 12",
+      "name": "王喬尹 Joyin Wang",
+      "role": "Mixing",
+      "image": "assets/project-joyin.jpg",
+      "note": "專案備註內容"
+    }
+  ]
+}
