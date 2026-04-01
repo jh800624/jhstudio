@@ -16,7 +16,11 @@
       { "num": "#1", "label": "Apple Music Taiwan · 核果人 NUTS 2025" }
     ]
   },
-  "spotify": ["你的播放清單ID"],
+  "music_sections": [
+    { "type": "spotify", "title": "Spotify Portfolio", "id": "你的歌單ID" },
+    { "type": "youtube", "title": "YouTube Works", "url": "https://www.youtube.com/embed/videoseries?list=你的清單ID" },
+    { "type": "streetvoice", "title": "StreetVoice Demo", "url": "https://streetvoice.com/widgets/playlist/你的ID/" }
+  ],
   "works": [
     {
       "category": "music",
