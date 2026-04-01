@@ -473,8 +473,9 @@
   ];
 
   function imgEl(src, alt) {
-    if (!src) return `<div class="placeholder-img">${alt || 'Image'}</div>`;
-    return `<img src="${src}" alt="${alt || ''}" loading="lazy" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div class=\\"placeholder-img\\">No Image</div>')">`;
+    if (!src) return '<div class="placeholder-img">' + (alt || 'Image') + '</div>';
+    var safeAlt = (alt || '').replace(/"/g, '&quot;');
+    return '<img src="' + src + '" alt="' + safeAlt + '" loading="lazy">';
   }
 
   // ── Hero ──
@@ -521,11 +522,19 @@
     const slides = el.querySelectorAll('.carousel-slide');
     if (slides.length < 2) return;
     let cur = 0;
-    setInterval(() => {
+    function goTo(next) {
       slides[cur].classList.remove('active');
-      cur = (cur + 1) % slides.length;
+      cur = next % slides.length;
       slides[cur].classList.add('active');
-    }, interval);
+      // Reset zoom-out animation so it replays on each slide
+      const img = slides[cur].querySelector('img');
+      if (img) {
+        img.style.animation = 'none';
+        void img.offsetHeight; // force reflow
+        img.style.animation = '';
+      }
+    }
+    setInterval(() => goTo(cur + 1), interval);
   }
 
   // ── About ──
