@@ -24,7 +24,7 @@
       "Music and making things are not two different careers — they're two expressions of the same instinct."
     ],
     "facts": [
-      { "num": "9+",  "label_zh": "合作藝人",      "label_en": "Artists worked with" },
+      { "num": "10+",  "label_zh": "合作藝人",      "label_en": "Artists worked with" },
       { "num": "#1",  "label_zh": "Apple Music Taiwan", "label_en": "核果人 NUTS 2025" },
       { "num": "3D",  "label_zh": "列印產品設計",   "label_en": "Printed product design" }
     ]
@@ -101,6 +101,7 @@
 
   "clients": [
     { "name_zh": "羊駝小姐",   "name_en": "Malpaca" },
+    { "name_zh": "泡泡倶楽部",   "name_en": "Bubble Cluboo" },
     { "name_zh": "核果人樂團",   "name_en": "NUTS Band" },
     { "name_zh": "百合花樂團",   "name_en": "Lilium Band" },
     { "name_zh": "同根生樂團",   "name_en": "A Root Band" },
