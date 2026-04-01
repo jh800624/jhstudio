@@ -183,6 +183,16 @@
         const data = await res.json();
 
         // Hero
+        // 補上這段判斷，不管是陣列還是字串都能跑
+        const headlineHTML = Array.isArray(h.headline) 
+        ? h.headline.join('<br>') 
+          : h.headline;
+
+          document.getElementById('hero-left').innerHTML = `
+            <div class="hero-eyebrow">${h.eyebrow}</div>
+            <h1 class="hero-headline">${headlineHTML}</h1>
+            ...
+        `;
         const h = data.hero;
         document.getElementById('hero-left').innerHTML = `
           <div class="hero-eyebrow">${h.eyebrow}</div>
