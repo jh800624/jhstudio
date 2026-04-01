@@ -9,41 +9,40 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    /* ── 變數與基礎設定 ── */
+    /* ── Tokens ── */
     :root {
       --white: #ffffff; --bg: #fafaf8; --border: #e8e8e4; --muted: #8c8c86;
       --body: #3c3c38; --heading: #0f0f0e; --accent: #0f0f0e;
       --r: 16px; --max: 1200px; --ease: cubic-bezier(0.23, 1, 0.32, 1);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; } /* 確保平滑滾動 */
     body { font-family: 'Inter', 'Noto Sans TC', sans-serif; background: var(--white); color: var(--body); -webkit-font-smoothing: antialiased; }
     .wrap { max-width: var(--max); margin: 0 auto; padding: 0 48px; }
     section { padding: 100px 0; }
-    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; transition: 0.8s var(--ease); }
 
-    /* ── 導覽列 ── */
+    /* ── Nav ── */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
     .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 48px; height: 72px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-size: 15px; font-weight: 500; letter-spacing: 0.05em; }
     .nav-links { display: flex; gap: 40px; list-style: none; }
     .nav-links a { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; transition: 0.3s; }
     .nav-links a:hover { color: var(--heading); }
 
-    /* ── Hero & About (動態注入) ── */
+    /* ── Hero & About ── */
     .hero-grid, .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; }
     .hero-eyebrow { display: flex; align-items: center; gap: 12px; font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
-    .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--muted); }
-    .hero-headline { font-size: clamp(40px, 6vw, 64px); font-weight: 300; line-height: 1.1; color: var(--heading); margin-bottom: 32px; letter-spacing: -0.04em; }
-    .hero-statement { font-size: 18px; line-height: 1.8; color: var(--body); border-left: 2px solid var(--border); padding-left: 24px; margin-bottom: 40px; }
-    .hero-statement span { display: block; font-size: 14px; color: var(--muted); font-style: italic; margin-top: 10px; }
-    .hero-photo { aspect-ratio: 4/5; border-radius: var(--r); overflow: hidden; background: #f2f2ee; position: relative; box-shadow: 0 30px 80px rgba(0,0,0,0.06); }
+    .hero-headline { font-size: clamp(40px, 6vw, 64px); font-weight: 300; line-height: 1.1; margin-bottom: 32px; letter-spacing: -0.04em; }
+    .hero-statement { font-size: 18px; line-height: 1.8; border-left: 2px solid var(--border); padding-left: 24px; margin-bottom: 40px; }
+    .hero-photo { aspect-ratio: 4/5; border-radius: var(--r); overflow: hidden; position: relative; box-shadow: 0 30px 80px rgba(0,0,0,0.06); }
     .hero-photo-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); display: flex; flex-wrap: wrap; gap: 8px; }
-    .role-tag { font-size: 10px; color: #fff; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2); text-transform: uppercase; }
+    .role-tag { font-size: 10px; color: #fff; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2); }
 
     #about { background: var(--bg); }
     .fact-card { padding: 32px; background: var(--white); border-radius: var(--r); border: 1px solid var(--border); margin-bottom: 24px; }
 
-    /* ── Work 區塊 ── */
+    /* ── Work ── */
     .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
     .work-card { border-radius: var(--r); overflow: hidden; background: var(--white); border: 1px solid var(--border); transition: 0.5s var(--ease); }
     .work-card:hover { transform: translateY(-10px); box-shadow: 0 32px 70px rgba(0,0,0,0.1); }
@@ -53,17 +52,29 @@
     .work-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 32px; color: #fff; z-index: 2; opacity: 0; transform: translateY(20px); transition: 0.5s var(--ease); background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); }
     .work-card:hover .work-overlay { opacity: 1; transform: translateY(0); }
     .work-card:hover img { transform: scale(1.05); filter: blur(2px) brightness(0.8); }
-    img { transition: 0.8s var(--ease); }
 
-    /* ── ✨ 音樂平台切換 UI ✨ ── */
+    /* ── Craft ── */
+    #craft { background: var(--white); }
+    .craft-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .craft-card { padding: 48px; background: var(--bg); border-radius: var(--r); border: 1px solid var(--border); transition: 0.4s; }
+
+    /* ── Music ── */
     .music-tabs { display: flex; gap: 12px; margin-bottom: 32px; }
-    .tab-btn { padding: 8px 24px; border-radius: 100px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-size: 13px; transition: 0.3s; color: var(--muted); }
+    .tab-btn { padding: 8px 24px; border-radius: 100px; border: 1px solid var(--border); background: #fff; cursor: pointer; transition: 0.3s; color: var(--muted); }
     .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .player-container { border-radius: 16px; overflow: hidden; background: #000; min-height: 400px; transition: 0.4s; }
+    .player-container { border-radius: 16px; overflow: hidden; background: #000; min-height: 400px; }
 
-    /* ── 響應式 ── */
+    /* ── Clients ── */
+    #clients { background: var(--white); }
+    .clients-cloud { display: flex; flex-wrap: wrap; gap: 12px; }
+    .client-pill { padding: 10px 22px; border-radius: 100px; border: 1px solid var(--border); font-size: 13px; }
+
+    /* ── Contact ── */
+    #contact { background: var(--bg); text-align: center; }
+    .contact-link { font-size: 24px; color: var(--heading); border-bottom: 2px solid var(--border); padding-bottom: 8px; font-weight: 300; }
+
     @media (max-width: 768px) {
-      .hero-grid, .about-grid, .work-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-grid, .about-grid, .work-grid, .craft-grid { grid-template-columns: 1fr; gap: 40px; }
       .nav-links { display: none; }
       .wrap { padding: 0 24px; }
       .work-card.featured { grid-column: span 1; }
@@ -74,13 +85,35 @@
 </head>
 <body>
 
-  <nav><div class="nav-inner"><span class="nav-logo">JH Studio</span><ul class="nav-links"><li><a href="#about">About</a></li><li><a href="#work">Work</a></li><li><a href="#music">Music</a></li></ul></div></nav>
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-logo">JH Studio</span>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#craft">Craft</a></li>
+        <li><a href="#music">Music</a></li>
+        <li><a href="#clients">Clients</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <section id="hero"><div class="wrap"><div class="hero-grid" id="hero-content"></div></div></section>
 
   <section id="about"><div class="wrap"><div class="about-grid" id="about-content"></div></div></section>
 
   <section id="work"><div class="wrap"><h2 style="font-size:36px; font-weight:300; margin-bottom:48px;">Portfolio</h2><div id="work-grid" class="work-grid"></div></div></section>
+
+  <section id="craft">
+    <div class="wrap">
+      <h2 style="font-size:36px; font-weight:300; margin-bottom:48px;">Craft</h2>
+      <div class="craft-grid">
+        <div class="craft-card reveal"><h3>Music Production</h3><p style="margin-top:12px; font-weight:300;">編曲、錄音、混音與母帶後製。</p></div>
+        <div class="craft-card reveal"><h3>Product Design</h3><p style="margin-top:12px; font-weight:300;">3D 列印技術與音樂器材周邊開發。</p></div>
+      </div>
+    </div>
+  </section>
 
   <section id="music">
     <div class="wrap">
@@ -89,6 +122,27 @@
       <div id="player-wrap" class="player-container reveal"></div>
     </div>
   </section>
+
+  <section id="clients">
+    <div class="wrap">
+      <h2 style="font-size:36px; font-weight:300; margin-bottom:48px;">Partners</h2>
+      <div class="clients-cloud reveal">
+        <span class="client-pill">核果人樂團 NUTS</span>
+        <span class="client-pill">百合花 Lilium</span>
+        <span class="client-pill">芒果醬 MangoJump</span>
+        <span class="client-pill">王喬尹 Joyin Wang</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <h2 style="font-size:36px; font-weight:300; margin-bottom:32px;">Say hello.</h2>
+      <a href="mailto:jh800624@gmail.com" class="contact-link">jh800624@gmail.com</a>
+    </div>
+  </section>
+
+  <footer style="padding:60px 0; text-align:center; font-size:11px; color:var(--muted);">JH STUDIO · JERRY HANG © 2025</footer>
 
   <script>
     const observer = new IntersectionObserver((entries) => {
@@ -102,7 +156,7 @@
         const response = await fetch('./projects.json?t=' + Date.now());
         const data = await response.json();
 
-        // 1. Hero & About 注入
+        // 注入內容
         document.getElementById('hero-content').innerHTML = `
           <div class="hero-left reveal"><div class="hero-eyebrow">${data.hero.eyebrow}</div><h1 class="hero-headline">${data.hero.headline}</h1><p class="hero-statement">${data.hero.statement}<span>${data.hero.statement_en}</span></p></div>
           <div class="hero-visual reveal"><div class="hero-photo"><img src="${data.hero.photo}"><div class="hero-photo-caption">${data.hero.roles.map(r => `<span class="role-tag">${r}</span>`).join('')}</div></div></div>
@@ -113,7 +167,7 @@
           <div class="about-facts reveal">${data.about.facts.map(f => `<div class="fact-card"><div style="font-size:32px; font-weight:300;">${f.num}</div><div style="font-size:12px; color:#8c8c86;">${f.label}</div></div>`).join('')}</div>
         `;
 
-        // 2. 音樂平台標籤生成
+        // 處理音樂標籤
         musicData = data.music_sections;
         const tabWrap = document.getElementById('music-tabs');
         musicData.forEach((section, index) => {
@@ -123,11 +177,9 @@
           btn.onclick = () => switchPlayer(index, btn);
           tabWrap.appendChild(btn);
         });
-
-        // 預設載入第一個播放器
         if (musicData.length > 0) switchPlayer(0);
 
-        // 3. 作品集渲染
+        // 作品集
         const grid = document.getElementById('work-grid');
         data.works.forEach(item => {
           const card = document.createElement('div');
@@ -141,24 +193,14 @@
       } catch (err) { console.error(err); }
     }
 
-    // ✨ 平台切換邏輯 ✨
     function switchPlayer(index, btn) {
       if (btn) {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
       }
-      
       const section = musicData[index];
       const wrap = document.getElementById('player-wrap');
-      let html = '';
-
-      if (section.type === 'spotify') {
-        html = `<iframe src="https://open.spotify.com/embed/playlist/${section.id}?utm_source=generator&theme=0" width="100%" height="400" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
-      } else if (section.type === 'youtube' || section.type === 'streetvoice') {
-        html = `<iframe src="${section.url}" width="100%" height="400" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-      }
-
-      wrap.innerHTML = html;
+      wrap.innerHTML = `<iframe src="${section.type === 'spotify' ? `https://open.spotify.com/embed/playlist/${section.id}` : section.url}" width="100%" height="400" frameborder="0" allowfullscreen></iframe>`;
     }
 
     init();
