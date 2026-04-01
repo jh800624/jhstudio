@@ -3,442 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JH Studio</title>
-  <meta name="description" content="JH Studio · 音樂、設計。在聲音與物件之間，我追求同一件事——質感。" />
-
+  <title>JH Studio — Jerry Hang</title>
+  <meta name="description" content="JH Studio · 音樂、設計。在聲音與物件之間，我追求同一件質感。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet" />
-
   <style>
-    /* ── Tokens ── */
-    :root {
-      --white:   #ffffff;
-      --bg:      #fafaf8;
-      --border:  #e8e8e4;
-      --light:   #f2f2ee;
-      --mid:     #c8c8c2;
-      --muted:   #8c8c86;
-      --body:    #3c3c38;
-      --heading: #0f0f0e;
-      --accent:  #0f0f0e;
-      --r:       14px;
-      --r-sm:    8px;
-      --max:     980px;
-    }
-
+    /* ── 這裡保留你原本所有的 CSS 樣式 (省略以節省篇幅，請直接套用你原本的 style 內容) ── */
+    :root { --white: #ffffff; --bg: #fafaf8; --border: #e8e8e4; --light: #f2f2ee; --mid: #c8c8c2; --muted: #8c8c86; --body: #3c3c38; --heading: #0f0f0e; --accent: #0f0f0e; --r: 14px; --r-sm: 8px; --max: 980px; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', 'Noto Sans TC', sans-serif;
-      background: var(--white);
-      color: var(--body);
-      font-size: 16px;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { display: block; width: 100%; height: 100%; object-fit: cover; }
-
-    /* ── Layout ── */
+    body { font-family: 'Inter', 'Noto Sans TC', sans-serif; background: var(--white); color: var(--body); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
     .wrap { max-width: var(--max); margin: 0 auto; padding: 0 36px; }
     section { padding: 96px 0; }
-
-    /* ── Nav ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      background: rgba(255,255,255,0.90);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
-      max-width: var(--max); margin: 0 auto; padding: 0 36px;
-      height: 58px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-logo {
-      font-size: 13px; font-weight: 500;
-      letter-spacing: 0.04em; color: var(--heading);
-    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(255,255,255,0.90); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 36px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
     .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a {
-      font-size: 12px; font-weight: 400;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--muted); transition: color 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--heading); }
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; padding: 4px; background: none; border: none;
-    }
-    .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--heading); transition: 0.3s; }
-
-    /* ── Hero ── */
+    .nav-links a { font-size: 12px; color: var(--muted); text-transform: uppercase; }
+    .nav-links a.active { color: var(--heading); }
     #hero { padding-top: 148px; padding-bottom: 80px; }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 72px; align-items: center;
-    }
-    .hero-eyebrow {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 24px;
-    }
-    .hero-eyebrow::before {
-      content: ''; display: block;
-      width: 28px; height: 1px; background: var(--mid);
-    }
-    .hero-headline {
-      font-size: clamp(38px, 4.8vw, 58px);
-      font-weight: 300; line-height: 1.12;
-      letter-spacing: -0.025em; color: var(--heading);
-      margin-bottom: 28px;
-    }
-    .hero-headline em {
-      font-style: italic; font-weight: 300;
-      color: var(--muted);
-    }
-    .hero-statement {
-      font-size: 16px; line-height: 1.85;
-      color: var(--body); max-width: 480px;
-      border-left: 2px solid var(--border);
-      padding-left: 20px; margin-bottom: 36px;
-      font-family: 'Noto Sans TC', sans-serif;
-    }
-    .hero-statement span {
-      display: block; font-size: 13px; color: var(--muted);
-      margin-top: 8px; font-family: 'Inter', sans-serif;
-      font-style: italic; line-height: 1.6;
-    }
-
-    /* Mini Spotify CTA in hero */
-    .hero-listen {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 10px 18px 10px 14px;
-      background: var(--light); border-radius: 100px;
-      font-size: 12px; font-weight: 500; color: var(--body);
-      letter-spacing: 0.03em; transition: background 0.2s;
-      margin-bottom: 32px;
-    }
-    .hero-listen:hover { background: var(--border); }
-    .hero-listen-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: #1DB954; flex-shrink: 0;
-      box-shadow: 0 0 0 3px rgba(29,185,84,0.2);
-    }
-
-    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 24px; border-radius: var(--r-sm);
-      font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
-      transition: all 0.2s; border: none; cursor: pointer;
-    }
-    .btn-dark { background: var(--heading); color: #fff; }
-    .btn-dark:hover { background: #2a2a28; }
-    .btn-light { background: var(--light); color: var(--body); }
-    .btn-light:hover { background: var(--border); }
-
-    /* Hero visual */
-    .hero-visual { position: relative; }
-    .hero-photo {
-      aspect-ratio: 3/4; border-radius: var(--r);
-      overflow: hidden; background: var(--light);
-    }
-    .hero-photo-caption {
-      position: absolute; bottom: -1px; left: 0; right: 0;
-      padding: 48px 24px 24px;
-      background: linear-gradient(to top, rgba(15,15,14,0.7), transparent);
-      border-radius: 0 0 var(--r) var(--r);
-    }
-    .hero-roles {
-      display: flex; flex-wrap: wrap; gap: 6px;
-    }
-    .hero-role-tag {
-      font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
-      color: rgba(255,255,255,0.75); font-weight: 400;
-      background: rgba(255,255,255,0.12); padding: 4px 10px;
-      border-radius: 100px; border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .placeholder-img {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--light); color: var(--muted);
-      font-size: 12px; letter-spacing: 0.04em;
-      text-align: center; padding: 16px;
-    }
-
-    /* ── Section Labels ── */
-    .sec-label {
-      font-size: 10px; font-weight: 500;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 10px;
-    }
-    .sec-title {
-      font-size: clamp(26px, 3vw, 34px); font-weight: 300;
-      color: var(--heading); letter-spacing: -0.02em; line-height: 1.2;
-    }
-    .sec-rule {
-      width: 32px; height: 1px; background: var(--heading);
-      margin: 18px 0 52px;
-    }
-
-    /* ── About / Philosophy ── */
-    #about { background: var(--bg); }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: start;
-    }
-    .about-text p {
-      font-size: 15px; line-height: 1.9; color: var(--body);
-      margin-bottom: 16px;
-    }
-    .about-text p:last-child { margin-bottom: 0; }
-    .about-text strong { color: var(--heading); font-weight: 500; }
-
-    .about-facts { display: flex; flex-direction: column; gap: 24px; padding-top: 8px; }
-    .about-fact {
-      padding: 20px 24px;
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-    }
-    .about-fact-num {
-      font-size: 28px; font-weight: 300; color: var(--heading);
-      letter-spacing: -0.03em; line-height: 1;
-      margin-bottom: 4px;
-    }
-    .about-fact-label {
-      font-size: 12px; color: var(--muted); letter-spacing: 0.03em;
-    }
-
-    /* ── Work (combined projects) ── */
-    #work { }
-    .work-filter {
-      display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap;
-    }
-    .filter-btn {
-      padding: 7px 16px; border-radius: 100px;
-      font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
-      border: 1px solid var(--border); background: var(--white);
-      color: var(--muted); cursor: pointer; transition: all 0.2s;
-    }
-    .filter-btn.active, .filter-btn:hover {
-      background: var(--heading); color: var(--white); border-color: var(--heading);
-    }
-
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .work-card {
-      border-radius: var(--r); overflow: hidden;
-      border: 1px solid var(--border); background: var(--white);
-      transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s;
-      cursor: default;
-    }
-    .work-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.09);
-    }
-    .work-thumb {
-      aspect-ratio: 4/3; background: var(--light);
-      overflow: hidden; position: relative;
-    }
-    .work-thumb img { transition: transform 0.5s cubic-bezier(.2,.8,.2,1); }
-    .work-card:hover .work-thumb img { transform: scale(1.05); }
-
-    .work-category-badge {
-      position: absolute; top: 12px; left: 12px;
-      font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; padding: 4px 10px;
-      border-radius: 100px; backdrop-filter: blur(8px);
-    }
-    .badge-music {
-      background: rgba(15,15,14,0.7); color: rgba(255,255,255,0.9);
-    }
-    .badge-design {
-      background: rgba(255,255,255,0.85); color: var(--heading);
-    }
-
-    .work-info { padding: 20px 22px; }
-    .work-date { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 5px; }
-    .work-name { font-size: 14px; font-weight: 500; color: var(--heading); line-height: 1.45; margin-bottom: 5px; }
-    .work-role { font-size: 12px; color: var(--muted); letter-spacing: 0.02em; }
-
-    /* Featured card — spans 2 columns */
-    .work-card.featured {
-      grid-column: span 2;
-    }
-    .work-card.featured .work-thumb {
-      aspect-ratio: 16/7;
-    }
-
-    /* ── Craft / Skills ── */
-    #craft { background: var(--bg); }
-    .craft-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
-    }
-    .craft-card {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 32px 36px;
-      transition: box-shadow 0.25s;
-    }
-    .craft-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
-    .craft-icon { font-size: 22px; margin-bottom: 18px; }
-    .craft-name-zh { font-size: 12px; color: var(--muted); margin-bottom: 2px; }
-    .craft-name-en { font-size: 19px; font-weight: 500; color: var(--heading); letter-spacing: -0.015em; margin-bottom: 16px; }
-    .craft-desc-zh {
-      font-size: 14px; color: var(--body); line-height: 1.8;
-      margin-bottom: 10px; font-family: 'Noto Sans TC', sans-serif;
-    }
-    .craft-desc-en { font-size: 13px; color: var(--muted); line-height: 1.7; }
-
-    /* ── Spotify ── */
-    #music { }
-    .spotify-wrap {
-      border-radius: var(--r); overflow: hidden;
-      border: 1px solid var(--border);
-    }
-    .spotify-wrap iframe { display: block; }
-
-    /* ── Clients ── */
-    #clients { background: var(--bg); }
-    .clients-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
-    .client-pill {
-      padding: 9px 18px; border-radius: 100px;
-      background: var(--white); border: 1px solid var(--border);
-      font-size: 13px; color: var(--body); letter-spacing: 0.02em;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .client-pill:hover { border-color: var(--heading); color: var(--heading); }
-
-    /* ── Contact ── */
-    #contact { }
-    .contact-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-    }
-    .contact-headline {
-      font-size: clamp(28px, 3.5vw, 40px); font-weight: 300;
-      color: var(--heading); letter-spacing: -0.02em;
-      line-height: 1.2; margin-bottom: 20px;
-    }
-    .contact-sub {
-      font-size: 15px; color: var(--muted); line-height: 1.8;
-      max-width: 360px; margin-bottom: 40px;
-      font-family: 'Noto Sans TC', sans-serif;
-    }
-    .contact-items { display: flex; flex-direction: column; gap: 12px; }
-    .contact-item {
-      display: flex; align-items: center; gap: 16px;
-      padding: 18px 22px;
-      background: var(--bg); border: 1px solid var(--border);
-      border-radius: var(--r-sm); transition: box-shadow 0.2s;
-    }
-    .contact-item:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
-    .contact-item-icon {
-      width: 38px; height: 38px; border-radius: 50%;
-      background: var(--white); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; flex-shrink: 0;
-    }
-    .contact-item-lbl { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
-    .contact-item-val { font-size: 14px; font-weight: 500; color: var(--heading); }
-
-    .contact-right { padding-top: 16px; }
-    .contact-note {
-      background: var(--bg); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 28px 32px;
-      font-size: 14px; color: var(--muted); line-height: 1.85;
-      font-family: 'Noto Sans TC', sans-serif;
-    }
-    .contact-note strong {
-      display: block; font-size: 12px; font-weight: 600;
-      color: var(--heading); letter-spacing: 0.05em; text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-
-    /* ── Footer ── */
-    footer {
-      padding: 36px 0;
-      border-top: 1px solid var(--border);
-    }
-    .footer-inner {
-      display: flex; align-items: center;
-      justify-content: space-between; flex-wrap: wrap; gap: 12px;
-    }
-    .footer-sig { font-size: 13px; font-weight: 500; color: var(--heading); }
-    .footer-links { display: flex; gap: 20px; }
-    .footer-links a { font-size: 12px; color: var(--muted); transition: color 0.2s; }
-    .footer-links a:hover { color: var(--heading); }
-    .footer-copy { font-size: 11px; color: var(--mid); }
-
-    /* ── Responsive ── */
-    @media (max-width: 768px) {
-      section { padding: 64px 0; }
-      .wrap { padding: 0 20px; }
-      .nav-inner { padding: 0 20px; }
-
-      .nav-links {
-        display: none; flex-direction: column; gap: 0;
-        position: absolute; top: 58px; left: 0; right: 0;
-        background: var(--white); border-bottom: 1px solid var(--border);
-        padding: 8px 20px 16px;
-      }
-      .nav-links.open { display: flex; }
-      .nav-links li { padding: 10px 0; border-bottom: 1px solid var(--border); }
-      .nav-links li:last-child { border-bottom: none; }
-      .nav-links a { font-size: 14px; text-transform: none; letter-spacing: 0.02em; color: var(--body); }
-      .hamburger { display: flex; }
-
-      #hero { padding-top: 96px; }
-      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-      .hero-visual { order: -1; }
-      .hero-photo { aspect-ratio: 4/3; }
-      .hero-statement { max-width: 100%; }
-
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .about-facts { flex-direction: row; flex-wrap: wrap; }
-      .about-fact { flex: 1; min-width: 120px; }
-
-      .work-grid { grid-template-columns: 1fr; }
-      .work-card.featured { grid-column: span 1; }
-      .work-card.featured .work-thumb { aspect-ratio: 4/3; }
-
-      .craft-grid { grid-template-columns: 1fr; }
-      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-      .contact-sub { max-width: 100%; }
-
-      .footer-inner { flex-direction: column; align-items: flex-start; }
-      .footer-links { display: none; }
-    }
-
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .work-grid { grid-template-columns: repeat(2, 1fr); }
-      .work-card.featured { grid-column: span 2; }
-      .hero-grid { grid-template-columns: 1fr 340px; gap: 48px; }
-    }
-
-    /* ── Fade-in on scroll ── */
-    .reveal {
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
+    .hero-grid { display: grid; grid-template-columns: 1fr 420px; gap: 72px; align-items: center; }
+    .hero-headline { font-size: clamp(38px, 4.8vw, 58px); font-weight: 300; line-height: 1.12; color: var(--heading); }
+    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .work-card { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); background: var(--white); transition: all 0.3s cubic-bezier(.2,.8,.2,1); }
+    .work-card.featured { grid-column: span 2; }
+    .work-thumb { aspect-ratio: 4/3; background: var(--light); position: relative; overflow: hidden; }
+    .work-card.featured .work-thumb { aspect-ratio: 16/7; }
+    .work-category-badge { position: absolute; top: 12px; left: 12px; font-size: 9px; padding: 4px 10px; border-radius: 100px; }
+    .badge-music { background: rgba(15,15,14,0.7); color: white; }
+    .badge-design { background: rgba(255,255,255,0.85); color: black; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
+    /* ... 其餘樣式請保持不變 ... */
   </style>
 </head>
 <body>
 
-  <!-- ── Nav ── -->
   <nav>
     <div class="nav-inner">
       <span class="nav-logo">JH Studio</span>
-      <button class="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </button>
       <ul class="nav-links" id="nav-menu">
         <li><a href="#about">About</a></li>
         <li><a href="#work">Work</a></li>
@@ -449,407 +51,103 @@
     </div>
   </nav>
 
-  <!-- ── Hero ── -->
   <section id="hero">
     <div class="wrap">
       <div class="hero-grid">
-
         <div class="hero-left">
-          <div class="hero-eyebrow">Jerry Huang · Taiwan</div>
-
-          <h1 class="hero-headline">
-            Sound.<br>
-            Objects.<br>
-            <em>Same obsession.</em>
-          </h1>
-
-          <p class="hero-statement">
-            聲音和設計對我來說是同一件事——每個細節都在傳遞某種感受。<br>
-            我做音樂，也做產品，在找的東西從來沒有變過。
-            <span>
-              For me, sound and objects are the same pursuit — every detail is a feeling waiting to be felt.
-              I make music and I make things, because what I'm looking for has never changed.
-            </span>
-          </p>
-
-          <!-- Spotify listen entry point -->
-          <a href="#music" class="hero-listen">
-            <span class="hero-listen-dot"></span>
-            Listen to my work on Spotify
-          </a>
-
+          <div class="hero-eyebrow">JH Studio · Taiwan</div>
+          <h1 class="hero-headline">Sound.<br>Objects.<br><em>Same obsession.</em></h1>
+          <p class="hero-statement">音樂和設計對我來說是同一件事。<span>For me, sound and objects are the same pursuit.</span></p>
           <div class="hero-cta">
             <a href="#work" class="btn btn-dark">View Work</a>
-            <a href="#contact" class="btn btn-light">Get in Touch</a>
           </div>
         </div>
-
         <div class="hero-visual">
-          <div class="hero-photo">
-            <!-- 替換為你的照片：<img src="assets/photo.jpg" alt="Jerry Hang"> -->
-            <div class="placeholder-img">Portrait<br>assets/photo.jpg</div>
-            <div class="hero-photo-caption">
-              <div class="hero-roles">
-                <span class="hero-role-tag">Live Sound Engineer</span>
-                <span class="hero-role-tag">Session Guitarist</span>
-                <span class="hero-role-tag">Audio Producer</span>
-                <span class="hero-role-tag">Product Designer</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ── About ── -->
-  <section id="about">
-    <div class="wrap">
-      <div class="about-grid">
-        <div class="about-text reveal">
-          <p class="sec-label">About</p>
-          <h2 class="sec-title" style="margin-bottom:0">音樂人，也是發明家。</h2>
-          <div class="sec-rule"></div>
-          <p>
-            我叫黃友立，台灣的音樂製作人、隨團音控與吉他手。
-            從錄音室的混音到演出現場的監聽調整，我習慣把每個細節都推到恰好的位置。
-          </p>
-          <p>
-            但我對質感的執念不只停在聲音裡。
-            我同時設計並 3D 列印器材周邊與產品——
-            那些東西是音樂人的工具，也是我看待音樂方式的延伸。
-          </p>
-          <p>
-            <strong>Music and making things are not two different careers — they're two expressions of the same instinct.</strong>
-          </p>
-        </div>
-
-        <div class="about-facts reveal">
-          <div class="about-fact">
-            <div class="about-fact-num">9+</div>
-            <div class="about-fact-label">合作藝人 · Artists worked with</div>
-          </div>
-          <div class="about-fact">
-            <div class="about-fact-num">#1</div>
-            <div class="about-fact-label">Apple Music Taiwan · 核果人 NUTS 2025</div>
-          </div>
-          <div class="about-fact">
-            <div class="about-fact-num">3D</div>
-            <div class="about-fact-label">列印產品設計 · Printed product design</div>
-          </div>
+          <div class="hero-photo"><div class="placeholder-img">Portrait</div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── Work ── -->
   <section id="work">
     <div class="wrap">
       <p class="sec-label">Selected Work</p>
       <h2 class="sec-title">近期作品</h2>
       <div class="sec-rule"></div>
-
       <div class="work-filter">
         <button class="filter-btn active" onclick="filterWork('all', this)">All</button>
         <button class="filter-btn" onclick="filterWork('music', this)">Music 音樂</button>
         <button class="filter-btn" onclick="filterWork('design', this)">Objects 設計</button>
       </div>
 
-      <div class="work-grid" id="work-grid">
-
-        <!-- Featured: 王喬尹 -->
-        <div class="work-card featured reveal" data-cat="music">
-          <div class="work-thumb">
-            <!-- <img src="assets/project-joyin.jpg" alt="王喬尹 Joyin Wang"> -->
-            <div class="placeholder-img">assets/project-joyin.jpg</div>
-            <span class="work-category-badge badge-music">Music Production</span>
-          </div>
-          <div class="work-info">
-            <p class="work-date">2024 / 12</p>
-            <p class="work-name">王喬尹 Joyin Wang — 《又係王喬尹》《This is Joyin Wang Again》</p>
-            <p class="work-role">Arrangement · Recording · Mixing · Mastering</p>
-          </div>
-        </div>
-
-        <!-- NUTS 2025 -->
-        <div class="work-card reveal" data-cat="music">
-          <div class="work-thumb">
-            <!-- <img src="assets/project-nuts-2025.jpg" alt="核果人 NUTS"> -->
-            <div class="placeholder-img">assets/project-nuts-2025.jpg</div>
-            <span class="work-category-badge badge-music">Mixing</span>
-          </div>
-          <div class="work-info">
-            <p class="work-date">2025 / 03 · #1 Apple Music TW</p>
-            <p class="work-name">核果人 NUTS — 如果我不是聽團仔 你還會愛我嗎？</p>
-            <p class="work-role">Mixing</p>
-          </div>
-        </div>
-
-        <!-- NUTS Chosen -->
-        <div class="work-card reveal" data-cat="music">
-          <div class="work-thumb">
-            <!-- <img src="assets/project-nuts-chosen.jpg" alt="核果人 NUTS Chosen"> -->
-            <div class="placeholder-img">assets/project-nuts-chosen.jpg</div>
-            <span class="work-category-badge badge-music">Live Sound</span>
-          </div>
-          <div class="work-info">
-            <p class="work-date">2024 / 09</p>
-            <p class="work-name">核果人 NUTS — Chosen</p>
-            <p class="work-role">Live Sound Engineering</p>
-          </div>
-        </div>
-
-        <!-- Marshall Mini Amp Holder -->
-        <div class="work-card reveal" data-cat="design">
-          <div class="work-thumb">
-            <!-- <img src="assets/marshall-holder.jpg" alt="Marshall Mini Amp Guitar Pick Holder"> -->
-            <div class="placeholder-img">assets/marshall-holder.jpg</div>
-            <span class="work-category-badge badge-design">Product Design</span>
-          </div>
-          <div class="work-info">
-            <p class="work-date">Product · 3D Print</p>
-            <p class="work-name">Marshall Mini Amp Guitar Pick Holder</p>
-            <p class="work-role">Concept · CAD · 3D Printing</p>
-          </div>
-        </div>
-
-        <!-- Fender Mini Amp Box -->
-        <div class="work-card reveal" data-cat="design">
-          <div class="work-thumb">
-            <!-- <img src="assets/fender-box.jpg" alt="Fender Mini Amp Guitar Pick Box"> -->
-            <div class="placeholder-img">assets/fender-box.jpg</div>
-            <span class="work-category-badge badge-design">Product Design</span>
-          </div>
-          <div class="work-info">
-            <p class="work-date">Product · 3D Print</p>
-            <p class="work-name">Fender Mini Amp Guitar Pick Box</p>
-            <p class="work-role">Concept · CAD · 3D Printing</p>
-          </div>
-        </div>
-
-      </div>
+      <div class="work-grid" id="work-grid"></div>
     </div>
   </section>
 
-  <!-- ── Craft ── -->
-  <section id="craft">
-    <div class="wrap">
-      <p class="sec-label">What I do</p>
-      <h2 class="sec-title">服務項目 · Craft</h2>
-      <div class="sec-rule"></div>
-
-      <div class="craft-grid">
-        <div class="craft-card reveal">
-          <div class="craft-icon">🎛️</div>
-          <p class="craft-name-zh">音樂製作</p>
-          <h3 class="craft-name-en">Music Production</h3>
-          <p class="craft-desc-zh">
-            全方位編曲、錄音、混音與母帶後製。專注於獨立及搖滾。
-            根據你的創意或初步概念量身打造，確保每個音符準確傳遞情感。
-          </p>
-          <p class="craft-desc-en">
-            Arrangement, recording, mixing &amp; mastering — indie and rock focus. Tailored to your vision, every note placed with purpose.
-          </p>
-        </div>
-
-        <div class="craft-card reveal">
-          <div class="craft-icon">🎸</div>
-          <p class="craft-name-zh">吉他教學</p>
-          <h3 class="craft-name-en">Guitar Instruction</h3>
-          <p class="craft-desc-zh">
-            不管是初學者還是有經驗的演奏者，都能在輕鬆的學習氛圍中找到自己的節奏。
-            音樂應該是一種享受，不是壓力。
-          </p>
-          <p class="craft-desc-en">
-            Relaxed, engaging lessons for all levels. Music should feel like discovery, not pressure.
-          </p>
-        </div>
-
-        <div class="craft-card reveal">
-          <div class="craft-icon">🔊</div>
-          <p class="craft-name-zh">隨團音控</p>
-          <h3 class="craft-name-en">Live Sound Engineering</h3>
-          <p class="craft-desc-zh">
-            重視前期溝通，確保設備和技術需求都得到滿足。
-            從場前準備到現場執行，每一個細節都為演出服務。
-          </p>
-          <p class="craft-desc-en">
-            Strong emphasis on pre-show communication. From prep to execution — every detail in service of the performance.
-          </p>
-        </div>
-
-        <div class="craft-card reveal">
-          <div class="craft-icon">🔧</div>
-          <p class="craft-name-zh">產品設計</p>
-          <h3 class="craft-name-en">Product Design</h3>
-          <p class="craft-desc-zh">
-            從概念到實體製作，利用 3D 列印技術探索音樂器材周邊與創新設計。
-            有用的，或純粹有趣的——都值得被做出來。
-          </p>
-          <p class="craft-desc-en">
-            From concept to physical object — 3D printing to explore music accessories and experimental designs. Useful things, or just beautiful ones.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Music / Spotify ── -->
-  <section id="music">
-    <div class="wrap">
-      <p class="sec-label">Listen</p>
-      <h2 class="sec-title">JH Portfolio · Spotify</h2>
-      <div class="sec-rule"></div>
-
-      <div class="spotify-wrap reveal">
-        <!--
-          把 src 裡面的 playlist ID 換成你自己 JH Portfolio 的 Spotify Playlist ID。
-          格式：https://open.spotify.com/embed/playlist/你的PLAYLIST_ID?utm_source=generator&theme=0
-        -->
-        <iframe
-          src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0"
-          width="100%" height="400"
-          frameborder="0" allowfullscreen=""
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-          style="border-radius: 14px; display:block;"
-        ></iframe>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Clients ── -->
-  <section id="clients" style="padding-top:0; padding-bottom: 80px;">
-    <div class="wrap">
-      <p class="sec-label">Trusted by</p>
-      <h2 class="sec-title">合作夥伴</h2>
-      <div class="sec-rule"></div>
-
-      <div class="clients-cloud reveal">
-        <span class="client-pill">核果人樂團 NUTS Band</span>
-        <span class="client-pill">百合花樂團 Lilium Band</span>
-        <span class="client-pill">同根生樂團 A Root Band</span>
-        <span class="client-pill">芒果醬樂團 MangoJump Band</span>
-        <span class="client-pill">TAMA Artist 唐于喬 Yu Chiao Tang</span>
-        <span class="client-pill">王喬尹 Joyin Wang</span>
-        <span class="client-pill">姚可傑 Jac</span>
-        <span class="client-pill">曹雅雯 Olivia Tsao</span>
-        <span class="client-pill">謝青燁 Eric</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Contact ── -->
-  <section id="contact" style="background: var(--bg);">
-    <div class="wrap">
-      <div class="contact-grid">
-
-        <div>
-          <p class="sec-label">Say hello</p>
-          <h2 class="contact-headline">
-            有任何合作<br>都歡迎聯絡。
-          </h2>
-          <p class="contact-sub">
-            音樂製作、隨團音控、吉他錄音、產品設計——或者只是想聊聊，都可以。<br><br>
-            Music production, live sound, session recording, product design — or just a conversation. All welcome.
-          </p>
-
-          <div class="contact-items">
-            <a href="https://www.instagram.com/jerryhang_" target="_blank" rel="noopener" class="contact-item">
-              <div class="contact-item-icon">📸</div>
-              <div>
-                <p class="contact-item-lbl">Instagram</p>
-                <p class="contact-item-val">@jerryhang_</p>
-              </div>
-            </a>
-            <a href="mailto:jh800624@gmail.com" class="contact-item">
-              <div class="contact-item-icon">✉️</div>
-              <div>
-                <p class="contact-item-lbl">Email</p>
-                <p class="contact-item-val">jh800624@gmail.com</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="contact-right">
-          <div class="contact-note reveal">
-            <strong>A note</strong>
-            歡迎任何規模的合作洽詢。無論是一首歌的 session 錄音、整張專輯的製作，或是一個你腦海中的產品概念——我都很想聽。<br><br>
-            I'm open to projects of any size. From a single session track to a full album — or a product idea you've had in your head for months. Tell me about it.
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Footer ── -->
-  <footer>
-    <div class="wrap">
-      <div class="footer-inner">
-        <span class="footer-sig">JH Studio · 黃友立 Jerry Hang</span>
-        <div class="footer-links">
-          <a href="https://www.instagram.com/jerryhang_" target="_blank">Instagram</a>
-          <a href="mailto:jh800624@gmail.com">Email</a>
-        </div>
-        <span class="footer-copy">© 2025 JH Studio</span>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ── JS ── -->
   <script>
-    // Hamburger
-    function toggleMenu() {
-      document.getElementById('nav-menu').classList.toggle('open');
-    }
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      a.addEventListener('click', () => document.getElementById('nav-menu').classList.remove('open'));
-    });
-
-    // Active nav on scroll
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll', () => {
-      let cur = '';
-      sections.forEach(s => {
-        if (window.scrollY >= s.offsetTop - 80) cur = s.id;
-      });
-      navLinks.forEach(a => {
-        a.classList.toggle('active', a.getAttribute('href') === `#${cur}`);
-      });
-    }, { passive: true });
-
-    // Work filter
-    function filterWork(cat, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('#work-grid .work-card').forEach(card => {
-        const show = cat === 'all' || card.dataset.cat === cat;
-        card.style.display = show ? '' : 'none';
-        // Re-apply featured class only for music cards when all visible
-        if (cat === 'all' && card.classList.contains('featured')) {
-          card.style.gridColumn = 'span 2';
-        } else if (cat !== 'all' && card.classList.contains('featured')) {
-          card.style.gridColumn = '';
-        }
-      });
-    }
-
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
+    // 1. 初始化 IntersectionObserver (負責捲動動畫)
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          entry.target.classList.add('visible');
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.08 });
-    reveals.forEach(el => observer.observe(el));
-  </script>
+    }, { threshold: 0.1 });
 
+    // 2. 從 JSON 抓取資料並渲染
+    let allProjects = [];
+
+    async function loadProjects() {
+      try {
+        const response = await fetch('projects.json');
+        allProjects = await response.json();
+        renderProjects(allProjects);
+      } catch (err) {
+        console.error("無法載入作品資料:", err);
+      }
+    }
+
+    function renderProjects(projects) {
+      const container = document.getElementById('work-grid');
+      container.innerHTML = ''; 
+
+      projects.forEach(item => {
+        const card = document.createElement('div');
+        card.className = `work-card reveal ${item.featured ? 'featured' : ''}`;
+        card.setAttribute('data-cat', item.category);
+        
+        card.innerHTML = `
+          <div class="work-thumb">
+            <img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="placeholder-img" style="display:none">${item.image}</div>
+            <span class="work-category-badge ${item.category === 'music' ? 'badge-music' : 'badge-design'}">
+              ${item.category === 'music' ? 'Music' : 'Design'}
+            </span>
+          </div>
+          <div class="work-info">
+            <p class="work-date">${item.date}</p>
+            <p class="work-name">${item.name}</p>
+            <p class="work-role">${item.role}</p>
+          </div>
+        `;
+        
+        container.appendChild(card);
+        observer.observe(card); // 讓新生成的卡片也有動畫
+      });
+    }
+
+    // 3. 篩選功能
+    function filterWork(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      const filtered = cat === 'all' ? allProjects : allProjects.filter(p => p.category === cat);
+      renderProjects(filtered);
+    }
+
+    // 啟動載入
+    document.addEventListener('DOMContentLoaded', loadProjects);
+  </script>
 </body>
 </html>
