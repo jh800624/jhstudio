@@ -23,8 +23,8 @@
       --body:    #444444;
       --heading: #000000;
       --r:       14px;
+      --r-sm:    12px;
       --max:     1200px;
-      --ease:    cubic-bezier(0.23, 1, 0.32, 1);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,92 +42,348 @@
     .wrap { max-width: var(--max); margin: 0 auto; padding: 0 48px; }
     section { padding: 96px 0; }
 
-    /* ── Page Loader ── */
+    /* ── Loading ── */
     #page-loader {
       position: fixed; inset: 0; background: var(--white);
       display: flex; align-items: center; justify-content: center;
       z-index: 9999; transition: opacity 0.4s;
     }
     #page-loader.hidden { opacity: 0; pointer-events: none; }
-    .loader-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mid); margin: 0 4px; animation: pulse 1.2s ease-in-out infinite; }
-    @keyframes pulse { 0%, 80%, 100% { transform: scale(0.8); opacity: 0.4; } 40% { transform: scale(1.2); opacity: 1; } }
+    .loader-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--mid); margin: 0 4px;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    .loader-dot:nth-child(2) { animation-delay: 0.2s; }
+    .loader-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes pulse {
+      0%, 80%, 100% { transform: scale(0.8); opacity: 0.4; }
+      40% { transform: scale(1.2); opacity: 1; }
+    }
 
     /* ── Nav ── */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
-    .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 48px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: var(--max); margin: 0 auto; padding: 0 48px;
+      height: 58px; display: flex; align-items: center; justify-content: space-between;
+    }
     .nav-logo { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: var(--heading); }
     .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a { font-size: 12px; font-weight: 400; text-transform: uppercase; color: var(--muted); transition: 0.2s; }
+    .nav-links a { font-size: 12px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); transition: color 0.2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--heading); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
     .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--heading); transition: 0.3s; }
 
     /* ── Hero ── */
     #hero { padding-top: 148px; padding-bottom: 80px; }
     .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-    .hero-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+    .hero-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
     .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--mid); }
-    .hero-headline { font-size: clamp(38px, 4.8vw, 58px); font-weight: 300; line-height: 1.12; color: var(--heading); margin-bottom: 28px; }
-    .hero-headline em { font-style: italic; color: var(--muted); font-weight: 300; }
-    .hero-statement { font-size: 16px; line-height: 1.85; border-left: 2px solid var(--border); padding-left: 20px; margin-bottom: 36px; }
-    .hero-statement span { display: block; font-size: 13px; color: var(--muted); margin-top: 8px; font-style: italic; line-height: 1.6; }
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border-radius: 12px; font-size: 13px; font-weight: 500; transition: 0.2s; border: none; cursor: pointer; }
-    .btn-dark { background: #000; color: #fff; }
-    .btn-gray { background: #eee; color: #000; }
+    .hero-headline { font-size: clamp(38px, 4.8vw, 58px); font-weight: 300; line-height: 1.12; letter-spacing: -0.025em; color: var(--heading); margin-bottom: 28px; }
+    .hero-headline em { font-style: italic; font-weight: 300; color: var(--muted); }
+    .hero-statement { font-size: 16px; line-height: 1.85; color: var(--body); max-width: 480px; border-left: 2px solid var(--border); padding-left: 20px; margin-bottom: 36px; font-family: 'Noto Sans TC', sans-serif; }
+    .hero-statement span { display: block; font-size: 13px; color: var(--muted); margin-top: 8px; font-family: 'Inter', sans-serif; font-style: italic; line-height: 1.6; }
+    .hero-listen { display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px 10px 14px; background: var(--light); border-radius: 100px; font-size: 12px; font-weight: 500; color: var(--body); letter-spacing: 0.03em; transition: background 0.2s; margin-bottom: 32px; }
+    .hero-listen:hover { background: var(--border); }
+    .hero-listen-dot { width: 8px; height: 8px; border-radius: 50%; background: #1DB954; flex-shrink: 0; box-shadow: 0 0 0 3px rgba(29,185,84,0.2); }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border-radius: var(--r-sm); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; transition: all 0.2s; border: none; cursor: pointer; }
+    .btn-dark { background: #000000; color: #ffffff; }
+    .btn-dark:hover { background: #222222; }
+    .btn-gray { background: #eeeeee; color: #000000; }
+    .btn-gray:hover { background: #dddddd; }
 
-    /* ── Carousel ── */
+    /* ── Hero Visual / Carousel ── */
+    .hero-visual { position: relative; }
     .hero-photo { aspect-ratio: 4/5; border-radius: var(--r); overflow: hidden; background: var(--light); position: relative; }
-    .carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
-    .carousel-slide.active { opacity: 1; }
-    .carousel-slide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .carousel-slide.active img { animation: zoomOut 6s ease-out forwards; }
-    @keyframes zoomOut { from { transform: scale(1.08); } to { transform: scale(1.0); } }
+    @keyframes zoomOut {
+      from { transform: scale(1.08); }
+      to   { transform: scale(1.0);  }
+    }
+    @keyframes zoomIn {
+      from { transform: scale(1.0);  }
+      to   { transform: scale(1.08); }
+    }
+    .carousel-slide {
+      position: absolute; inset: 0;
+      opacity: 0;
+      transition: opacity 1.4s ease;
+    }
+    .carousel-slide.active  { opacity: 1; }
+    .carousel-slide.leaving { opacity: 0; }
+    .carousel-slide img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      transform: scale(1.08);
+    }
+    /* 進場：從大縮小 (zoom out) */
+    .carousel-slide.active img {
+      animation: zoomOut 6s ease-out forwards;
+    }
+    /* 離場：繼續放大 (zoom in) */
+    .carousel-slide.leaving img {
+      animation: zoomIn 1.6s ease-in forwards;
+    }
+    .carousel-slide .placeholder-img { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .hero-photo-caption { position: absolute; bottom: -1px; left: 0; right: 0; padding: 48px 24px 24px; background: linear-gradient(to top, rgba(0,0,0,0.65), transparent); border-radius: 0 0 var(--r) var(--r); z-index: 10; }
+    .hero-roles { display: flex; flex-wrap: wrap; gap: 6px; }
+    .hero-role-tag { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.8); font-weight: 400; background: rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2); }
+    .placeholder-img { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--light); color: var(--muted); font-size: 12px; letter-spacing: 0.04em; text-align: center; padding: 16px; }
+
+    /* ── Section Labels ── */
+    .sec-label { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .sec-title { font-size: clamp(26px, 3vw, 34px); font-weight: 300; color: var(--heading); letter-spacing: -0.02em; line-height: 1.2; }
+    .sec-rule { width: 32px; height: 1px; background: var(--heading); margin: 18px 0 52px; }
+
+    /* ── About ── */
+    #about { background: var(--bg); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .about-text p { font-size: 15px; line-height: 1.9; color: var(--body); margin-bottom: 16px; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong { color: var(--heading); font-weight: 500; }
+    .about-facts { display: flex; flex-direction: column; gap: 24px; padding-top: 8px; }
+    .about-fact { padding: 20px 24px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-sm); }
+    .about-fact-num { font-size: 28px; font-weight: 300; color: var(--heading); letter-spacing: -0.03em; line-height: 1; margin-bottom: 4px; }
+    .about-fact-label { font-size: 12px; color: var(--muted); letter-spacing: 0.03em; }
 
     /* ── Work ── */
-    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 360px; gap: 16px; }
-    .work-card { border-radius: var(--r); overflow: hidden; position: relative; background: var(--light); transition: transform 0.4s var(--ease), box-shadow 0.4s; }
-    .work-card:hover { transform: translateY(-10px); box-shadow: 0 24px 64px rgba(0,0,0,0.15); }
-    .work-card.featured { grid-column: span 2; grid-row: span 2; }
-    .work-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease), filter 0.5s; }
-    .work-card:hover img { transform: scale(1.06); filter: blur(2px) brightness(0.75); }
-    .work-overlay { position: absolute; inset: 0; z-index: 5; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%); opacity: 0; transition: opacity 0.4s; display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; }
+    #work {}
+    .work-filter { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+    .filter-btn { padding: 7px 16px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; border: 1px solid var(--border); background: var(--white); color: var(--muted); cursor: pointer; transition: all 0.2s; }
+    .filter-btn.active, .filter-btn:hover { background: var(--heading); color: var(--white); border-color: var(--heading); }
+
+    /* ── Work grid: full-image cards ── */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 360px;  /* 固定列高，所有卡片等高 */
+      gap: 16px;
+    }
+
+    .work-card {
+      border-radius: var(--r);
+      overflow: hidden;
+      position: relative;
+      cursor: default;
+      background: var(--light);
+      /* 不設 aspect-ratio，讓 grid-auto-rows 控制高度 */
+      transition: transform 0.4s cubic-bezier(.2,.8,.2,1), box-shadow 0.4s;
+    }
+    .work-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.15);
+    }
+
+    /* Featured: 跨 2 欄、跨 2 列 → 大圖塊 */
+    .work-card.featured {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    /* Full-bleed image — absolute 填滿卡片，自動裁切 */
+    .work-card img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;        /* 自動裁切填滿，不需轉檔 */
+      object-position: center;  /* 預設置中裁切 */
+      transition: transform 0.6s cubic-bezier(.2,.8,.2,1), filter 0.5s;
+    }
+    .work-card:hover img {
+      transform: scale(1.06);
+      filter: blur(2px) brightness(0.75);
+    }
+
+    /* Placeholder when no image */
+    .work-card .placeholder-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      transition: filter 0.5s;
+    }
+    .work-card:hover .placeholder-img {
+      filter: brightness(0.6);
+    }
+
+    /* Category badge — top left, always visible */
+    .work-category-badge {
+      position: absolute; top: 16px; left: 16px; z-index: 10;
+      font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 4px 12px;
+      border-radius: 100px; backdrop-filter: blur(8px);
+      transition: opacity 0.3s;
+    }
+    .work-card:hover .work-category-badge { opacity: 0; }
+    .badge-music  { background: rgba(0,0,0,0.55); color: rgba(255,255,255,0.9); }
+    .badge-design { background: rgba(255,255,255,0.8); color: var(--heading); }
+
+    /* Overlay: hidden until hover */
+    .work-overlay {
+      position: absolute; inset: 0; z-index: 5;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.82) 0%,
+        rgba(0,0,0,0.4)  45%,
+        transparent      100%
+      );
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 28px 28px 28px;
+    }
     .work-card:hover .work-overlay { opacity: 1; }
-    .work-overlay-inner { transform: translateY(16px); transition: transform 0.4s var(--ease); }
+
+    /* Overlay text: slides up */
+    .work-overlay-inner {
+      transform: translateY(16px);
+      transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
+    }
     .work-card:hover .work-overlay-inner { transform: translateY(0); }
 
-    /* ── Music ── */
-    .music-platform-tabs { display: flex; gap: 8px; margin-bottom: 28px; }
-    .platform-tab { padding: 8px 18px; border-radius: 100px; font-size: 12px; border: 1px solid var(--border); background: var(--white); cursor: pointer; transition: 0.2s; }
-    .platform-tab.active { background: var(--heading); color: var(--white); }
-    .music-embed { display: none; border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); }
-    .music-embed.active { display: block; }
+    .work-overlay-badge {
+      display: inline-block;
+      font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+      margin-bottom: 8px;
+    }
+    .work-overlay-name {
+      font-size: 15px; font-weight: 500;
+      color: #ffffff; line-height: 1.4;
+      margin-bottom: 6px;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    .work-overlay-role {
+      font-size: 11px; color: rgba(255,255,255,0.6);
+      letter-spacing: 0.04em;
+    }
+    .work-overlay-date {
+      font-size: 10px; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em; margin-top: 10px;
+      text-transform: uppercase;
+    }
 
-    /* ── Clients & Footer ── */
-    .client-pill { padding: 9px 18px; border-radius: 100px; background: var(--white); border: 1px solid var(--border); font-size: 13px; margin: 4px; display: inline-block; }
-    footer { padding: 48px 0; border-top: 1px solid var(--border); background: var(--white); }
-    .footer-inner { display: flex; justify-content: space-between; font-size: 13px; }
+    /* ── Craft ── */
+    #craft { background: var(--bg); }
+    .craft-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .craft-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 32px 36px; transition: box-shadow 0.25s; }
+    .craft-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+    .craft-icon { font-size: 22px; margin-bottom: 18px; }
+    .craft-name-zh { font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+    .craft-name-en { font-size: 19px; font-weight: 500; color: var(--heading); letter-spacing: -0.015em; margin-bottom: 16px; }
+    .craft-desc-zh { font-size: 14px; color: var(--body); line-height: 1.8; margin-bottom: 10px; font-family: 'Noto Sans TC', sans-serif; }
+    .craft-desc-en { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* ── Music ── */
+    .music-platform-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+    .platform-tab { display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 0.03em; border: 1px solid var(--border); background: var(--white); color: var(--muted); cursor: pointer; transition: all 0.2s; }
+    .platform-tab:hover { border-color: var(--heading); color: var(--heading); }
+    .platform-tab.active { background: var(--heading); color: var(--white); border-color: var(--heading); }
+    .platform-tab-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .dot-spotify    { background: #1DB954; }
+    .dot-youtube    { background: #FF0000; }
+    .dot-soundcloud { background: #FF5500; }
+    .music-embed-wrap { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); }
+    .music-embed { display: none; }
+    .music-embed.active { display: block; }
+    .music-embed iframe { display: block; }
+    .soundcloud-card { padding: 40px; text-align: center; background: var(--light); display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .soundcloud-card p { font-size: 13px; color: var(--muted); }
+
+    /* ── Clients ── */
+    #clients { background: var(--bg); padding-top: 0; padding-bottom: 80px; }
+    .clients-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+    .client-pill { padding: 9px 18px; border-radius: 100px; background: var(--white); border: 1px solid var(--border); font-size: 13px; color: var(--body); letter-spacing: 0.02em; transition: border-color 0.2s, color 0.2s; }
+    .client-pill:hover { border-color: var(--heading); color: var(--heading); }
+
+    /* ── Contact ── */
+    #contact { background: var(--bg); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+    .contact-headline { font-size: clamp(28px, 3.5vw, 40px); font-weight: 300; color: var(--heading); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 20px; }
+    .contact-sub { font-size: 15px; color: var(--muted); line-height: 1.8; max-width: 360px; margin-bottom: 40px; font-family: 'Noto Sans TC', sans-serif; }
+    .contact-items { display: flex; flex-direction: column; gap: 12px; }
+    .contact-item { display: flex; align-items: center; gap: 16px; padding: 18px 22px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-sm); transition: box-shadow 0.2s; }
+    .contact-item:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+    .contact-item-icon { width: 38px; height: 38px; border-radius: 50%; background: var(--light); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .contact-item-lbl { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+    .contact-item-val { font-size: 14px; font-weight: 500; color: var(--heading); }
+    .contact-right { padding-top: 16px; }
+    .contact-note { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 28px 32px; font-size: 14px; color: var(--muted); line-height: 1.85; font-family: 'Noto Sans TC', sans-serif; }
+    .contact-note strong { display: block; font-size: 12px; font-weight: 600; color: var(--heading); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+
+    /* ── Footer ── */
+    footer { padding: 36px 0; border-top: 1px solid var(--border); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-sig { font-size: 13px; font-weight: 500; color: var(--heading); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 12px; color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--heading); }
+    .footer-copy { font-size: 11px; color: var(--mid); }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
-      .hero-grid, .work-grid, .about-grid { grid-template-columns: 1fr; }
-      .work-grid { grid-auto-rows: 300px; }
+      section { padding: 64px 0; }
+      .wrap { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 58px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--border); padding: 8px 20px 16px; }
+      .nav-links.open { display: flex; }
+      .nav-links li { padding: 10px 0; border-bottom: 1px solid var(--border); }
+      .nav-links li:last-child { border-bottom: none; }
+      .nav-links a { font-size: 14px; text-transform: none; letter-spacing: 0.02em; color: var(--body); }
+      .hamburger { display: flex; }
+      #hero { padding-top: 96px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .hero-visual { order: -1; }
+      .hero-photo { aspect-ratio: 4/3; }
+      .hero-statement { max-width: 100%; text-align: left; }
+      .hero-eyebrow { justify-content: center; }
+      .hero-cta { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-facts { flex-direction: row; flex-wrap: wrap; }
+      .about-fact { flex: 1; min-width: 120px; }
+      /* Mobile: single column, fixed aspect */
+      .work-grid { grid-template-columns: 1fr; gap: 12px; grid-auto-rows: 280px; }
+      .work-card { }
       .work-card.featured { grid-column: span 1; grid-row: span 1; }
-      .nav-links { display: none; }
-      .wrap { padding: 0 24px; }
+      /* Always show overlay text on mobile (no hover) */
+      .work-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%, transparent 100%); }
+      .work-overlay-inner { transform: translateY(0); }
+      .work-category-badge { opacity: 0; }
+      .craft-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .contact-sub { max-width: 100%; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-links { display: none; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .work-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 320px; }
+      .work-card.featured { grid-column: span 2; grid-row: span 1; }
+      .hero-grid { grid-template-columns: 1fr 1fr; gap: 48px; }
     }
 
-    .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease; }
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
   </style>
 </head>
 <body>
 
-  <div id="page-loader"><div class="loader-dot"></div><div class="loader-dot"></div><div class="loader-dot"></div></div>
+  <div id="page-loader">
+    <div class="loader-dot"></div>
+    <div class="loader-dot"></div>
+    <div class="loader-dot"></div>
+  </div>
 
+  <!-- ── Nav ── -->
   <nav>
     <div class="nav-inner">
       <span class="nav-logo">JH Studio</span>
-      <ul class="nav-links">
+      <button class="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-menu">
         <li><a href="#about">About</a></li>
         <li><a href="#work">Work</a></li>
         <li><a href="#craft">Craft</a></li>
@@ -137,88 +393,400 @@
     </div>
   </nav>
 
-  <section id="hero"><div class="wrap"><div class="hero-grid" id="hero-content"><div id="hero-left"></div><div id="hero-visual"></div></div></div></section>
-  <section id="about" style="background:var(--bg)"><div class="wrap" id="about-grid" class="about-grid"></div></section>
-  
+  <!-- ── Hero ── -->
+  <section id="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div id="hero-left"></div>
+        <div class="hero-visual" id="hero-visual"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About ── -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid" id="about-grid"></div>
+    </div>
+  </section>
+
+  <!-- ── Work ── -->
   <section id="work">
     <div class="wrap">
-      <h2 style="font-weight:300; margin-bottom:40px;">Selected Work</h2>
-      <div id="work-grid" class="work-grid"></div>
+      <p class="sec-label">Selected Work</p>
+      <h2 class="sec-title">近期作品</h2>
+      <div class="sec-rule"></div>
+      <div class="work-filter">
+        <button class="filter-btn active" onclick="filterWork('all', this)">All</button>
+        <button class="filter-btn" onclick="filterWork('music', this)">Music 音樂</button>
+        <button class="filter-btn" onclick="filterWork('design', this)">Objects 設計</button>
+      </div>
+      <div class="work-grid" id="work-grid"></div>
     </div>
   </section>
 
-  <section id="craft"><div class="wrap"><h2>Craft</h2><div id="craft-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:40px;"></div></div></section>
+  <!-- ── Craft ── -->
+  <section id="craft">
+    <div class="wrap">
+      <p class="sec-label">What I do</p>
+      <h2 class="sec-title">服務項目 · Craft</h2>
+      <div class="sec-rule"></div>
+      <div class="craft-grid" id="craft-grid"></div>
+    </div>
+  </section>
 
+  <!-- ── Music ── -->
   <section id="music">
     <div class="wrap">
-      <h2 style="font-weight:300; margin-bottom:32px;">Listen</h2>
+      <p class="sec-label">Listen</p>
+      <h2 class="sec-title">Music</h2>
+      <div class="sec-rule"></div>
       <div class="music-platform-tabs" id="music-tabs"></div>
-      <div id="music-embeds"></div>
+      <div class="music-embed-wrap reveal" id="music-embeds"></div>
     </div>
   </section>
 
-  <section id="clients"><div class="wrap" id="clients-cloud"></div></section>
-
-  <section id="contact" style="background:var(--bg)">
-    <div class="wrap" id="contact-grid" class="contact-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:60px;"></div>
+  <!-- ── Clients ── -->
+  <section id="clients" style="padding-top:0; padding-bottom:80px;">
+    <div class="wrap">
+      <p class="sec-label">Trusted by</p>
+      <h2 class="sec-title">合作夥伴</h2>
+      <div class="sec-rule"></div>
+      <div class="clients-cloud reveal" id="clients-cloud"></div>
+    </div>
   </section>
 
-  <footer><div class="wrap"><div class="footer-inner" id="footer-inner"></div></div></footer>
+  <!-- ── Contact ── -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-grid" id="contact-grid"></div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner" id="footer-inner"></div>
+    </div>
+  </footer>
 
   <script>
+  const CRAFT = [
+    { icon: '🎛️', name_zh: '音樂製作', name_en: 'Music Production',
+      desc_zh: '全方位編曲、錄音、混音與母帶後製。專注於獨立及搖滾。根據你的創意或初步概念量身打造，確保每個音符準確傳遞情感。',
+      desc_en: 'Arrangement, recording, mixing & mastering — indie and rock focus. Tailored to your vision, every note placed with purpose.' },
+    { icon: '🎸', name_zh: '吉他教學', name_en: 'Guitar Instruction',
+      desc_zh: '不管是初學者還是有經驗的演奏者，都能在輕鬆的學習氛圍中找到自己的節奏。音樂應該是一種享受，不是壓力。',
+      desc_en: 'Relaxed, engaging lessons for all levels. Music should feel like discovery, not pressure.' },
+    { icon: '🔊', name_zh: '隨團音控', name_en: 'Live Sound Engineering',
+      desc_zh: '重視前期溝通，確保設備和技術需求都得到滿足。從場前準備到現場執行，每一個細節都為演出服務。',
+      desc_en: 'Strong emphasis on pre-show communication. From prep to execution — every detail in service of the performance.' },
+    { icon: '🔧', name_zh: '產品設計', name_en: 'Product Design',
+      desc_zh: '從概念到實體製作，利用 3D 列印技術探索音樂器材周邊與創新設計。有用的，或純粹有趣的——都值得被做出來。',
+      desc_en: 'From concept to physical object — 3D printing to explore music accessories and experimental designs. Useful things, or just beautiful ones.' }
+  ];
+
+  function imgEl(src, alt) {
+    if (!src) return '<div class="placeholder-img">' + (alt || 'Image') + '</div>';
+    var safeAlt = (alt || '').replace(/"/g, '&quot;');
+    return '<img src="' + src + '" alt="' + safeAlt + '" loading="lazy">';
+  }
+
+  // ── Hero ──
+  function renderHero(d) {
+    const h = d.hero;
+    const lines = h.headline.map(l => l === h.headline_em ? `<em>${l}</em>` : l).join('<br>');
+    const stmtZh = h.statement_zh.replace(/\n/g, '<br>');
+    const stmtEn = h.statement_en.replace(/\n/g, '<br>');
+
+    document.getElementById('hero-left').innerHTML = `
+      <div class="hero-eyebrow">${h.eyebrow}</div>
+      <h1 class="hero-headline">${lines}</h1>
+      <p class="hero-statement">${stmtZh}<span>${stmtEn}</span></p>
+      <a href="#music" class="hero-listen">
+        <span class="hero-listen-dot"></span>${h.listen_label}
+      </a>
+      <div class="hero-cta">
+        <a href="#work" class="btn btn-dark">View Work</a>
+        <a href="#contact" class="btn btn-gray">Get in Touch</a>
+      </div>`;
+
+    const photos = Array.isArray(h.photos) && h.photos.length > 0
+      ? h.photos : (h.photo ? [h.photo] : [null]);
+
+    document.getElementById('hero-visual').innerHTML = `
+      <div class="hero-photo" id="hero-carousel">
+        ${photos.map((src, i) => `
+          <div class="carousel-slide${i === 0 ? ' active' : ''}">
+            ${imgEl(src, 'Jerry Hang')}
+          </div>`).join('')}
+        <div class="hero-photo-caption">
+          <div class="hero-roles">
+            ${h.roles.map(r => `<span class="hero-role-tag">${r}</span>`).join('')}
+          </div>
+        </div>
+      </div>`;
+
+    if (photos.length > 1) initCarousel('hero-carousel', 4000);
+  }
+
+  function initCarousel(id, interval) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const slides = el.querySelectorAll('.carousel-slide');
+    if (slides.length < 2) return;
+    let cur = 0;
+    function goTo(next) {
+      const leaving = slides[cur];
+      const leavingImg = leaving.querySelector('img');
+
+      // 舊圖：加 leaving class 觸發 zoom in 離場
+      leaving.classList.remove('active');
+      leaving.classList.add('leaving');
+      if (leavingImg) {
+        leavingImg.style.animation = 'none';
+        void leavingImg.offsetHeight;
+        leavingImg.style.animation = '';
+      }
+
+      // 清掉舊的 leaving（fade 結束後）
+      setTimeout(() => leaving.classList.remove('leaving'), 1600);
+
+      // 新圖：reset zoom out 動畫後 activate
+      cur = next % slides.length;
+      const nextImg = slides[cur].querySelector('img');
+      if (nextImg) {
+        nextImg.style.animation = 'none';
+        void nextImg.offsetHeight;
+        nextImg.style.animation = '';
+      }
+      slides[cur].classList.add('active');
+    }
+    }
+    setInterval(() => goTo(cur + 1), interval);
+  }
+
+  // ── About ──
+  function renderAbout(d) {
+    const a = d.about;
+    const paras = a.paragraphs.map((p, i) =>
+      i === a.paragraphs.length - 1 ? `<p><strong>${p}</strong></p>` : `<p>${p}</p>`
+    ).join('');
+    document.getElementById('about-grid').innerHTML = `
+      <div class="about-text reveal">
+        <p class="sec-label">About</p>
+        <h2 class="sec-title" style="margin-bottom:0">${a.title_zh}</h2>
+        <div class="sec-rule"></div>
+        ${paras}
+      </div>
+      <div class="about-facts reveal">
+        ${a.facts.map(f => `
+          <div class="about-fact">
+            <div class="about-fact-num">${f.num}</div>
+            <div class="about-fact-label">${f.label_zh} · ${f.label_en}</div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  // ── Works: full-image cards ──
+  function renderWorks(works) {
+    document.getElementById('work-grid').innerHTML = works.map(w => `
+      <div class="work-card${w.featured ? ' featured' : ''} reveal" data-cat="${w.cat}">
+        ${imgEl(w.image, w.name)}
+        <span class="work-category-badge badge-${w.badge_type}">${w.badge}</span>
+        <div class="work-overlay">
+          <div class="work-overlay-inner">
+            <div class="work-overlay-badge">${w.badge}</div>
+            <div class="work-overlay-name">${w.name}</div>
+            <div class="work-overlay-role">${w.role}</div>
+            <div class="work-overlay-date">${w.date}</div>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  // ── Craft ──
+  function renderCraft() {
+    document.getElementById('craft-grid').innerHTML = CRAFT.map(c => `
+      <div class="craft-card reveal">
+        <div class="craft-icon">${c.icon}</div>
+        <p class="craft-name-zh">${c.name_zh}</p>
+        <h3 class="craft-name-en">${c.name_en}</h3>
+        <p class="craft-desc-zh">${c.desc_zh}</p>
+        <p class="craft-desc-en">${c.desc_en}</p>
+      </div>`).join('');
+  }
+
+  // ── Music ──
+  function renderMusic(m) {
+    const platforms = [
+      { key: 'spotify',    label: 'Spotify',    dot: 'dot-spotify' },
+      { key: 'youtube',    label: 'YouTube',    dot: 'dot-youtube' },
+      { key: 'soundcloud', label: 'SoundCloud', dot: 'dot-soundcloud' }
+    ];
+    document.getElementById('music-tabs').innerHTML = platforms.map((p, i) => `
+      <button class="platform-tab${i === 0 ? ' active' : ''}" onclick="switchPlatform('${p.key}', this)">
+        <span class="platform-tab-dot ${p.dot}"></span>${p.label}
+      </button>`).join('');
+
+    const spotifyHTML = m.spotify_playlist_id
+      ? `<iframe src="https://open.spotify.com/embed/playlist/${m.spotify_playlist_id}?utm_source=generator&theme=0" width="100%" height="400" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
+      : `<div class="soundcloud-card"><p>Spotify playlist ID 尚未設定</p></div>`;
+
+    const youtubeHTML = m.youtube_playlist_id
+      ? `<iframe src="https://www.youtube.com/embed/videoseries?list=${m.youtube_playlist_id}" width="100%" height="400" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
+      : `<div class="soundcloud-card"><p>YouTube playlist ID 尚未設定</p></div>`;
+
+    const scHTML = m.soundcloud_url
+      ? `<iframe width="100%" height="400" scrolling="no" frameborder="no" allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=${encodeURIComponent(m.soundcloud_url)}&color=%23000000&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true">
+        </iframe>`
+      : `<div class="soundcloud-card"><p>SoundCloud URL 尚未設定</p></div>`;
+
+    document.getElementById('music-embeds').innerHTML = `
+      <div class="music-embed active" id="embed-spotify">${spotifyHTML}</div>
+      <div class="music-embed" id="embed-youtube">${youtubeHTML}</div>
+      <div class="music-embed" id="embed-soundcloud">${scHTML}</div>`;
+  }
+
+  // ── Clients ──
+  function renderClients(clients) {
+    document.getElementById('clients-cloud').innerHTML = clients.map(c =>
+      `<span class="client-pill">${c.name_zh} ${c.name_en}</span>`
+    ).join('');
+  }
+
+  // ── Contact ──
+  function renderContact(c) {
+    document.getElementById('contact-grid').innerHTML = `
+      <div>
+        <p class="sec-label">Say hello</p>
+        <h2 class="contact-headline">有任何合作<br>都歡迎聯絡。</h2>
+        <p class="contact-sub">
+          音樂製作、隨團音控、吉他錄音、產品設計——或者只是想聊聊，都可以。<br><br>
+          Music production, live sound, session recording, product design — or just a conversation. All welcome.
+        </p>
+        <div class="contact-items">
+          <a href="https://www.instagram.com/${c.instagram}" target="_blank" rel="noopener" class="contact-item">
+            <div class="contact-item-icon">📸</div>
+            <div>
+              <p class="contact-item-lbl">Instagram</p>
+              <p class="contact-item-val">@${c.instagram}</p>
+            </div>
+          </a>
+          <a href="mailto:${c.email}" class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div>
+              <p class="contact-item-lbl">Email</p>
+              <p class="contact-item-val">${c.email}</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <div class="contact-note reveal">
+          <strong>A note</strong>
+          歡迎任何規模的合作洽詢。無論是一首歌的 session 錄音、整張專輯的製作，或是一個你腦海中的產品概念——我都很想聽。<br><br>
+          I'm open to projects of any size. From a single session track to a full album — or a product idea you've had in your head for months. Tell me about it.
+        </div>
+      </div>`;
+  }
+
+  // ── Footer ──
+  function renderFooter(c) {
+    document.getElementById('footer-inner').innerHTML = `
+      <span class="footer-sig">JH Studio · 黃友立 Jerry Hang</span>
+      <div class="footer-links">
+        <a href="https://www.instagram.com/${c.instagram}" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:${c.email}">Email</a>
+      </div>
+      <span class="footer-copy">© ${new Date().getFullYear()} JH Studio</span>`;
+  }
+
+  // ── Scroll reveal ──
+  function initReveal() {
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
     }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
 
-    function switchPlatform(platform, btn) {
-      document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.music-embed').forEach(e => e.classList.remove('active'));
-      document.getElementById('embed-' + platform).classList.add('active');
+  // ── Nav active ──
+  function initNav() {
+    const secs = document.querySelectorAll('section[id]');
+    const links = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let cur = '';
+      secs.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${cur}`));
+    }, { passive: true });
+  }
+
+  // ── Work filter ──
+  function filterWork(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#work-grid .work-card').forEach(card => {
+      const show = cat === 'all' || card.dataset.cat === cat;
+      card.style.display = show ? '' : 'none';
+      if (cat === 'all' && card.classList.contains('featured')) {
+        card.style.gridColumn = 'span 2';
+      } else if (cat !== 'all' && card.classList.contains('featured')) {
+        card.style.gridColumn = '';
+      }
+    });
+  }
+
+  // ── Music switch ──
+  function switchPlatform(platform, btn) {
+    document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.music-embed').forEach(e => e.classList.remove('active'));
+    document.getElementById('embed-' + platform).classList.add('active');
+  }
+
+  // ── Hamburger ──
+  function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('nav-menu').classList.remove('open'));
+  });
+
+  // ── Main ──
+  (async () => {
+    const loader = document.getElementById('page-loader');
+    try {
+      const res = await fetch('projects.json?t=' + Date.now());
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+
+      renderHero(data);
+      renderAbout(data);
+      renderWorks(data.works);
+      renderCraft();
+      renderMusic(data.music);
+      renderClients(data.clients);
+      renderContact(data.contact);
+      renderFooter(data.contact);
+
+      initReveal();
+      initNav();
+
+      loader.classList.add('hidden');
+      setTimeout(() => loader.remove(), 500);
+    } catch (err) {
+      console.error('[JH Studio] projects.json 讀取失敗：', err);
+      loader.innerHTML = `
+        <div style="text-align:center; padding:32px;">
+          <p style="font-size:13px; color:#888; letter-spacing:0.04em; margin-bottom:8px;">無法載入 projects.json</p>
+          <p style="font-size:11px; color:#bbb;">請確認檔案存在且與 index.html 位於同一目錄</p>
+        </div>`;
     }
-
-    async function init() {
-      try {
-        const res = await fetch('projects.json?t=' + Date.now());
-        const data = await res.json();
-
-        // Hero
-        const h = data.hero;
-        document.getElementById('hero-left').innerHTML = `
-          <div class="hero-eyebrow">${h.eyebrow}</div>
-          <h1 class="hero-headline">${h.headline.join('<br>')}</h1>
-          <p class="hero-statement">${h.statement_zh}<span>${h.statement_en}</span></p>
-          <div style="margin-top:40px; display:flex; gap:12px;">
-            <a href="#work" class="btn btn-dark">View Work</a>
-            <a href="#contact" class="btn btn-gray">Get in Touch</a>
-          </div>`;
-        document.getElementById('hero-visual').innerHTML = `
-          <div class="hero-photo">${h.photos.map((src, i) => `<div class="carousel-slide ${i === 0 ? 'active' : ''}"><img src="${src}"></div>`).join('')}</div>`;
-        
-        // Works
-        document.getElementById('work-grid').innerHTML = data.works.map(w => `
-          <div class="work-card ${w.featured ? 'featured' : ''} reveal">
-            <img src="${w.image}">
-            <div class="work-overlay"><div class="work-overlay-inner"><p style="font-size:12px; opacity:0.6;">${w.date}</p><strong>${w.name}</strong><p style="font-size:13px; margin-top:8px;">${w.note || ''}</p></div></div>
-          </div>`).join('');
-
-        // Music
-        document.getElementById('music-tabs').innerHTML = `
-          <button class="platform-tab active" onclick="switchPlatform('spotify', this)">Spotify</button>
-          <button class="platform-tab" onclick="switchPlatform('youtube', this)">YouTube</button>`;
-        document.getElementById('music-embeds').innerHTML = `
-          <div class="music-embed active" id="embed-spotify"><iframe src="https://open.spotify.com/embed/playlist/${data.music.spotify_playlist_id}" width="100%" height="400" frameborder="0"></iframe></div>
-          <div class="music-embed" id="embed-youtube"><iframe src="https://www.youtube.com/embed/videoseries?list=${data.music.youtube_playlist_id}" width="100%" height="400" frameborder="0"></iframe></div>`;
-
-        // Footer
-        document.getElementById('footer-inner').innerHTML = `<div>JH Studio · Jerry Hang</div><div style="color:#bbb;">© 2025 JH Studio</div>`;
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        document.getElementById('page-loader').classList.add('hidden');
-      } catch (err) { console.error(err); }
-    }
-
-    init();
+  })();
   </script>
 </body>
 </html>
