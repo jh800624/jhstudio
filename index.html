@@ -590,9 +590,9 @@
   // ── Works: full-image cards ──
   function renderWorks(works) {
     document.getElementById('work-grid').innerHTML = works.map(w => `
-      <div class="work-card${w.featured ? ' featured' : ''} reveal" data-cat="${w.category}">
+      <div class="work-card${w.featured ? ' featured' : ''} reveal" data-cat="${w.cat}">
         ${imgEl(w.image, w.name)}
-        <span class="work-category-badge badge-${w.category}">${w.badge}</span>
+        <span class="work-category-badge badge-${w.badge_type}">${w.badge}</span>
         <div class="work-overlay">
           <div class="work-overlay-inner">
             <div class="work-overlay-badge">${w.badge}</div>
@@ -617,10 +617,12 @@
   }
 
   // ── Music ──
-  function renderMusic(sections) {
-    const spotify    = (sections || []).find(s => s.type === 'spotify');
-    const youtube    = (sections || []).find(s => s.type === 'youtube');
-    const soundcloud = (sections || []).find(s => s.type === 'soundcloud');
+  function renderMusic(m) {
+    m = m || {};
+    // 清除 ?si= / &si= 等 tracking 參數，只保留純 ID
+    const spotifyId  = (m.spotify_playlist_id  || '').split('?')[0].split('&')[0];
+    const youtubeId  = (m.youtube_playlist_id  || '').split('?')[0].split('&')[0];
+    const scUrl      = m.soundcloud_url || '';
 
     const platforms = [
       { key: 'spotify',    label: 'Spotify',    dot: 'dot-spotify' },
@@ -632,17 +634,17 @@
         <span class="platform-tab-dot ${p.dot}"></span>${p.label}
       </button>`).join('');
 
-    const spotifyHTML = spotify
-      ? `<iframe src="https://open.spotify.com/embed/playlist/${spotify.id}?utm_source=generator&theme=0" width="100%" height="400" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
+    const spotifyHTML = spotifyId
+      ? `<iframe src="https://open.spotify.com/embed/playlist/${spotifyId}?utm_source=generator&theme=0" width="100%" height="400" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
       : `<div class="soundcloud-card"><p>Spotify playlist ID 尚未設定</p></div>`;
 
-    const youtubeHTML = youtube
-      ? `<iframe src="${youtube.url}" width="100%" height="400" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
-      : `<div class="soundcloud-card"><p>YouTube 尚未設定</p></div>`;
+    const youtubeHTML = youtubeId
+      ? `<iframe src="https://www.youtube.com/embed/videoseries?list=${youtubeId}" width="100%" height="400" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
+      : `<div class="soundcloud-card"><p>YouTube playlist ID 尚未設定</p></div>`;
 
-    const scHTML = soundcloud
+    const scHTML = scUrl
       ? `<iframe width="100%" height="400" scrolling="no" frameborder="no" allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloud.url)}&color=%23000000&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true">
+          src="https://w.soundcloud.com/player/?url=${encodeURIComponent(scUrl)}&color=%23000000&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true">
         </iframe>`
       : `<div class="soundcloud-card"><p>SoundCloud URL 尚未設定</p></div>`;
 
@@ -771,7 +773,7 @@
       renderAbout(data);
       renderWorks(data.works);
       renderCraft();
-      renderMusic(data.music_sections);
+      renderMusic(data.music);
       renderClients(data.clients);
       renderContact(data.contact);
       renderFooter(data.contact);
