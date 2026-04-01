@@ -32,16 +32,16 @@
 
   "works": [
     {
-      "id": "joyin-2024",
+      "id": "20241210_joyin",
       "cat": "music",
       "featured": true,
       "date": "2024 / 12",
       "name": "王喬尹 Joyin Wang — 《又係王喬尹》《This is Joyin Wang Again》",
-      "role": "Arrangement · Recording · Mixing · Mastering",
+      "role": "Recording",
       "badge": "Music Production",
       "badge_type": "music",
-      "image": "assets/project-joyin.jpg",
-      "note": "Arrangement · Recording · Mixing · Mastering"
+      "image": "assets/20241210_joyin.jpg",
+      "note": "Recording"
     },
     {
       "id": "nuts-2025",
