@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet" />
   
   <style>
-    /* ── Tokens & Reset ── */
+    /* ── Tokens ── */
     :root {
       --white:   #ffffff;
       --bg:      #fafaf8;
@@ -19,10 +19,11 @@
       --muted:   #8c8c86;
       --body:    #3c3c38;
       --heading: #0f0f0e;
-      --accent:  #000000; /* 強調色 */
-      --r:       16px;      /* 增大圓角，更有設計感 */
-      --max:     980px;
-      --ease:    cubic-bezier(0.23, 1, 0.32, 1); /* 專業的緩動曲線 */
+      --accent:  #000000;
+      --r:       16px;
+      /* 💡 寬度升級：從 980px 提升至 1200px，增加空間張力 */
+      --max:     1200px; 
+      --ease:    cubic-bezier(0.23, 1, 0.32, 1);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,150 +33,96 @@
     img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
     /* ── Layout ── */
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 36px; }
-    section { padding: 100px 0; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 48px; } /* 增加側邊內距 */
+    section { padding: 120px 0; }
 
     /* ── Nav ── */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(250,250,248,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-    .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 36px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { font-size: 14px; font-weight: 500; color: var(--heading); letter-spacing: 0.05em; }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { font-size: 11px; color: var(--muted); text-transform: uppercase; transition: 0.3s var(--ease); letter-spacing: 0.1em; }
+    .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 48px; height: 72px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-size: 15px; font-weight: 500; color: var(--heading); letter-spacing: 0.05em; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { font-size: 11px; color: var(--muted); text-transform: uppercase; transition: 0.3s; letter-spacing: 0.12em; }
     .nav-links a:hover { color: var(--accent); }
 
     /* ── Hero ── */
-    #hero { padding-top: 160px; padding-bottom: 80px; background: var(--white); border-bottom: 1px solid var(--border); }
-    .hero-grid { display: grid; grid-template-columns: 1fr 380px; gap: 80px; align-items: center; }
-    .hero-headline { font-size: clamp(40px, 6vw, 64px); font-weight: 300; line-height: 1.05; color: var(--heading); margin-bottom: 28px; letter-spacing: -0.03em; }
+    #hero { padding-top: 180px; padding-bottom: 100px; background: var(--white); border-bottom: 1px solid var(--border); }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; }
+    .hero-headline { font-size: clamp(44px, 7vw, 72px); font-weight: 300; line-height: 1; color: var(--heading); margin-bottom: 32px; letter-spacing: -0.04em; }
     .hero-headline em { font-style: italic; color: var(--muted); font-weight: 300; }
-    .hero-statement { font-size: 17px; line-height: 1.8; color: var(--body); max-width: 520px; margin-bottom: 40px; font-family: 'Noto Sans TC', sans-serif; font-weight: 300; }
-    .hero-statement span { display: block; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--muted); font-style: italic; margin-top: 10px; }
-    .btn { display: inline-flex; align-items: center; padding: 14px 28px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.3s var(--ease); border: none; background: var(--accent); color: #fff; letter-spacing: 0.05em; }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
-    .hero-photo { aspect-ratio: 3/4; border-radius: var(--r); overflow: hidden; background: #f2f2ee; box-shadow: 0 20px 60px rgba(0,0,0,0.05); }
+    .hero-statement { font-size: 18px; line-height: 1.8; color: var(--body); max-width: 580px; margin-bottom: 48px; font-family: 'Noto Sans TC', sans-serif; font-weight: 300; border-left: 2px solid var(--border); padding-left: 24px; }
+    .btn { display: inline-flex; align-items: center; padding: 16px 32px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: 0.3s var(--ease); border: none; background: var(--accent); color: #fff; }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+    .hero-photo { aspect-ratio: 4/5; border-radius: var(--r); overflow: hidden; background: #f2f2ee; box-shadow: 0 30px 80px rgba(0,0,0,0.06); }
 
-    /* ── Work Section (專業質感升級重點) ── */
-    #work { background: var(--bg); }
-    .sec-label { font-size: 11px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.15em; margin-bottom: 12px; font-weight: 500; }
-    .sec-title { font-size: 36px; font-weight: 300; color: var(--heading); margin-bottom: 48px; letter-spacing: -0.01em; }
+    /* ── Work Section ── */
+    .sec-label { font-size: 11px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.2em; margin-bottom: 16px; font-weight: 500; }
+    .sec-title { font-size: 42px; font-weight: 300; color: var(--heading); margin-bottom: 60px; letter-spacing: -0.02em; }
     
-    .work-filter { display: flex; gap: 10px; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-    .filter-btn { padding: 8px 18px; border-radius: 100px; font-size: 12px; border: 1px solid transparent; cursor: pointer; background: transparent; color: var(--muted); transition: 0.3s var(--ease); font-weight: 400; }
-    .filter-btn:hover { color: var(--accent); background: rgba(0,0,0,0.03); }
-    .filter-btn.active { background: var(--white); color: var(--accent); border-color: var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.03); font-weight: 500; }
+    .work-filter { display: flex; gap: 12px; margin-bottom: 48px; border-bottom: 1px solid var(--border); padding-bottom: 24px; }
+    .filter-btn { padding: 8px 20px; border-radius: 100px; font-size: 12px; border: 1px solid transparent; cursor: pointer; background: transparent; color: var(--muted); transition: 0.3s; }
+    .filter-btn.active { background: var(--white); color: var(--accent); border-color: var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
 
-    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    
-    /* 卡片基礎樣式 */
-    .work-card { 
-      border-radius: var(--r); 
-      overflow: hidden; 
-      background: var(--white); 
-      transition: all 0.5s var(--ease); 
-      border: 1px solid var(--border);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-      display: flex;
-      flex-direction: column;
-    }
-    
-    /* 滑鼠移入卡片整體浮起、光影變化 */
-    .work-card:hover { 
-      transform: translateY(-8px); 
-      box-shadow: 0 24px 60px rgba(0,0,0,0.08); 
-      border-color: rgba(0,0,0,0.05);
-    }
-
-    /* 作品圖片容器 */
-    .work-thumb { 
-      aspect-ratio: 4/3; 
-      position: relative; 
-      overflow: hidden; 
-      background: #f2f2ee;
-    }
+    /* 💡 作品集排版：在大螢幕採用 3 欄位 */
+    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .work-card { border-radius: var(--r); overflow: hidden; background: var(--white); transition: all 0.5s var(--ease); border: 1px solid var(--border); }
+    .work-card:hover { transform: translateY(-10px); box-shadow: 0 32px 70px rgba(0,0,0,0.1); }
     .work-card.featured { grid-column: span 2; }
-    .work-card.featured .work-thumb { aspect-ratio: 16/7; }
-    
-    /* 圖片基礎與 Hover 樣式 */
-    .work-thumb img { 
-      width: 100%; 
-      height: 100%; 
-      object-fit: cover; 
-      transition: transform 0.8s var(--ease), filter 0.8s var(--ease); 
-    }
-    .work-card:hover .work-thumb img { 
-      transform: scale(1.06); /* 輕微放大 */
-      filter: blur(2px) brightness(0.9); /* 輕微模糊與變暗，突顯文字 */
-    }
 
-    /* ✨ 新版漸層遮罩 (代替全黑) ✨ */
-    .work-thumb::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0; height: 70%;
-      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
-      opacity: 0;
-      transition: opacity 0.5s var(--ease);
-      z-index: 1;
-    }
+    .work-thumb { aspect-ratio: 4/3; position: relative; overflow: hidden; }
+    .work-card.featured .work-thumb { aspect-ratio: 16/8; }
+    .work-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s var(--ease); }
+    .work-card:hover .work-thumb img { transform: scale(1.05); filter: blur(2px) brightness(0.85); }
+
+    .work-thumb::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); opacity: 0; transition: 0.5s; z-index: 1; }
     .work-card:hover .work-thumb::after { opacity: 1; }
 
-    /* ✨ 新版文字資訊浮現效果 ✨ */
-    .work-overlay { 
-      position: absolute; 
-      bottom: 0; left: 0; width: 100%; 
-      padding: 30px; 
-      color: #fff; 
-      display: flex; 
-      flex-direction: column; 
-      justify-content: flex-end;
-      z-index: 2;
-      /* 關鍵：預設透明並往下移 */
-      opacity: 0;
-      transform: translateY(15px);
-      transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
-    }
-    /* 移入時淡入並滑上來 */
-    .work-card:hover .work-overlay { 
-      opacity: 1; 
-      transform: translateY(0);
-    }
+    .work-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 32px; color: #fff; z-index: 2; opacity: 0; transform: translateY(20px); transition: 0.5s var(--ease); }
+    .work-card:hover .work-overlay { opacity: 1; transform: translateY(0); }
+    .overlay-title { font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+    .overlay-note { font-size: 13px; line-height: 1.6; color: rgba(255, 255, 255, 0.8); font-weight: 300; }
 
-    .overlay-title { font-size: 16px; font-weight: 500; margin-bottom: 10px; font-family: 'Inter', sans-serif; letter-spacing: 0.02em; }
-    .overlay-note { font-size: 13px; line-height: 1.6; color: rgba(255, 255, 255, 0.8); font-family: 'Noto Sans TC', sans-serif; font-weight: 300; }
-
-    /* 分類標籤 */
-    .work-category-badge { position: absolute; top: 16px; left: 16px; font-size: 9px; font-weight: 600; text-transform: uppercase; padding: 5px 12px; border-radius: 100px; z-index: 5; letter-spacing: 0.1em; }
-    .badge-music { background: rgba(15,15,14,0.7); color: rgba(255,255,255,0.9); }
-    .badge-design { background: rgba(255,255,255,0.85); color: #000; }
-
-    /* 下方固定資訊區 */
-    .work-info { padding: 22px; flex-grow: 1; background: var(--white); }
-    .work-date { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; font-weight: 400; }
-    .work-name { font-size: 15px; font-weight: 500; color: var(--heading); margin-top: 6px; line-height: 1.45; }
-    .work-role { font-size: 12px; color: var(--muted); margin-top: 6px; font-weight: 300; font-family: 'Noto Sans TC', sans-serif; }
+    .work-info { padding: 24px; }
+    .work-date { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+    .work-name { font-size: 16px; font-weight: 500; color: var(--heading); margin-top: 8px; }
+    .work-role { font-size: 13px; color: var(--muted); margin-top: 6px; font-weight: 300; }
 
     /* ── Spotify & Contact ── */
-    #music { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .spotify-container { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); background: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .spotify-container { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); background: #000; }
+    #contact { text-align: center; }
+    .contact-link { font-size: 24px; color: var(--heading); border-bottom: 2px solid var(--border); transition: 0.3s; font-weight: 300; padding-bottom: 8px; }
+    .contact-link:hover { border-color: var(--accent); }
 
-    #contact { background: var(--bg); text-align: center; }
-    .contact-link { font-size: 18px; color: var(--heading); border-bottom: 2px solid var(--border); transition: 0.3s; padding-bottom: 4px; font-weight: 300; }
-    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+    /* ── ✨ 手機自適應排版 (Responsive) ✨ ── */
+    
+    /* 平板電腦與較小螢幕 */
+    @media (max-width: 1024px) {
+      .wrap { padding: 0 32px; }
+      .hero-grid { gap: 48px; }
+      .work-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .work-card.featured { grid-column: span 2; }
+    }
 
-    /* ── Utilities & Responsive ── */
-    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s var(--ease); }
-    .reveal.visible { opacity: 1; transform: none; }
-
+    /* 手機版 (768px 以下) */
     @media (max-width: 768px) {
-      .hero-grid, .work-grid { grid-template-columns: 1fr; gap: 40px; }
-      .nav-links { display: none; }
-      #hero { padding-top: 120px; }
+      section { padding: 80px 0; }
+      .nav-inner { padding: 0 24px; height: 60px; }
+      .nav-links { display: none; } /* 手機版建議隱藏或改為漢堡選單，此處先隱藏保持簡潔 */
+      
+      #hero { padding-top: 120px; text-align: center; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-headline { font-size: 42px; }
+      .hero-statement { margin: 0 auto 32px; border-left: none; border-top: 1px solid var(--border); padding: 24px 0 0; }
+      
+      .sec-title { font-size: 32px; margin-bottom: 40px; }
+      .work-grid { grid-template-columns: 1fr; gap: 20px; }
       .work-card.featured { grid-column: span 1; }
       .work-card.featured .work-thumb { aspect-ratio: 4/3; }
-      .wrap { padding: 0 24px; }
-      section { padding: 80px 0; }
-      .sec-title { font-size: 30px; margin-bottom: 30px; }
+      
+      .contact-link { font-size: 18px; }
     }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
   </style>
 </head>
 <body>
@@ -184,7 +131,6 @@
     <div class="nav-inner">
       <span class="nav-logo">JH Studio</span>
       <ul class="nav-links">
-        <li><a href="#about">About</a></li>
         <li><a href="#work">Work</a></li>
         <li><a href="#music">Music</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -205,7 +151,7 @@
           <div class="hero-cta"><a href="#work" class="btn">View Work</a></div>
         </div>
         <div class="hero-visual reveal">
-          <div class="hero-photo"><div style="display:flex; height:100%; align-items:center; justify-content:center; color:#bbbbba;">Portrait</div></div>
+          <div class="hero-photo"><div style="display:flex; height:100%; align-items:center; justify-content:center; color:#bbbbba; font-size: 12px;">Portrait</div></div>
         </div>
       </div>
     </div>
@@ -213,8 +159,8 @@
 
   <section id="work">
     <div class="wrap">
-      <p class="sec-label">Portfolio</p>
-      <h2 class="sec-title">Selected Work</h2>
+      <p class="sec-label">Selected Work</p>
+      <h2 class="sec-title">Portfolio</h2>
       
       <div class="work-filter">
         <button class="filter-btn active" onclick="filterWork('all', this)">All</button>
@@ -227,11 +173,10 @@
     </div>
   </section>
 
-  <section id="music">
+  <section id="music" style="background: var(--white); border-top: 1px solid var(--border);">
     <div class="wrap">
       <p class="sec-label">Listen</p>
       <h2 class="sec-title">Featured Playlist</h2>
-      
       <div id="spotify-player" class="spotify-container reveal"></div>
     </div>
   </section>
@@ -240,56 +185,43 @@
     <div class="wrap">
       <p class="sec-label">Get in Touch</p>
       <h2 class="sec-title">Say hello.</h2>
-      <p style="font-weight:300; margin-bottom:30px; color:var(--body);">有任何合作或想法，歡迎聯絡。</p>
       <a href="mailto:jh800624@gmail.com" class="contact-link">jh800624@gmail.com</a>
     </div>
   </section>
 
-  <footer style="padding:48px 0; text-align:center; font-size:12px; color:var(--muted); background:var(--bg); border-top: 1px solid var(--border);">
-    <div class="wrap">JH Studio · Jerry Hang © 2025</div>
+  <footer style="padding:60px 0; text-align:center; font-size:11px; color:var(--muted); letter-spacing: 0.1em; border-top: 1px solid var(--border);">
+    JH STUDIO · JERRY HANG © 2025
   </footer>
 
   <script>
-    // 捲動動畫
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
     }, { threshold: 0.1 });
 
     let allWorks = [];
 
-    // 資料載入
     async function loadData() {
       try {
         const response = await fetch('./projects.json?t=' + Date.now());
         if (!response.ok) throw new Error("找不到 projects.json");
         const data = await response.json();
-        
         allWorks = data.works || [];
         renderWorks(allWorks);
-
-        if (data.spotify && data.spotify.length > 0) {
-          renderSpotify(data.spotify[0]);
-        }
-        // 偵測除了動態生成的卡片外的其他 reveal 元素
+        if (data.spotify && data.spotify.length > 0) renderSpotify(data.spotify[0]);
         document.querySelectorAll('section > .wrap > .reveal').forEach(el => observer.observe(el));
       } catch (err) {
-        console.error("載入出錯:", err);
+        console.error("載入失敗:", err);
       }
     }
 
-    // 作品渲染
     function renderWorks(works) {
       const grid = document.getElementById('work-grid');
       grid.innerHTML = ''; 
       works.forEach(item => {
         const card = document.createElement('div');
         card.className = `work-card reveal ${item.featured ? 'featured' : ''}`;
-        
         card.innerHTML = `
           <div class="work-thumb">
-            <span class="work-category-badge ${item.category === 'music' ? 'badge-music' : 'badge-design'}">
-              ${item.category === 'music' ? 'Music' : 'Design'}
-            </span>
             <img src="${item.image}" alt="${item.name}">
             <div class="work-overlay">
               <strong class="overlay-title">${item.name}</strong>
@@ -307,25 +239,20 @@
       });
     }
 
-    // Spotify 渲染
     function renderSpotify(playlistId) {
       const container = document.getElementById('spotify-player');
       container.innerHTML = `
-        <iframe 
-          src="http://googleusercontent.com/spotify.com/3{playlistId}?utm_source=generator&theme=0" 
-          width="100%" height="380" frameborder="0" allowfullscreen="" 
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
-        </iframe>
+        <iframe src="https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0" 
+        width="100%" height="380" frameborder="0" allowfullscreen="" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       `;
       observer.observe(container);
     }
 
-    // 篩選
     function filterWork(cat, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const filtered = (cat === 'all') ? allWorks : allWorks.filter(p => p.category === cat);
-      renderWorks(filtered);
+      renderWorks(cat === 'all' ? allWorks : allWorks.filter(p => p.category === cat));
     }
 
     document.addEventListener('DOMContentLoaded', loadData);
