@@ -12,7 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
-    /* ── Tokens ── */
+    /* ── 色彩與尺寸變數 ──
+       要改顏色主題，修改這裡就好，全站會跟著變
+       --white / --bg：背景色（白色 / 淺灰）
+       --border / --light / --mid：邊框與區塊背景
+       --muted / --body / --heading：文字深淺
+       --r / --r-sm：圓角大小
+       --max：內容最大寬度 */
     :root {
       --white:   #ffffff;
       --bg:      #f8f8f8;
@@ -38,11 +44,13 @@
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
-    /* ── Layout ── */
+    /* ── 版面 ──
+       .wrap：限制最大寬度、左右內距 48px
+       section：每個區塊上下統一 96px 留白（手機版改為 64px） */
     .wrap { max-width: var(--max); margin: 0 auto; padding: 0 48px; }
     section { padding: 96px 0; }
 
-    /* ── Loading ── */
+    /* ── 載入動畫 ── */
     #page-loader {
       position: fixed; inset: 0; background: var(--white);
       display: flex; align-items: center; justify-content: center;
@@ -61,7 +69,7 @@
       40% { transform: scale(1.2); opacity: 1; }
     }
 
-    /* ── Nav ── */
+    /* ── 導覽列 ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       background: rgba(255,255,255,0.92);
@@ -79,7 +87,7 @@
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
     .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--heading); transition: 0.3s; }
 
-    /* ── Hero ── */
+    /* ── Hero 首頁區塊 ── */
     #hero { padding-top: 148px; padding-bottom: 80px; }
     .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
     .hero-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
@@ -98,7 +106,10 @@
     .btn-gray { background: #eeeeee; color: #000000; }
     .btn-gray:hover { background: #dddddd; }
 
-    /* ── Hero Visual / Carousel ── */
+    /* ── Hero 右側照片輪播 ──
+       carousel-slide：每張照片的容器，用 opacity 做淡入淡出
+       .active：目前顯示的那張（zoom out 動畫）
+       .leaving：正在離場的那張（zoom in 動畫）*/
     .hero-visual { position: relative; }
     .hero-photo { aspect-ratio: 4/5; border-radius: var(--r); overflow: hidden; background: var(--light); position: relative; }
     @keyframes zoomOut {
@@ -135,12 +146,15 @@
     .hero-role-tag { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.8); font-weight: 400; background: rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2); }
     .placeholder-img { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--light); color: var(--muted); font-size: 12px; letter-spacing: 0.04em; text-align: center; padding: 16px; }
 
-    /* ── Section Labels ── */
+    /* ── 區塊標題樣式 ──
+       .sec-label：小標（英文全大寫，灰色）
+       .sec-title：大標題
+       .sec-rule：標題下方的短橫線 */
     .sec-label { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
     .sec-title { font-size: clamp(26px, 3vw, 34px); font-weight: 300; color: var(--heading); letter-spacing: -0.02em; line-height: 1.2; }
     .sec-rule { width: 32px; height: 1px; background: var(--heading); margin: 18px 0 52px; }
 
-    /* ── About ── */
+    /* ── About 自我介紹區塊 ── */
     #about { background: var(--bg); }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
     .about-text p { font-size: 15px; line-height: 1.9; color: var(--body); margin-bottom: 16px; }
@@ -151,17 +165,20 @@
     .about-fact-num { font-size: 28px; font-weight: 300; color: var(--heading); letter-spacing: -0.03em; line-height: 1; margin-bottom: 4px; }
     .about-fact-label { font-size: 12px; color: var(--muted); letter-spacing: 0.03em; }
 
-    /* ── Work ── */
+    /* ── 近期作品區塊 ── */
     #work {}
+    /* 篩選按鈕列（All / Music / Design） */
     .work-filter { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
     .filter-btn { padding: 7px 16px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em; border: 1px solid var(--border); background: var(--white); color: var(--muted); cursor: pointer; transition: all 0.2s; }
     .filter-btn.active, .filter-btn:hover { background: var(--heading); color: var(--white); border-color: var(--heading); }
 
-    /* ── Work grid: full-image cards ── */
+    /* 作品卡片 Grid 排版
+       3 欄，固定列高 360px，所有卡片等高
+       要調整卡片高度，改 grid-auto-rows 的值 */
     .work-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 360px;  /* 固定列高，所有卡片等高 */
+      grid-auto-rows: 360px;
       gap: 16px;
     }
 
@@ -179,18 +196,20 @@
       box-shadow: 0 24px 64px rgba(0,0,0,0.15);
     }
 
-    /* Featured: 跨 2 欄、跨 2 列 → 大圖塊 */
+    /* featured 卡片：跨 2 欄 × 2 列，視覺上比其他卡大一倍 */
     .work-card.featured {
       grid-column: span 2;
       grid-row: span 2;
     }
 
-    /* Full-bleed image — absolute 填滿卡片，自動裁切 */
+    /* 圖片全滿卡片，absolute 定位自動裁切填滿
+       object-position: center 是預設置中裁切
+       若某張圖想改裁切位置，可對該 <img> 加 style="object-position: top" 等 */
     .work-card img {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
-      object-fit: cover;        /* 自動裁切填滿，不需轉檔 */
-      object-position: center;  /* 預設置中裁切 */
+      object-fit: cover;
+      object-position: center;
       transition: transform 0.6s cubic-bezier(.2,.8,.2,1), filter 0.5s;
     }
     .work-card:hover img {
@@ -208,7 +227,7 @@
       filter: brightness(0.6);
     }
 
-    /* Category badge — top left, always visible */
+    /* 類別標籤（左上角），hover 時隱藏，讓 overlay 文字接手 */
     .work-category-badge {
       position: absolute; top: 16px; left: 16px; z-index: 10;
       font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
@@ -220,7 +239,7 @@
     .badge-music  { background: rgba(0,0,0,0.55); color: rgba(255,255,255,0.9); }
     .badge-design { background: rgba(255,255,255,0.8); color: var(--heading); }
 
-    /* Overlay: hidden until hover */
+    /* Overlay：平時隱藏，hover 時顯示，從底部漸層黑色蓋上去 */
     .work-overlay {
       position: absolute; inset: 0; z-index: 5;
       background: linear-gradient(
@@ -236,7 +255,7 @@
     }
     .work-card:hover .work-overlay { opacity: 1; }
 
-    /* Overlay text: slides up */
+    /* Overlay 文字：hover 時從略低的位置往上滑入 */
     .work-overlay-inner {
       transform: translateY(16px);
       transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
@@ -265,7 +284,7 @@
       text-transform: uppercase;
     }
 
-    /* ── Craft ── */
+    /* ── 服務項目區塊 ── */
     #craft { background: var(--bg); }
     .craft-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .craft-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 32px 36px; transition: box-shadow 0.25s; cursor: pointer; }
@@ -276,7 +295,7 @@
     .craft-desc-zh { font-size: 14px; color: var(--body); line-height: 1.8; margin-bottom: 10px; font-family: 'Noto Sans TC', sans-serif; }
     .craft-desc-en { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
-    /* ── Music ── */
+    /* ── 音樂平台區塊 ── */
     .music-platform-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
     .platform-tab { display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 0.03em; border: 1px solid var(--border); background: var(--white); color: var(--muted); cursor: pointer; transition: all 0.2s; }
     .platform-tab:hover { border-color: var(--heading); color: var(--heading); }
@@ -292,18 +311,21 @@
     .soundcloud-card { padding: 40px; text-align: center; background: var(--light); display: flex; flex-direction: column; align-items: center; gap: 16px; }
     .soundcloud-card p { font-size: 13px; color: var(--muted); }
 
-    /* ── Clients ── */
-    #clients { background: var(--bg); padding-top: 0; padding-bottom: 80px; }
+    /* ── 合作夥伴 ── */
+    /* padding-top:0 是因為上方 Music 區塊已有 96px padding，這裡不再重複 */
+    #clients { background: var(--bg); padding-top: 0; padding-bottom: 40px; }
     .clients-cloud { overflow: hidden; }
-    .marquee-track { display: flex; gap: 10px; width: max-content; animation: marquee-scroll 24s linear infinite; }
+    .marquee-track { display: flex; gap: 10px; width: max-content; animation: marquee-scroll 48s linear infinite; }
     @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .client-pill { padding: 9px 18px; border-radius: 100px; background: var(--white); border: 1px solid var(--border); font-size: 13px; color: var(--body); letter-spacing: 0.02em; white-space: nowrap; flex-shrink: 0; }
 
-    /* ── Modal ── */
-    #modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 400; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-    #modal-overlay.open { display: flex; }
-    #modal-card { background: var(--white); border-radius: var(--r); max-width: 520px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: modalIn 0.25s cubic-bezier(.2,.8,.2,1); }
-    @keyframes modalIn { from { opacity: 0; transform: scale(0.96) translateY(8px); } to { opacity: 1; transform: none; } }
+    /* ── Modal 彈出視窗 ── */
+    /* display:flex 固定，用 opacity + visibility 做淡入淡出，才能有過渡效果 */
+    #modal-overlay { display: flex; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 400; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.3s ease, visibility 0.3s ease; }
+    #modal-overlay.open { opacity: 1; visibility: visible; pointer-events: auto; }
+    /* 卡片本身也有縮放 + 位移的過渡，進場從略小略低浮上來 */
+    #modal-card { background: var(--white); border-radius: var(--r); max-width: 520px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; opacity: 0; transform: scale(0.96) translateY(10px); transition: opacity 0.3s cubic-bezier(.2,.8,.2,1), transform 0.3s cubic-bezier(.2,.8,.2,1); }
+    #modal-overlay.open #modal-card { opacity: 1; transform: none; }
     .modal-close { position: absolute; top: 14px; right: 14px; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,0.35); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #fff; line-height: 1; transition: background 0.2s; z-index: 10; }
     .modal-close:hover { background: rgba(0,0,0,0.6); }
     .modal-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; object-position: center; border-radius: var(--r) var(--r) 0 0; display: block; }
@@ -319,7 +341,7 @@
     .modal-craft-title { font-size: 22px; font-weight: 500; color: var(--heading); letter-spacing: -0.015em; margin-bottom: 20px; }
     @media (max-width: 768px) { #modal-card { max-width: 100%; } }
 
-    /* ── Contact ── */
+    /* ── 聯絡區塊 ── */
     #contact { background: var(--bg); }
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
     .contact-headline { font-size: clamp(28px, 3.5vw, 40px); font-weight: 300; color: var(--heading); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 20px; }
@@ -334,7 +356,8 @@
     .contact-note { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); padding: 28px 32px; font-size: 14px; color: var(--muted); line-height: 1.85; font-family: 'Noto Sans TC', sans-serif; }
     .contact-note strong { display: block; font-size: 12px; font-weight: 600; color: var(--heading); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
 
-    /* ── Footer ── */
+    /* ── Footer ──
+       版權文字 / 連結 / 年份（年份由 JS 自動產生，不用手動改） */
     footer { padding: 36px 0; border-top: 1px solid var(--border); }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .footer-sig { font-size: 13px; font-weight: 500; color: var(--heading); }
@@ -343,7 +366,9 @@
     .footer-links a:hover { color: var(--heading); }
     .footer-copy { font-size: 11px; color: var(--mid); }
 
-    /* ── Responsive ── */
+    /* ── 響應式（手機 / 平板）──
+       768px 以下：單欄、導覽改為 hamburger 選單
+       769px–1024px：平板，作品改為 2 欄 */
     @media (max-width: 768px) {
       section { padding: 64px 0; }
       .wrap { padding: 0 20px; }
@@ -384,7 +409,10 @@
       .hero-grid { grid-template-columns: 1fr 1fr; gap: 48px; }
     }
 
-    /* ── Reveal ── */
+    /* ── 捲動進場動畫 ──
+       加了 .reveal class 的元素，預設不可見
+       JS 的 initReveal() 偵測到進入畫面後加上 .visible，觸發淡入
+       要調整速度，改 transition 的秒數 */
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
   </style>
@@ -468,7 +496,7 @@
   </section>
 
   <!-- ── Clients ── -->
-  <section id="clients" style="padding-top:0; padding-bottom:80px;">
+  <section id="clients" style="padding-top:0; padding-bottom:40px;">
     <div class="wrap">
       <p class="sec-label">Trusted by</p>
       <h2 class="sec-title">合作夥伴</h2>
@@ -500,6 +528,16 @@
   </div>
 
   <script>
+  // ══════════════════════════════════════════════════
+  // 服務項目資料（靜態，不從 JSON 讀取）
+  // 要新增或修改服務，直接編輯這個陣列就好
+  // 欄位說明：
+  //   icon     - emoji 圖示
+  //   name_zh  - 中文名稱（卡片上小字）
+  //   name_en  - 英文名稱（卡片上大字，也是 modal 標題）
+  //   desc_zh  - 中文描述（在卡片和 modal 都會顯示）
+  //   desc_en  - 英文描述（在卡片和 modal 都會顯示）
+  // ══════════════════════════════════════════════════
   const CRAFT = [
     { icon: '🎛️', name_zh: '音樂製作', name_en: 'Music Production',
       desc_zh: '全方位編曲、錄音、混音與母帶後製。專注於獨立及搖滾。根據你的創意或初步概念量身打造，確保每個音符準確傳遞情感。',
@@ -515,19 +553,26 @@
       desc_en: 'From concept to physical object — 3D printing to explore music accessories and experimental designs. Useful things, or just beautiful ones.' }
   ];
 
+  // ── 輔助：產生圖片 HTML ──
+  // 有圖片路徑就回傳 <img>，沒有就回傳灰色佔位方塊
   function imgEl(src, alt) {
     if (!src) return '<div class="placeholder-img">' + (alt || 'Image') + '</div>';
     var safeAlt = (alt || '').replace(/"/g, '&quot;');
     return '<img src="' + src + '" alt="' + safeAlt + '" loading="lazy">';
   }
 
-  // ── Hero ──
+  // ══════════════════════════════════════════════════
+  // Hero 首頁區塊
+  // 資料來源：projects.json → hero 欄位
+  // ══════════════════════════════════════════════════
   function renderHero(d) {
     const h = d.hero;
+    // headline 陣列中，與 headline_em 相符的那行加斜體樣式
     const lines = h.headline.map(l => l === h.headline_em ? `<em>${l}</em>` : l).join('<br>');
     const stmtZh = h.statement_zh.replace(/\n/g, '<br>');
     const stmtEn = h.statement_en.replace(/\n/g, '<br>');
 
+    // 左欄：標題、簡介文字、按鈕
     document.getElementById('hero-left').innerHTML = `
       <div class="hero-eyebrow">${h.eyebrow}</div>
       <h1 class="hero-headline">${lines}</h1>
@@ -540,6 +585,7 @@
         <a href="#contact" class="btn btn-gray">Get in Touch</a>
       </div>`;
 
+    // 右欄：照片輪播（支援多張，photos 陣列）
     const photos = Array.isArray(h.photos) && h.photos.length > 0
       ? h.photos : (h.photo ? [h.photo] : [null]);
 
@@ -556,32 +602,38 @@
         </div>
       </div>`;
 
+    // 超過一張照片才啟動輪播，間隔 4 秒
     if (photos.length > 1) initCarousel('hero-carousel', 4000);
   }
 
+  // 照片輪播邏輯
+  // id = carousel 容器的 id
+  // interval = 換圖間隔（毫秒），4000 = 4 秒
   function initCarousel(id, interval) {
     const el = document.getElementById(id);
     if (!el) return;
     const slides = el.querySelectorAll('.carousel-slide');
     if (slides.length < 2) return;
     let cur = 0;
+
     function goTo(next) {
       const leaving = slides[cur];
       const leavingImg = leaving.querySelector('img');
 
-      // 舊圖：加 leaving class 觸發 zoom in 離場
+      // 舊圖：移除 active，加 leaving 觸發縮放離場效果
       leaving.classList.remove('active');
       leaving.classList.add('leaving');
       if (leavingImg) {
+        // 重置動畫，讓 zoom in 從頭播放
         leavingImg.style.animation = 'none';
-        void leavingImg.offsetHeight;
+        void leavingImg.offsetHeight; // 強制 reflow，確保動畫重置生效
         leavingImg.style.animation = '';
       }
 
-      // 清掉舊的 leaving（fade 結束後）
+      // 1.6 秒後清掉 leaving class（配合 CSS fade 時間）
       setTimeout(() => leaving.classList.remove('leaving'), 1600);
 
-      // 新圖：reset zoom out 動畫後 activate
+      // 新圖：同樣重置 zoom out 動畫後顯示
       cur = next % slides.length;
       const nextImg = slides[cur].querySelector('img');
       if (nextImg) {
@@ -591,12 +643,17 @@
       }
       slides[cur].classList.add('active');
     }
+
     setInterval(() => goTo(cur + 1), interval);
   }
 
-  // ── About ──
+  // ══════════════════════════════════════════════════
+  // About 自我介紹區塊
+  // 資料來源：projects.json → about 欄位
+  // ══════════════════════════════════════════════════
   function renderAbout(d) {
     const a = d.about;
+    // 最後一段文字加粗體
     const paras = a.paragraphs.map((p, i) =>
       i === a.paragraphs.length - 1 ? `<p><strong>${p}</strong></p>` : `<p>${p}</p>`
     ).join('');
@@ -616,11 +673,15 @@
       </div>`;
   }
 
-  // ── Works: full-image cards ──
-  let _worksData = [];
+  // ══════════════════════════════════════════════════
+  // 近期作品
+  // 資料來源：projects.json → works 陣列
+  // 點擊卡片呼叫 openWorkModal(idx)
+  // ══════════════════════════════════════════════════
+  let _worksData = []; // 暫存作品資料，openWorkModal 會用到
 
   function renderWorks(works) {
-    _worksData = works;
+    _worksData = works; // 存起來供 modal 使用
     document.getElementById('work-grid').innerHTML = works.map((w, idx) => `
       <div class="work-card${w.featured ? ' featured' : ''} reveal" data-cat="${w.cat}" onclick="openWorkModal(${idx})">
         ${imgEl(w.image, w.name)}
@@ -636,7 +697,11 @@
       </div>`).join('');
   }
 
-  // ── Craft ──
+  // ══════════════════════════════════════════════════
+  // 服務項目
+  // 資料來源：上方的 CRAFT 陣列（靜態）
+  // 點擊卡片呼叫 openCraftModal(idx)
+  // ══════════════════════════════════════════════════
   function renderCraft() {
     document.getElementById('craft-grid').innerHTML = CRAFT.map((c, idx) => `
       <div class="craft-card reveal" onclick="openCraftModal(${idx})">
@@ -648,26 +713,35 @@
       </div>`).join('');
   }
 
-  // ── Music ──
+  // ══════════════════════════════════════════════════
+  // 音樂平台
+  // 資料來源：projects.json → music 欄位
+  // 支援 Spotify / YouTube / SoundCloud 三個平台
+  // 只要在 JSON 填入對應的 ID 或 URL 就會自動嵌入
+  // ══════════════════════════════════════════════════
   function renderMusic(m) {
     const platforms = [
       { key: 'spotify',    label: 'Spotify',    dot: 'dot-spotify' },
       { key: 'youtube',    label: 'YouTube',    dot: 'dot-youtube' },
       { key: 'soundcloud', label: 'SoundCloud', dot: 'dot-soundcloud' }
     ];
+    // 平台切換標籤按鈕
     document.getElementById('music-tabs').innerHTML = platforms.map((p, i) => `
       <button class="platform-tab${i === 0 ? ' active' : ''}" onclick="switchPlatform('${p.key}', this)">
         <span class="platform-tab-dot ${p.dot}"></span>${p.label}
       </button>`).join('');
 
+    // Spotify：填 spotify_playlist_id（播放清單 ID）
     const spotifyHTML = m.spotify_playlist_id
       ? `<iframe src="https://open.spotify.com/embed/playlist/${m.spotify_playlist_id}?utm_source=generator&theme=0" width="100%" height="400" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
       : `<div class="soundcloud-card"><p>Spotify playlist ID 尚未設定</p></div>`;
 
+    // YouTube：填 youtube_playlist_id（播放清單 ID）
     const youtubeHTML = m.youtube_playlist_id
       ? `<iframe src="https://www.youtube.com/embed/videoseries?list=${m.youtube_playlist_id}" width="100%" height="400" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
       : `<div class="soundcloud-card"><p>YouTube playlist ID 尚未設定</p></div>`;
 
+    // SoundCloud：填 soundcloud_url（完整頁面網址）
     const scHTML = m.soundcloud_url
       ? `<iframe width="100%" height="400" scrolling="no" frameborder="no" allow="autoplay"
           src="https://w.soundcloud.com/player/?url=${encodeURIComponent(m.soundcloud_url)}&color=%23000000&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true">
@@ -680,16 +754,28 @@
       <div class="music-embed" id="embed-soundcloud">${scHTML}</div>`;
   }
 
-  // ── Clients ──
+  // ══════════════════════════════════════════════════
+  // 合作夥伴（跑馬燈帶狀）
+  // 資料來源：projects.json → clients 陣列
+  // 複製一份讓捲動無縫接續
+  // 跑馬燈速度：CSS 的 marquee-scroll 動畫時間（目前 48s）
+  // ══════════════════════════════════════════════════
   function renderClients(clients) {
-    const items = [...clients, ...clients];
+    const items = [...clients, ...clients]; // 複製兩份，到一半剛好回到起點（視覺無縫）
     document.getElementById('clients-cloud').innerHTML =
       `<div class="marquee-track">${items.map(c =>
         `<span class="client-pill">${c.name_zh} ${c.name_en}</span>`
       ).join('')}</div>`;
   }
 
-  // ── Modal ──
+  // ══════════════════════════════════════════════════
+  // Modal 彈出視窗
+  // 開啟後背景不能捲動，關閉後恢復
+  // 關閉方式：點 × 按鈕、點背景遮罩、按 ESC
+  // ══════════════════════════════════════════════════
+
+  // 開啟近期作品 modal
+  // idx = 作品在 _worksData 陣列中的索引（由卡片的 onclick 傳入）
   function openWorkModal(idx) {
     const w = _worksData[idx];
     if (!w) return;
@@ -705,9 +791,11 @@
         ${w.note ? `<p class="modal-desc-zh">${w.note}</p>` : ''}
       </div>`;
     document.getElementById('modal-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'; // 防止背景捲動
   }
 
+  // 開啟服務項目 modal
+  // idx = CRAFT 陣列中的索引（由卡片的 onclick 傳入）
   function openCraftModal(idx) {
     const c = CRAFT[idx];
     if (!c) return;
@@ -723,14 +811,20 @@
     document.body.style.overflow = 'hidden';
   }
 
+  // 關閉 modal（CSS transition 自動處理淡出效果）
   function closeModal() {
     document.getElementById('modal-overlay').classList.remove('open');
-    document.body.style.overflow = '';
+    document.body.style.overflow = ''; // 恢復背景捲動
   }
 
+  // 按 ESC 鍵關閉 modal
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-  // ── Contact ──
+  // ══════════════════════════════════════════════════
+  // 聯絡區塊
+  // 資料來源：projects.json → contact 欄位
+  // 包含 instagram 帳號和 email
+  // ══════════════════════════════════════════════════
   function renderContact(c) {
     document.getElementById('contact-grid').innerHTML = `
       <div>
@@ -767,6 +861,7 @@
   }
 
   // ── Footer ──
+  // 版權年份由 JS 自動產生，不用手動更新
   function renderFooter(c) {
     document.getElementById('footer-inner').innerHTML = `
       <span class="footer-sig">JH Studio · 黃友立 Jerry Hang</span>
@@ -777,20 +872,25 @@
       <span class="footer-copy">© ${new Date().getFullYear()} JH Studio</span>`;
   }
 
-  // ── Scroll reveal ──
+  // ── 捲動進場動畫 ──
+  // 使用 IntersectionObserver 監測元素是否進入畫面
+  // 進入後加上 .visible class，觸發 CSS 的淡入上移效果
+  // 動畫只播一次（unobserve 後就不再監聽）
+  // 要調整速度：修改 CSS 的 .reveal { transition: ... }
   function initReveal() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          setTimeout(() => entry.target.classList.add('visible'), i * 60); // 依序延遲，避免全部同時出現
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.1 }); // 元素露出 10% 就觸發
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   }
 
-  // ── Nav active ──
+  // ── Nav 高亮 ──
+  // 捲動時偵測目前位置，讓對應的導覽連結變色
   function initNav() {
     const secs = document.querySelectorAll('section[id]');
     const links = document.querySelectorAll('.nav-links a');
@@ -801,7 +901,10 @@
     }, { passive: true });
   }
 
-  // ── Work filter ──
+  // ── 作品篩選 ──
+  // cat = 'all' | 'music' | 'design'
+  // 對應 projects.json 裡每個作品的 category 欄位
+  // featured 卡片在 all 模式跨 2 欄，篩選後收回單欄
   function filterWork(cat, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -816,7 +919,8 @@
     });
   }
 
-  // ── Music switch ──
+  // ── 音樂平台切換 ──
+  // 點擊 Spotify / YouTube / SoundCloud 標籤時切換顯示的 embed
   function switchPlatform(platform, btn) {
     document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
     btn.classList.add('active');
@@ -824,35 +928,44 @@
     document.getElementById('embed-' + platform).classList.add('active');
   }
 
-  // ── Hamburger ──
+  // ── 手機版漢堡選單 ──
   function toggleMenu() { document.getElementById('nav-menu').classList.toggle('open'); }
+  // 點擊選單連結後自動收起
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => document.getElementById('nav-menu').classList.remove('open'));
   });
 
-  // ── Main ──
+  // ══════════════════════════════════════════════════
+  // 主程式：載入 projects.json，依序渲染各區塊
+  // 所有動態內容都從這個 JSON 來
+  // JSON 結構：hero / about / works / music / clients / contact
+  // ══════════════════════════════════════════════════
   (async () => {
     const loader = document.getElementById('page-loader');
     try {
+      // 加時間戳避免瀏覽器快取到舊版 JSON
       const res = await fetch('projects.json?t=' + Date.now());
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
 
+      // 依序渲染各區塊
       renderHero(data);
       renderAbout(data);
       renderWorks(data.works);
-      renderCraft();
+      renderCraft();           // 服務項目用靜態 CRAFT 陣列，不用傳 data
       renderMusic(data.music);
       renderClients(data.clients);
       renderContact(data.contact);
       renderFooter(data.contact);
 
-      initReveal();
-      initNav();
+      initReveal(); // 捲動進場動畫
+      initNav();    // Nav 高亮
 
+      // 隱藏載入畫面
       loader.classList.add('hidden');
       setTimeout(() => loader.remove(), 500);
     } catch (err) {
+      // JSON 載入失敗時顯示錯誤提示（通常是路徑錯誤或 CORS 問題）
       console.error('[JH Studio] projects.json 讀取失敗：', err);
       loader.innerHTML = `
         <div style="text-align:center; padding:32px;">
