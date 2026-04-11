@@ -314,7 +314,9 @@
     /* ── 合作夥伴 ── */
     /* padding-top:0 是因為上方 Music 區塊已有 96px padding，這裡不再重複 */
     #clients { background: var(--bg); padding-top: 0; padding-bottom: 40px; }
-    .clients-cloud { overflow: hidden; }
+    /* 兩側漸層遮罩，製造淡入淡出效果
+       要調整淡出範圍，改 80px 的數值 */
+    .clients-cloud { overflow: hidden; mask-image: linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent); }
     .marquee-track { display: flex; gap: 10px; width: max-content; animation: marquee-scroll 48s linear infinite; }
     @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .client-pill { padding: 9px 18px; border-radius: 100px; background: var(--white); border: 1px solid var(--border); font-size: 13px; color: var(--body); letter-spacing: 0.02em; white-space: nowrap; flex-shrink: 0; }
