@@ -54,7 +54,7 @@
       "featured": false,
       "date": "2024 / 12",
       "name": "王喬尹 Joyin Wang<br>《又係王喬尹》《This is Joyin Wang Again》",
-      "role": "Recording Engineering ",
+      "role": "客語專輯《又係王喬尹》榮獲<br>Singer and Songwriter 金獎<br>Female Vocalist」金獎",
       "badge": "Music Production",
       "badge_type": "music",
       "image": "assets/20241210_joyin.jpg",
@@ -66,8 +66,8 @@
       "featured": false,
       "date": "2024 / 08",
       "name": "TICC 姚可傑 w/ UmonSessionBand",
-      "role": "Guitar Session Player",
-      "badge": "Guitar",
+      "role": "Session Players <br> Guitarist Band Leader Jimmy Chu <br> Guitarist 黃友立 <br> Bassist 許瑋皓 <br> Keyboardist 麻琴 <br> Drummer 池久新",
+      "badge": "Guitar Session",
       "badge_type": "music",
       "image": "assets/202408_姚可傑.jpg",
       "note": "Session Players <br> Guitarist Band Leader Jimmy Chu <br> Guitarist 黃友立 <br> Bassist 許瑋皓 <br> Keyboardist 麻琴 <br> Drummer 池久新"
@@ -78,8 +78,8 @@
       "featured": false,
       "date": "2025 / 04",
       "name": "Good TV 寧靜時分 APHA大樂隊",
-      "role": "Guitar Session Player",
-      "badge": "Guitar",
+      "role": "Guitar Session",
+      "badge": "Guitar Session",
       "badge_type": "music",
       "image": "assets/202504_goodtv.jpg",
       "note": "Guitar Session"
@@ -90,8 +90,8 @@
       "featured": false,
       "date": "2024 / 09",
       "name": "核果人 NUTS — Chosen",
-      "role": "Live Sound Engineering",
-      "badge": "Live Sound Engineering @北流戶外表演空間",
+      "role": "Live Sound Engineering @北流戶外表演空間",
+      "badge": "Live Sound",
       "badge_type": "music",
       "image": "assets/202409_nuts.jpg",
       "note": "Live Sound Engineering"
@@ -102,7 +102,7 @@
       "featured": false,
       "date": "Product · 3D Print",
       "name": "小廢物磁吸音箱盒",
-      "role": "Designer",
+      "role": "這款效果器鑰匙圈的靈感來自吉他手的效果器們，不只是可愛造型，更可以按壓！陪伴你每個療癒的時刻。適合作為音樂人的送禮心意，也非常適合自用收納與擺飾。",
       "badge": "Mini Nonsense",
       "badge_type": "design",
       "image": "assets/mn_speakerbox.jpg",
@@ -114,7 +114,7 @@
       "featured": false,
       "date": "Product · 3D Print",
       "name": "小廢物效果器鑰匙圈",
-      "role": "Designer",
+      "role": "這款效果器鑰匙圈的靈感來自吉他手的效果器們，不只是可愛造型，更可以按壓！陪伴你每個療癒的時刻。適合作為音樂人的送禮心意，也非常適合自用收納與擺飾。",
       "badge": "Mini Nonsense",
       "badge_type": "design",
       "image": "assets/mn_effects pedal keychain.jpg",
@@ -126,7 +126,7 @@
       "featured": false,
       "date": "Product · 3D Print",
       "name": "小廢物效果器盤",
-      "role": "Designer",
+      "role": "這款小廢物磁吸音箱盒的靈感來自Switch2，不只是可愛造型，更加入了磁吸結構，解決了過往產品蓋子強度不足的問題，陪伴你每個療癒的時刻。適合作為音樂人的送禮心意，也非常適合自用收納與擺飾。",
       "badge": "Mini Nonsense",
       "badge_type": "design",
       "image": "assets/mn_effects pedal.jpg",
@@ -157,6 +157,37 @@
     { "name_zh": "曹雅雯",            "name_en": "Olivia Tsao" },
     { "name_zh": "謝青燁",            "name_en": "Eric" }
 
+  ],
+
+  "craft": [
+    {
+      "icon": "🎛️",
+      "name_zh": "音樂製作",
+      "name_en": "Music Production",
+      "desc_zh": "全方位編曲、錄音、混音與母帶後製。專注於獨立及搖滾。根據你的創意或初步概念量身打造，確保每個音符準確傳遞情感。",
+      "desc_en": "Arrangement, recording, mixing & mastering — indie and rock focus. Tailored to your vision, every note placed with purpose."
+    },
+    {
+      "icon": "🎸",
+      "name_zh": "吉他教學",
+      "name_en": "Guitar Instruction",
+      "desc_zh": "不管是初學者還是有經驗的演奏者，都能在輕鬆的學習氛圍中找到自己的節奏。音樂應該是一種享受，不是壓力。",
+      "desc_en": "Relaxed, engaging lessons for all levels. Music should feel like discovery, not pressure."
+    },
+    {
+      "icon": "🔊",
+      "name_zh": "隨團音控",
+      "name_en": "Live Sound Engineering",
+      "desc_zh": "重視前期溝通，確保設備和技術需求都得到滿足。從場前準備到現場執行，每一個細節都為演出服務。",
+      "desc_en": "Strong emphasis on pre-show communication. From prep to execution — every detail in service of the performance."
+    },
+    {
+      "icon": "🔧",
+      "name_zh": "產品設計",
+      "name_en": "Product Design",
+      "desc_zh": "從概念到實體製作，利用 3D 列印技術探索音樂器材周邊與創新設計。有用的，或純粹有趣的——都值得被做出來。",
+      "desc_en": "From concept to physical object — 3D printing to explore music accessories and experimental designs. Useful things, or just beautiful ones."
+    }
   ],
 
   "contact": {
